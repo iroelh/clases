@@ -1,9 +1,9 @@
-html = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Procesos de Manufactura de Plásticos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procesos de Manufactura — Material Didáctico</title>
   <style>
     :root {
       --rojo-principal: #c62828;
@@ -12,403 +12,66 @@ html = """<!DOCTYPE html>
       --gris-borde: #e3e3ea;
       --texto: #222;
       --blanco: #fff;
-      --link-activo: #ffe4e4;
     }
-
-    /* Layout base y tipografía */
-    html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
-      background-color: var(--gris-fondo);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+      background: var(--gris-fondo);
       color: var(--texto);
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      grid-template-rows: auto 1fr;
-      grid-template-areas:
-        'header header'
-        'sidebar main';
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
     }
-
-    /* Encabezado responsivo */
-    header {
-      grid-area: header;
-      position: sticky; top: 0; z-index: 20;
-      display: flex; align-items: center; gap: .75rem;
-      padding: .75rem 1rem;
-      background: linear-gradient(0deg, #ffffffcc, #ffffffee);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--gris-borde);
+    h1 {
+      color: var(--rojo-oscuro);
+      margin-bottom: .5rem;
     }
-    .brand { display: flex; align-items: baseline; gap: .5rem; }
-    .brand h1 { font-size: 1.05rem; margin: 0; color: var(--rojo-oscuro); }
-    .brand small { color: #555; }
-
-    .menu-toggle {
-      appearance: none; border: 1px solid var(--gris-borde);
-      background: var(--blanco); border-radius: 10px; padding: .5rem .75rem;
-      font-weight: 600; color: var(--rojo-oscuro);
+    p {
+      max-width: 700px;
+      line-height: 1.6;
     }
-
-    /* Sidebar (nav) */
-    nav {
-      grid-area: sidebar;
+    .botones {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    a.boton {
       background: var(--rojo-principal);
       color: var(--blanco);
-      padding: 1rem 1rem 2rem;
-      position: sticky; top: 3.25rem; /* debajo del header */
-      height: calc(100vh - 3.25rem);
-      overflow: auto;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08) inset;
-      transition: transform .25s ease;
+      padding: .9rem 1.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid var(--rojo-oscuro);
+      transition: all .25s ease;
     }
-
-    nav h2 { font-size: 1.1rem; margin: .25rem 0 1rem; border-bottom: 1px solid #ffffff44; padding-bottom: .5rem; }
-    nav a { display: block; color: var(--blanco); text-decoration: none; padding: .4rem .45rem; border-radius: 8px; }
-    nav a:hover { background: #ffffff22; }
-    nav a.active { background: var(--link-activo); color: var(--rojo-oscuro); font-weight: 700; }
-
-    .nav-group { margin-top: .75rem; font-weight: 700; opacity: .95; }
-
-    .filter { margin: .5rem 0 1rem; }
-    .filter input { width: 100%; padding: .55rem .65rem; border-radius: 10px; border: none; outline: 2px solid transparent; }
-
-    /* Contenido */
-    main { grid-area: main; padding: 1rem clamp(.75rem, 2.5vw, 2rem) 3rem; }
-    .panel {
-      background: var(--blanco);
-      border: 1px solid var(--gris-borde);
-      border-radius: 14px; padding: 1rem 1.1rem; margin: 0 0 1rem;
-      box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    a.boton:hover {
+      background: var(--rojo-oscuro);
+      transform: translateY(-2px);
     }
-    h1, h2, h3 { color: var(--rojo-oscuro); }
-
-    /* Iframes responsivos */
-    .video { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; border: 1px solid var(--gris-borde); background:#000; }
-    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-    /* Sección proceso en grid responsivo */
-    .proceso { display: grid; gap: .75rem; scroll-margin-top: 90px; }
-    .proceso header { font-weight: 700; }
-    .proceso .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .proceso ul { margin: .25rem 0 .5rem 1.25rem; }
-    .pill { display: inline-block; padding: .15rem .5rem; border-radius: 999px; background: #ffe4e4; color: var(--rojo-oscuro); border: 1px solid #f6bcbc; font-size: .8rem; }
-
-    /* Botón volver arriba */
-    .back-to-top {
-      position: fixed; right: 16px; bottom: 16px; z-index: 30;
-      display: none; align-items: center; gap: .4rem;
-      padding: .6rem .8rem; border: 1px solid var(--gris-borde); border-radius: 999px;
-      background: var(--blanco); color: var(--rojo-oscuro); font-weight: 700; cursor: pointer;
-      box-shadow: 0 8px 18px rgba(0,0,0,.12);
-    }
-    .back-to-top.show { display: inline-flex; }
-
-    /* Footer */
-    footer { text-align: center; padding: 1rem; font-size: .9rem; color: #555; }
-
-    /* Accesibilidad: enlace de salto */
-    .skip { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-    .skip:focus { position: static; width: auto; height: auto; padding: .5rem; background: #000; color:#fff; }
-
-    /* Móvil: colapsar sidebar como cajón */
-    @media (max-width: 960px) {
-      body { grid-template-columns: 1fr; grid-template-areas: 'header' 'main'; }
-      nav { position: fixed; top: 3.25rem; left: 0; right: 0; height: calc(100vh - 3.25rem); transform: translateX(-100%); }
-      nav.open { transform: translateX(0); }
-      main { padding: 1rem 1rem 3.5rem; }
-      .proceso .cols { grid-template-columns: 1fr; }
-    }
-
-    /* Tablets pequeñas: reducir ancho del menú en landscape */
-    @media (min-width: 961px) and (max-width: 1200px) {
-      body { grid-template-columns: 240px 1fr; }
+    footer {
+      margin-top: 3rem;
+      color: #555;
+      font-size: .9rem;
     }
   </style>
 </head>
 <body>
-  <a class="skip" href="#contenido">Saltar al contenido</a>
-  <header>
-    <button class="menu-toggle" aria-controls="sidebar" aria-expanded="false">Menú</button>
-    <div class="brand">
-      <h1>Procesos de Manufactura de Plásticos</h1>
-      <small>Termoplásticos · Termofijos</small>
-    </div>
-  </header>
+  <h1>Procesos de Manufactura Industrial</h1>
+  <p>Material compilado para la <strong>Licenciatura en Diseño de Productos y Experiencias</strong>, elaborado por el <strong>Dr. Erick Iroel Heredia Carrillo</strong> entre agosto y noviembre de 2025.  
+  Este sitio reúne materiales de apoyo para comprender los principales <em>procesos de transformación de materiales</em> utilizados en la manufactura industrial contemporánea.</p>
 
-  <nav id="sidebar" aria-label="Navegación de procesos">
-    <h2>Procesos</h2>
-    <div class="filter">
-      <label for="filtro" style="display:block;margin-bottom:.35rem">Filtrar</label>
-      <input id="filtro" type="search" placeholder="Ej. inyección, RTM, calandrado" />
-    </div>
+  <div class="botones">
+    <a class="boton" href="procesos_plasticos.html" target="_blank">Procesos de Plásticos</a>
+    <a class="boton" href="procesos_metales.html" target="_blank">Procesos de Metales</a>
+  </div>
 
-    <div class="nav-group">Termoplásticos</div>
-    <a href="#extrusion">Extrusión</a>
-    <a href="#inyeccion">Inyección</a>
-    <a href="#soplado">Soplado</a>
-    <a href="#inyeccion-soplado">Inyección-Soplado</a>
-    <a href="#extrusion-soplado">Extrusión-Soplado</a>
-    <a href="#termoformado">Termoformado</a>
-    <a href="#rotomoldeo">Rotomoldeo</a>
-    <a href="#calandrado">Calandrado</a>
-
-    <div class="nav-group">Termofijos</div>
-    <a href="#compresion">Compresión</a>
-    <a href="#transferencia">Transferencia</a>
-    <a href="#rim">RIM (Reacción)</a>
-    <a href="#pultrusion">Pultrusión</a>
-  </nav>
-
-  <main id="contenido">
-    <section class="panel">
-      <p>Material didactico para Diseño de Productos y Experiencias con principios, parámetros clave, defectos típicos, control de calidad y <strong>videos de referencia</strong> por proceso.</p>
-    </section>
-
-    <!-- TERMOPLÁSTICOS -->
-    <section id="extrusion" class="panel proceso" data-tags="termoplastico extrusion continuo perfil tuberia pelicula">
-      <header><h2>Extrusión</h2></header>
-      <div class="cols">
-        <div>
-          <p>Funde el polímero y lo hace pasar por una matriz para obtener un perfil continuo (tubo, lámina, película). Variables críticas: temperatura por zonas, velocidad de tornillo, relación L/D, diseño de dado, y enfriamiento.</p>
-          <ul>
-            <li><span class="pill">Ventajas</span> Alta productividad continuo; buen control dimensional.</li>
-            <li><span class="pill">Limitaciones</span> Piezas no discretas; sensibilidad a variaciones de viscosidad.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/AWCzmIEfHnY?si=ONTOFJf4iuz5Mbg6" title="Extrusión de plásticos" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="inyeccion" class="panel proceso" data-tags="termoplastico inyeccion molde presion cavidad">
-      <header><h2>Moldeo por Inyección</h2></header>
-      <div class="cols">
-        <div>
-          <p>Inyección de fundido a alta presión en molde cerrado. Control de: velocidad y presión de inyección, contrapresión, tiempos de llenado/compactación/enfriamiento, temperatura de molde y material; rebabas, marcas de flujo y alabeos son defectos comunes.</p>
-          <ul>
-            <li><span class="pill">Ventajas</span> Geometrías complejas, tolerancias estrechas, automatizable.</li>
-            <li><span class="pill">Limitaciones</span> Costo alto de molde; tiempos de desarrollo.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/mLU7gAqQsnw?si=9b3LMGSooTCVzXHo" title="Moldeo por inyección" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="soplado" class="panel proceso" data-tags="termoplastico soplado botella hueco parison">
-      <header><h2>Moldeo por Soplado</h2></header>
-      <div class="cols">
-        <div>
-          <p>Formación de cuerpos huecos al expandir un parisón o preforma contra las paredes del molde con aire. Variantes: EBM, IBM, ISBM. Controlar temperatura del parisón/preforma y tiempos de soplado/enfriamiento para uniformidad de pared.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/UqH6_xlHf4Q?si=USk7ZFlEyY7CQLaf" title="Moldeo por soplado" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="inyeccion-soplado" class="panel proceso" data-tags="termoplastico inyeccion soplado preforma precision envase">
-      <header><h2>Inyección–Soplado (IBM)</h2></header>
-      <div class="cols">
-        <div>
-          <p>La preforma se produce por inyección (cuello/rosca precisos) y luego se sopla para conformar el envase. Excelente acabado y control del cuello; ideal para frascos cosméticos y farmacéuticos.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/H0crHOkaOWc?si=x8nRyFodf8uxMpR5" title="Moldeo por inyección-soplado" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="extrusion-soplado" class="panel proceso" data-tags="termoplastico extrusion soplado parison garrafon envase">
-      <header><h2>Extrusión–Soplado (EBM)</h2></header>
-      <div class="cols">
-        <div>
-          <p>Un tubo extruido (parison) se pinza en el molde y se infla con aire. Útil para envases grandes (HDPE), bidones y tanques; requiere control de perfil de parison para uniformidad de espesor.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/uXSIWEi0ODY?si=Df0csUESs8HNRuxb" title="Moldeo por extrusión-soplado" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="termoformado" class="panel proceso" data-tags="termoplastico termoformado vacio lamina envase charola">
-      <header><h2>Termoformado</h2></header>
-      <div class="cols">
-        <div>
-          <p>Conforma láminas calentadas mediante vacío, presión o tapón. Elección de temperatura de ablandamiento, relación de estiramiento y diseño de moldes/venteo para evitar adelgazamientos y arrugas.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/LYfzl8eciG8?si=LgUOGzzRnO2ITPu9&amp;start=135" title="Termoformado" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="rotomoldeo" class="panel proceso" data-tags="termoplastico rotomoldeo hueco polvo tanque">
-      <header><h2>Rotomoldeo</h2></header>
-      <div class="cols">
-        <div>
-          <p>Polvo en molde que gira biaxialmente y se funde por calor. Permite piezas huecas sin presión, con refuerzos integrales; tiempos de ciclo más largos que inyección/soplado.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/sycFbpLXPmo?si=92r8HHeNboKANV5i&amp" title="Rotomoldeo" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="calandrado" class="panel proceso" data-tags="termoplastico calandrado lamina pelicula pvc rodillos">
-      <header><h2>Calandrado</h2></header>
-      <div class="cols">
-        <div>
-          <p>Formación de láminas/películas al pasar el fundido entre rodillos calibrados. Muy usado en PVC plastificado; control de temperatura de rodillos y separación (nip) para espesor uniforme.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/rPJ3al9eAcI?si=zK-eptecBIzLeXzK&amp" title="Calandrado" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TERMOFIJOS -->
-    <section id="compresion" class="panel proceso" data-tags="termofijo compresion baquelita bmc smc prensa">
-      <header><h2>Moldeo por Compresión</h2></header>
-      <div class="cols">
-        <div>
-          <p>Carga termoestable (BMC/SMC) colocada en cavidad de molde caliente; presión y temperatura inducen curado. Útil en piezas eléctricas, tapas y componentes automotrices.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/tySIEFMxAUI?si=fJwG_WBJhuU13t0W&amp" title="Moldeo por compresión" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="transferencia" class="panel proceso" data-tags="termofijo transferencia resina camara canal colada">
-      <header><h2>Moldeo por Transferencia</h2></header>
-      <div class="cols">
-        <div>
-          <p>La resina calentada se transfiere desde una cámara a la cavidad cerrada por canales. Buen acabado superficial y menos rebaba que compresión; usado en insertos y encapsulados.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/nc_rw1HcEzk?si=ejdDSqgoVWkaFqyL&amp" title="Moldeo por transferencia" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="rim" class="panel proceso" data-tags="termofijo rim reaccion poliuretano mezcla baja viscosidad">
-      <header><h2>Moldeo por Reacción (RIM)</h2></header>
-      <div class="cols">
-        <div>
-          <p>Monómeros/oligómeros líquidos se mezclan e inyectan a molde donde polimerizan (p. ej., PU). Bajas presiones, moldes más económicos, útil en paneles automotrices.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/HTohaCkJjv4?si=XCBtTbRQjnzLfAox" title="Reaction Injection Molding" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="pultrusion" class="panel proceso" data-tags="termofijo pultrusion fibra vidrio carbono perfil continuo">
-      <header><h2>Pultrusión</h2></header>
-      <div class="cols">
-        <div>
-          <p>Fibras continuas impregnadas en resina atraviesan un dado caliente para curar y formar perfiles continuos de alta resistencia. Aplicaciones estructurales en construcción y transporte.</p>
-        </div>
-        <div>
-          <div class="video"><iframe src="https://www.youtube.com/embed/o87iAOGG9k0?si=BymLPiF-Uvac5Bzm" title="Pultrusión" allowfullscreen loading="lazy"></iframe></div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      Elaborado por el Dr. Iroel Heredia · 2025
-    </footer>
-  </main>
-
-  <!-- Botón volver arriba -->
-  <button class="back-to-top" aria-label="Volver arriba" title="Volver arriba">▲ Arriba</button>
-
-  <script>
-    // Toggle del menú en móviles
-    const btn = document.querySelector('.menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    btn?.addEventListener('click', () => {
-      const open = sidebar.classList.toggle('open');
-      btn.setAttribute('aria-expanded', String(open));
-    });
-
-    // Cierra el menú al navegar (móvil)
-    sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      if (window.matchMedia('(max-width: 960px)').matches) {
-        sidebar.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-      }
-    }));
-
-    // Filtro de procesos
-    const filtro = document.getElementById('filtro');
-    const secciones = Array.from(document.querySelectorAll('.proceso'));
-    filtro?.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      secciones.forEach(sec => {
-        const text = (sec.textContent + ' ' + (sec.getAttribute('data-tags')||'')).toLowerCase();
-        sec.style.display = text.includes(q) ? '' : 'none';
-      });
-    });
-
-    // Desplazamiento suave
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (ev) => {
-        const id = a.getAttribute('href');
-        if (!id || id === '#') return;
-        const el = document.querySelector(id);
-        if (el) {
-          ev.preventDefault();
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          history.replaceState(null, '', id);
-        }
-      });
-    });
-
-    // ---------- Scrollspy (indicador activo) ----------
-    const navLinks = Array.from(sidebar.querySelectorAll('a[href^="#"]'));
-    const sectionById = Object.fromEntries(
-      Array.from(document.querySelectorAll('section[id]'))
-        .map(sec => [sec.id, sec])
-    );
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = entry.target.id;
-        const link = navLinks.find(a => a.getAttribute('href') === `#${id}`);
-        if (!link) return;
-        if (entry.isIntersecting) {
-          navLinks.forEach(a => { a.classList.remove('active'); a.removeAttribute('aria-current'); });
-          link.classList.add('active');
-          link.setAttribute('aria-current', 'true');
-        }
-      });
-    }, { rootMargin: '-30% 0px -60% 0px', threshold: [0, 1] });
-
-    Object.values(sectionById).forEach(sec => observer.observe(sec));
-
-    // ---------- Botón volver arriba ----------
-    const toTop = document.querySelector('.back-to-top');
-    const toggleTop = () => {
-      if (window.scrollY > 400) toTop.classList.add('show');
-      else toTop.classList.remove('show');
-    };
-    window.addEventListener('scroll', toggleTop, { passive: true });
-    toggleTop();
-
-    toTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
+  <footer>© 2025 · Dr. Erick Iroel Heredia Carrillo · Todos los derechos reservados</footer>
 </body>
 </html>
-"""
-path = "/mnt/data/procesos_plasticos.html"
-with open(path, "w", encoding="utf-8") as f:
-    f.write(html)
-path

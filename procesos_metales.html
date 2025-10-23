@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procesos de Transformación de Metales</title>
+  <style>
+    :root{
+      --rojo-principal:#c62828; --rojo-oscuro:#8e0000;
+      --gris-fondo:#f5f5f7; --gris-borde:#e3e3ea;
+      --texto:#222; --blanco:#fff; --link-activo:#ffe4e4;
+    }
+    html,body{height:100%} body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+      background:var(--gris-fondo); color:var(--texto);
+      display:grid; grid-template-columns:280px 1fr; grid-template-rows:auto 1fr;
+      grid-template-areas:"header header" "sidebar main"; min-height:100vh;
+    }
+    header{grid-area:header; position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:.75rem;
+      padding:.75rem 1rem; background:linear-gradient(0deg,#ffffffcc,#ffffffee); backdrop-filter:blur(6px);
+      border-bottom:1px solid var(--gris-borde)}
+    .brand{display:flex; align-items:baseline; gap:.5rem}
+    .brand h1{margin:0; font-size:1.05rem; color:var(--rojo-oscuro)}
+    .brand small{color:#555}
+    .menu-toggle{appearance:none; border:1px solid var(--gris-borde); background:var(--blanco); border-radius:10px; padding:.5rem .75rem; font-weight:600; color:var(--rojo-oscuro)}
+    nav{grid-area:sidebar; background:var(--rojo-principal); color:var(--blanco); padding:1rem 1rem 2rem;
+      position:sticky; top:3.25rem; height:calc(100vh - 3.25rem); overflow:auto; box-shadow:inset 0 8px 24px rgba(0,0,0,.08);
+      transition:transform .25s}
+    nav h2{font-size:1.1rem; margin:.25rem 0 1rem; border-bottom:1px solid #ffffff44; padding-bottom:.5rem}
+    nav a{display:block; color:var(--blanco); text-decoration:none; padding:.4rem .45rem; border-radius:8px}
+    nav a:hover{background:#ffffff22} nav a.active{background:var(--link-activo); color:var(--rojo-oscuro); font-weight:700}
+    .nav-group{margin-top:.75rem; font-weight:700; opacity:.95}
+    main{grid-area:main; padding:1rem clamp(.75rem,2.5vw,2rem) 3rem}
+    .panel{background:var(--blanco); border:1px solid var(--gris-borde); border-radius:14px; padding:1rem 1.1rem; margin-bottom:1rem; box-shadow:0 6px 18px rgba(0,0,0,.05)}
+    h1,h2,h3{color:var(--rojo-oscuro)}
+    .cols{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
+    .video{position:relative; width:100%; aspect-ratio:16/9; border-radius:10px; overflow:hidden; border:1px solid var(--gris-borde); background:#000}
+    .video iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+    .youtube-link{text-align:right; margin-top:6px}
+    .youtube-link a{color:#c62828; font-weight:600; text-decoration:none}
+    .youtube-link a:hover{text-decoration:underline}
+    .pill{display:inline-block; padding:.15rem .5rem; border-radius:999px; background:#ffe4e4; color:var(--rojo-oscuro); border:1px solid #f6bcbc; font-size:.8rem}
+    .proceso{scroll-margin-top:90px}
+    .back-to-top{position:fixed; right:16px; bottom:16px; z-index:30; display:none; align-items:center; gap:.4rem; padding:.6rem .8rem; border:1px solid var(--gris-borde); border-radius:999px; background:var(--blanco); color:var(--rojo-oscuro); font-weight:700; cursor:pointer; box-shadow:0 8px 18px rgba(0,0,0,.12)}
+    .back-to-top.show{display:inline-flex}
+    footer{text-align:center; padding:1rem; font-size:.9rem; color:#555}
+    @media (max-width:960px){
+      body{grid-template-columns:1fr; grid-template-areas:"header" "main"}
+      nav{position:fixed; top:3.25rem; left:0; right:0; height:calc(100vh - 3.25rem); transform:translateX(-100%)}
+      nav.open{transform:translateX(0)}
+      main{padding:1rem 1rem 3.5rem}
+      .cols{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="menu-toggle" aria-controls="sidebar" aria-expanded="false">Menú</button>
+    <div class="brand">
+      <h1>Procesos de Transformación de Metales</h1>
+      <small>Fundición · Deformación · Sinterizado · Unión · Tratamientos</small>
+    </div>
+  </header>
+
+  <nav id="sidebar" aria-label="Navegación">
+    <h2>Índice</h2>
+    <a href="#clasificacion">Clasificación: ferrosos / no ferrosos</a>
+
+    <div class="nav-group">Fundición</div>
+    <a href="#fundicion-arena">Fundición en arena</a>
+    <a href="#fundicion-matriz">Fundición a presión (die casting)</a>
+    <a href="#fundicion-cera">Cera perdida / inversión</a>
+
+    <div class="nav-group">Deformación y Sinterizado</div>
+    <a href="#laminacion">Laminación</a>
+    <a href="#forja">Forja</a>
+    <a href="#extrusion-metal">Extrusión</a>
+    <a href="#embutido-troquelado">Lámina y embutido</a>
+    <a href="#trefilado">Trefilado</a>
+    <a href="#sinterizado">Sinterizado</a>
+
+    <div class="nav-group">Mecanizado</div>
+    <a href="#mecanizado">Torneado, Fresado y Taladrado</a>
+
+    <div class="nav-group">Unión</div>
+    <a href="#soldadura">Soldadura (SMAW, GMAW/MIG, GTAW/TIG)</a>
+    <a href="#brazing">Brazing / Soldering</a>
+
+    <div class="nav-group">Tratamientos y otros</div>
+    <a href="#trat-termino">Tratamientos térmicos</a>
+    <a href="#pm">Metalurgia de polvos</a>
+    <a href="#am-metal">Aditiva metálica (SLM/EBM/DMLS)</a>
+    <a href="#superficies">Acabados y recubrimientos</a>
+  </nav>
+
+  <main>
+    <section id="intro" class="panel">
+      <p>Recurso universitario para Diseño Industrial: fundamentos, parámetros y control de calidad. <strong>Elaborado por Dr. Iroel Heredia · 2025</strong>.</p>
+    </section>
+
+    <section id="clasificacion" class="panel proceso">
+      <h2>Clasificación de metales: ferrosos y no ferrosos</h2>
+      <div class="cols">
+        <div>
+          <h3>Ferrosos</h3>
+          <ul>
+            <li><b>Aceros</b>: Fe–C (&lt;2.1% C). Bajo/medio/alto C; aleados (Cr, Ni, Mo) e inoxidables.</li>
+            <li><b>Fundiciones</b>: Fe–C–Si (&gt;2.1% C). Gris, nodular, blanca, maleable.</li>
+            <li><span class="pill">Claves</span> soldabilidad, templabilidad, resistencia/tenacidad.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>No ferrosos</h3>
+          <ul>
+            <li><b>Aluminio</b> (1xxx–7xxx), <b>Cobre</b> (latones/bronces), <b>Magnesio</b>, <b>Titanio</b>, <b>Níquel</b>, <b>Zinc</b>.</li>
+            <li><span class="pill">Selección</span> densidad, resistencia específica, corrosión, costo, reciclaje.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUNDICIÓN -->
+    <section id="fundicion-arena" class="panel proceso">
+      <h2>Fundición en arena</h2>
+      <div class="cols">
+        <div>
+          <p>Molde de arena aglutinada; casi todos los metales. Parámetros: permeabilidad, mazarotas, temperatura de vaciado. Defectos: gas, inclusiones, rechupes.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_ARENA" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_ARENA">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fundicion-matriz" class="panel proceso">
+      <h2>Fundición a presión (die casting)</h2>
+      <div class="cols">
+        <div>
+          <p>Al, Zn, Mg inyectados a alta presión en moldes de acero. Control: presión/temperatura de molde y llenado. Excelente acabado y repetibilidad.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_DIECAST" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_DIECAST">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fundicion-cera" class="panel proceso">
+      <h2>Cera perdida / inversión</h2>
+      <div class="cols">
+        <div>
+          <p>Modelos de cera recubiertos con cerámica; gran detalle para piezas complejas. Ciclos largos y costo de moldeado mayor.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_CERA" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_CERA">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEFORMACIÓN + SINTERIZADO -->
+    <section id="laminacion" class="panel proceso">
+      <h2>Laminación (en caliente / en frío)</h2>
+      <div class="cols">
+        <div>
+          <p>Reducción de espesor en rodillos. En caliente: gran deformación; en frío: mejor acabado/tolerancias, endurecimiento por deformación.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_LAMINACION" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_LAMINACION">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="forja" class="panel proceso">
+      <h2>Forja (abierta / cerrada)</h2>
+      <div class="cols">
+        <div>
+          <p>Deformación por compresión; mejora microestructura y resistencia. Control de temperatura, lubricación y energía de golpe.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_FORJA" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_FORJA">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="extrusion-metal" class="panel proceso">
+      <h2>Extrusión de metales</h2>
+      <div class="cols">
+        <div>
+          <p>Tocho forzado a través de una matriz (directa/indirecta; caliente/frío). Variables: relación de extrusión, fricción, temperatura, velocidad.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_EXTRUSION_METAL" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_EXTRUSION_METAL">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="embutido-troquelado" class="panel proceso">
+      <h2>Conformado de lámina (corte, doblado, embutido)</h2>
+      <div class="cols">
+        <div>
+          <p>Punzonado/cizallado, doblado V/U y embutido profundo. Control de juego, radios, blank-holder y lubricación para evitar arrugas/roturas.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_LAMINA" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_LAMINA">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trefilado" class="panel proceso">
+      <h2>Trefilado / Estirado de alambre</h2>
+      <div class="cols">
+        <div>
+          <p>Reducción de sección a través de dados en serie; lubricación crítica. Endurecimiento por deformación y textura.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_TREFILADO" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_TREFILADO">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sinterizado" class="panel proceso">
+      <h2>Sinterizado</h2>
+      <div class="cols">
+        <div>
+          <p>Compactado de polvos metálicos y calentamiento por debajo del punto de fusión para unión por difusión. Usos: engranajes, cojinetes porosos, filtros; control de porosidad y atmósfera.</p>
+          <ul>
+            <li><span class="pill">Ventajas</span> Near-net-shape, poco desperdicio, porosidad controlada.</li>
+            <li><span class="pill">Limitaciones</span> Tamaño limitado, propiedades inferiores a forjado (si no hay HIP), costo inicial de troqueles.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_SINTERIZADO" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_SINTERIZADO">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MECANIZADO -->
+    <section id="mecanizado" class="panel proceso">
+      <h2>Mecanizado: Torneado, Fresado y Taladrado</h2>
+      <div class="cols">
+        <div>
+          <p>Parámetros: avance (f), profundidad (ap), velocidad de corte (Vc). Selección de herramienta (HSS/carburo/cerámica) y refrigeración (MQL/flood) para vida útil y acabado.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_MECANIZADO" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_MECANIZADO">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNIÓN -->
+    <section id="soldadura" class="panel proceso">
+      <h2>Soldadura (SMAW, GMAW/MIG, GTAW/TIG)</h2>
+      <div class="cols">
+        <div>
+          <p>Unión por coalescencia: control de energía, velocidad, protección (gas), preparación de junta y aporte. Defectos: falta de fusión, porosidad, grietas en caliente.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_SOLDADURA" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_SOLDADURA">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="brazing" class="panel proceso">
+      <h2>Soldadura fuerte (brazing) y blanda (soldering)</h2>
+      <div class="cols">
+        <div>
+          <p>Metal de aporte con Tª de fusión inferior al sustrato (brazing &gt;450 °C, soldering &lt;450 °C). Capilaridad, limpieza y fundente son críticos.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_BRAZING" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_BRAZING">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRATAMIENTOS Y OTROS -->
+    <section id="trat-termino" class="panel proceso">
+      <h2>Tratamientos térmicos (recocido, temple, revenido)</h2>
+      <div class="cols">
+        <div>
+          <p>Recocido (alivio de esfuerzos/ductilidad), temple (austenización + enfriamiento rápido) y revenido (reduce fragilidad, ajusta dureza).</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_TRAT_TERMICO" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_TRAT_TERMICO">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pm" class="panel proceso">
+      <h2>Metalurgia de polvos</h2>
+      <div class="cols">
+        <div>
+          <p>Compactación + sinterizado para consolidar. Near-net-shape; ojo con porosidad residual y atmósfera de sinterizado.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_PM" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_PM">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="am-metal" class="panel proceso">
+      <h2>Manufactura aditiva metálica (SLM/EBM/DMLS)</h2>
+      <div class="cols">
+        <div>
+          <p>Fusión selectiva de polvo; variables: potencia/velocidad, espesor de capa, estrategia, precalentamiento, atmósfera. Post: alivio, HIP, maquinado.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_AM" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_AM">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="superficies" class="panel proceso">
+      <h2>Acabados y recubrimientos (galvánico, pintura, PVD)</h2>
+      <div class="cols">
+        <div>
+          <p>Protección/funcionalidad: galvanoplastia (Ni, Cr, Zn), anodizado (Al), pintura electrostática, PVD. Adhesión y preparación superficial son clave.</p>
+        </div>
+        <div>
+          <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID_SURF" allowfullscreen loading="lazy"></iframe></div>
+          <div class="youtube-link"><a target="_blank" href="https://www.youtube.com/watch?v=VIDEO_ID_SURF">Abrir en YouTube ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Elaborado por Dr. Iroel Heredia · 2025</footer>
+  </main>
+
+  <button class="back-to-top" title="Volver arriba">▲ Arriba</button>
+
+  <script>
+    // Menú móvil
+    const btn=document.querySelector('.menu-toggle');
+    const sidebar=document.getElementById('sidebar');
+    btn.addEventListener('click',()=>{const open=sidebar.classList.toggle('open'); btn.setAttribute('aria-expanded',String(open));});
+
+    // Scroll suave en anclas
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',ev=>{
+        const id=a.getAttribute('href'); if(!id||id==='#') return;
+        const el=document.querySelector(id); if(!el) return;
+        ev.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); history.replaceState(null,'',id);
+        if (window.matchMedia('(max-width: 960px)').matches) { sidebar.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+      });
+    });
+
+    // Scrollspy
+    const navLinks=[...sidebar.querySelectorAll('a[href^="#"]')];
+    const sections=[...document.querySelectorAll('section[id]')];
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        const id=e.target.id;
+        const link=navLinks.find(a=>a.getAttribute('href')===`#${id}`);
+        if(!link) return;
+        if(e.isIntersecting){
+          navLinks.forEach(a=>{a.classList.remove('active'); a.removeAttribute('aria-current');});
+          link.classList.add('active'); link.setAttribute('aria-current','true');
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px', threshold:[0,1]});
+    sections.forEach(s=>io.observe(s));
+
+    // Botón Arriba
+    const toTop=document.querySelector('.back-to-top');
+    const toggleTop=()=>{ if(window.scrollY>400) toTop.classList.add('show'); else toTop.classList.remove('show'); };
+    window.addEventListener('scroll',toggleTop,{passive:true}); toggleTop();
+    toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  </script>
+</body>
+</html>
