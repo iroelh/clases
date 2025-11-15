@@ -1,77 +1,897 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Procesos de Manufactura — Material Didáctico</title>
+  <meta charset="UTF-8" />
+  <title>Análisis Morfológico para Problemas Sociales desde el Diseño</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --rojo-principal: #c62828;
-      --rojo-oscuro: #8e0000;
-      --gris-fondo: #f5f5f7;
-      --gris-borde: #e3e3ea;
-      --texto: #222;
-      --blanco: #fff;
+      --azul-oscuro: #1f3b5c;
+      --azul-medio: #2f5f9a;
+      --azul-claro: #e5effa;
+      --gris-claro: #f5f5f5;
+      --gris-medio: #d1d5db;
+      --gris-texto: #374151;
+      --blanco: #ffffff;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
-      background: var(--gris-fondo);
-      color: var(--texto);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 2rem;
-    }
-    h1 {
-      color: var(--rojo-oscuro);
-      margin-bottom: .5rem;
-    }
-    p {
-      max-width: 700px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--gris-claro);
+      color: var(--gris-texto);
       line-height: 1.6;
     }
-    .botones {
+
+    header {
+      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+      color: var(--blanco);
+      padding: 1.4rem 1.5rem 1.8rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .logo-wrapper {
+      flex: 0 0 auto;
+    }
+
+    .logo-wrapper img {
+      max-height: 70px;
+      width: auto;
+      display: block;
+      border-radius: 0.4rem;
+      background: #ffffff1a;
+      padding: 0.35rem 0.55rem;
+    }
+
+    .header-text {
+      flex: 1 1 auto;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    header p {
+      margin: 0.4rem 0 0;
+      max-width: 800px;
+      font-size: 0.98rem;
+      opacity: 0.96;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 1.5rem auto 2rem;
+      padding: 0 1rem;
+    }
+
+    /* Pestañas */
+    .tabs {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
+      gap: 0.25rem;
+      border-bottom: 2px solid var(--gris-medio);
+      margin-bottom: 1rem;
     }
-    a.boton {
-      background: var(--rojo-principal);
-      color: var(--blanco);
-      padding: .9rem 1.4rem;
-      border-radius: 999px;
-      text-decoration: none;
+
+    .tab-button {
+      border: none;
+      background: transparent;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      border: 1px solid var(--rojo-oscuro);
-      transition: all .25s ease;
+      color: var(--azul-oscuro);
+      cursor: pointer;
+      border-radius: 0.6rem 0.6rem 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
-    a.boton:hover {
-      background: var(--rojo-oscuro);
-      transform: translateY(-2px);
+
+    .tab-button:hover {
+      background: var(--azul-claro);
     }
+
+    .tab-button.active {
+      background: var(--blanco);
+      border-color: var(--gris-medio);
+      border-bottom: 2px solid var(--blanco);
+      color: var(--azul-medio);
+    }
+
+    .tab-content {
+      display: none;
+      background: var(--blanco);
+      border-radius: 0.6rem;
+      border: 1px solid var(--gris-medio);
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(15,23,42,0.08);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--azul-oscuro);
+      font-size: 1.35rem;
+    }
+
+    h3 {
+      color: var(--azul-medio);
+      margin-top: 1.4rem;
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin: 0.4rem 0 0.6rem;
+    }
+
+    ul {
+      padding-left: 1.15rem;
+      margin: 0.25rem 0 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    li {
+      margin-bottom: 0.2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--azul-claro);
+      color: var(--azul-oscuro);
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+
+    .resaltado {
+      background: var(--azul-claro);
+      border-left: 4px solid var(--azul-medio);
+      padding: 0.6rem 0.75rem;
+      border-radius: 0.4rem;
+      font-size: 0.9rem;
+      margin: 0.75rem 0;
+    }
+
+    .nota {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.4rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.6rem 0 0.8rem;
+      font-size: 0.9rem;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid var(--gris-medio);
+      padding: 0.4rem 0.3rem;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
+
+    th {
+      background: var(--azul-claro);
+      font-weight: 600;
+      color: var(--azul-oscuro);
+      text-align: left;
+    }
+
+    .subtitulo {
+      font-weight: 600;
+      margin-top: 0.8rem;
+      margin-bottom: 0.2rem;
+      font-size: 0.92rem;
+      color: var(--azul-oscuro);
+    }
+
+    .tarjeta-plantilla {
+      border-radius: 0.6rem;
+      border: 1px dashed var(--gris-medio);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #f9fafb;
+    }
+
+    .tarjeta-plantilla h3 {
+      margin-top: 0;
+    }
+
+    .fuentes-lista {
+      font-size: 0.9rem;
+      margin-top: 0.6rem;
+    }
+
+    .fuentes-lista li {
+      margin-bottom: 0.3rem;
+    }
+
     footer {
-      margin-top: 3rem;
-      color: #555;
-      font-size: .9rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b7280;
+      padding: 1rem 0 1.5rem;
+    }
+
+    footer span {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      header h1 {
+        font-size: 1.35rem;
+      }
+      .tab-button {
+        flex: 1 1 48%;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 0.6rem 0.4rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Procesos de Manufactura Industrial</h1>
-  <p>Material compilado para la <strong>Licenciatura en Diseño de Productos y Experiencias</strong>, elaborado por el <strong>Dr. Erick Iroel Heredia Carrillo</strong> entre agosto y noviembre de 2025.  
-  Este sitio reúne materiales de apoyo para comprender los principales <em>procesos de transformación de materiales</em> utilizados en la manufactura industrial contemporánea.</p>
+<header>
+  <div class="header-inner">
+    <!-- Placeholder de logo EDINBA: cambia href y src cuando tengas el archivo -->
+    <div class="logo-wrapper">
+      <a href="https://www.edinba.inba.gob.mx" target="_blank" rel="noopener noreferrer">
+        <img src="https://github.com/iroelh/clases/blob/main/logo.png" alt="Logo EDINBA (placeholder)" />
+      </a>
+    </div>
+    <div class="header-text">
+      <h1>Análisis Morfológico aplicado a Problemas Sociales desde el Diseño</h1>
+      <p>
+        Sitio de referencia para estudiantes de posgrado interesados en utilizar el análisis morfológico
+        como método estructurado para investigar y diseñar intervenciones en problemas sociales complejos desde el diseño.
+      </p>
+    </div>
+  </div>
+</header>
 
-  <div class="botones">
-    <a class="boton" href="procesos_plasticos.html" target="_blank">Procesos de Plásticos</a>
-    <a class="boton" href="procesos_metales.html" target="_blank">Procesos de Metales</a>
+<div class="container">
+  <!-- Pestañas -->
+  <div class="tabs">
+    <button class="tab-button active" data-tab="tab1">1. Método y bases teóricas</button>
+    <button class="tab-button" data-tab="tab2">2. Uso en investigación social</button>
+    <button class="tab-button" data-tab="tab3">3. Ejemplo y parrilla</button>
+    <button class="tab-button" data-tab="tab4">4. Plantillas en blanco</button>
   </div>
 
-  <footer>© 2025 · Dr. Erick Iroel Heredia Carrillo · Todos los derechos reservados</footer>
+  <!-- Pestaña 1 -->
+  <section id="tab1" class="tab-content active">
+    <div class="badge">Fundamentos</div>
+    <h2>¿Qué es el análisis morfológico?</h2>
+    <p>
+      El análisis morfológico es un método de modelado cualitativo desarrollado por el astrónomo suizo
+      <strong>Fritz Zwicky</strong> en el contexto de la investigación científica y tecnológica de mediados del siglo XX.
+      Su objetivo es explorar de manera sistemática el espacio de posibilidades de un problema complejo,
+      especialmente cuando éste es difícil de cuantificar o no puede abordarse con modelos puramente matemáticos.
+    </p>
+    <p>
+      Zwicky propone organizar el problema en un “campo morfológico”, es decir, un conjunto de
+      <strong>dimensiones o parámetros</strong> relevantes y las posibles variantes de cada uno. El cruce de todos estos
+      parámetros forma lo que se conoce como <em>caja de Zwicky</em> o <em>parrilla morfológica</em>, un dispositivo que
+      permite visualizar y combinar configuraciones completas del problema y sus posibles soluciones.
+    </p>
+
+    <div class="resaltado">
+      <strong>Idea clave:</strong> en lugar de buscar una única solución “óptima”, el análisis morfológico
+      construye y recorre un espacio de soluciones posibles, haciendo explícitas las decisiones y sus consecuencias.
+    </div>
+
+    <h3>Elementos centrales del método</h3>
+    <ul>
+      <li><strong>Definición morfológica del problema</strong>: formulación precisa, operativa y acotada.</li>
+      <li><strong>Identificación de parámetros o variables</strong>: dimensiones esenciales del fenómeno.</li>
+      <li><strong>Definición de valores o estados</strong> para cada parámetro.</li>
+      <li><strong>Construcción de la parrilla morfológica</strong> (matriz de variables × opciones).</li>
+      <li><strong>Exploración de configuraciones</strong> mediante la selección de una opción por variable.</li>
+      <li><strong>Evaluación</strong> de configuraciones: pertinencia, factibilidad, impacto, riesgos, etc.</li>
+    </ul>
+
+    <h3>General Morphological Analysis (GMA)</h3>
+    <p>
+      A finales del siglo XX, el método fue sistematizado como <strong>General Morphological Analysis (GMA)</strong>
+      por autores como Tom Ritchey, quien lo aplicó a problemas de política pública, futuros estudios y escenarios
+      complejos socio-técnicos. El GMA refuerza la idea de que el análisis morfológico es especialmente útil cuando
+      los problemas:
+    </p>
+    <ul>
+      <li>son <strong>multidimensionales</strong> (intervienen muchas variables),</li>
+      <li>son <strong>no cuantificables</strong> en sentido estricto,</li>
+      <li>y requieren una <strong>visión integrada</strong> que combine factores técnicos, sociales, culturales y éticos.</li>
+    </ul>
+
+    <h3>El método en el campo del diseño</h3>
+    <p>
+      En diseño de producto e ingeniería, el análisis morfológico se conoce principalmente a través de la
+      <strong>“morphological chart”</strong>, una tabla que descompone la función global de un producto en subfunciones,
+      y propone alternativas para cada una. Autores como <strong>Nigel Cross</strong> han incorporado esta técnica en
+      manuales de métodos de diseño como parte del proceso de generación y evaluación de alternativas.
+    </p>
+    <p>
+      Desde la perspectiva del diseño, la parrilla morfológica no sólo organiza funciones técnicas, sino que también
+      puede incorporar aspectos de experiencia de usuario, lenguaje formal, sostenibilidad, mantenimiento y otros
+      criterios que son habituales en la práctica profesional.
+    </p>
+
+    <h3>Del diseño de objetos al diseño de problemas sociales</h3>
+    <p>
+      En las últimas décadas, el análisis morfológico ha sido retomado en campos como los
+      <strong>policy studies</strong>, la <strong>investigación de futuros</strong> y el <strong>diseño de sistemas</strong>,
+      donde los problemas incluyen dimensiones sociales, institucionales y culturales además de componentes técnicos.
+    </p>
+    <p>
+      En este sitio se propone trasladar esa lógica al <strong>diseño para problemas sociales</strong>:
+      en lugar de analizar piezas de un producto, se analizan:
+    </p>
+    <ul>
+      <li><strong>Actores</strong> (personas, colectivos, instituciones).</li>
+      <li><strong>Prácticas y relaciones</strong> (hábitos, rutinas, resistencias, formas de colaboración).</li>
+      <li><strong>Entornos</strong> (territorios, infraestructuras, marcos normativos, plataformas digitales).</li>
+      <li><strong>Recursos y barreras</strong> (materiales, económicas, simbólicas, de tiempo, de género, etc.).</li>
+      <li><strong>Canales de intervención desde el diseño</strong> (objetos, servicios, experiencias, dispositivos educativos).</li>
+    </ul>
+
+    <h3>Lecturas recomendadas (acceso en línea)</h3>
+    <ul class="fuentes-lista">
+      <li>
+        Ritchey, T. (2002/2013). <em>General Morphological Analysis: A general method for non-quantified modelling</em>.
+        Swedish Morphological Society. Disponible en:
+        <a href="https://www.swemorph.com/ma.html" target="_blank" rel="noopener noreferrer">swemorph.com</a>.
+      </li>
+      <li>
+        Álvarez, A., &amp; Ritchey, T. (2015). <em>Applications of General Morphological Analysis: From Engineering Design to Policy Analysis</em>.
+        <a href="https://www.swemorph.com" target="_blank" rel="noopener noreferrer">Acta Morphologica Generalis</a>.
+      </li>
+      <li>
+        Cross, N. (2008). <em>Engineering Design Methods: Strategies for Product Design</em>.
+        Capítulo sobre “Morphological Chart Method”.
+      </li>
+      <li>
+        Greene, J. (2024). <em>Morphological Analysis (problem-solving)</em>. Research Starters – Technology.
+      </li>
+      <li>
+        Recursos introductorios como
+        <a href="https://www.toolshero.com/creativity/morphological-analysis-fritz-zwicky/" target="_blank" rel="noopener noreferrer">
+          Toolshero – Morphological Analysis
+        </a>
+        pueden servir para una primera aproximación divulgativa.
+    </ul>
+
+    <p class="nota">
+      Nota para estudiantes de posgrado: se sugiere leer al menos una fuente de tipo manual de métodos de diseño
+      (por ejemplo Cross) y una fuente de GMA (por ejemplo Ritchey) antes de aplicar la metodología en un proyecto
+      de tesis o de investigación-acción.
+    </p>
+  </section>
+
+  <!-- Pestaña 2 -->
+  <section id="tab2" class="tab-content">
+    <div class="badge">Aplicación en investigación</div>
+    <h2>Uso del análisis morfológico en investigación de problemas sociales</h2>
+
+    <h3>1. Encaje epistemológico y metodológico</h3>
+    <p>
+      El análisis morfológico se inscribe en una tradición de <strong>modelos cualitativos estructurados</strong>.
+      Es especialmente compatible con:
+    </p>
+    <ul>
+      <li><strong>Investigación de diseño</strong> (design research, research through design).</li>
+      <li><strong>Investigación-acción</strong> y <strong>investigación participativa</strong>.</li>
+      <li><strong>Diseño social</strong>, <strong>diseño de transición</strong> y enfoques orientados a futuros.</li>
+      <li>Estudios de <strong>política pública</strong> y planificación en contextos complejos.</li>
+    </ul>
+    <p>
+      En este marco, el análisis morfológico no sustituye a técnicas como la entrevista, la observación o el análisis
+      documental, sino que actúa como:
+    </p>
+    <ul>
+      <li>un <strong>dispositivo de síntesis</strong> para organizar hallazgos;</li>
+      <li>un <strong>andamio de ideación</strong> para diseñar intervenciones;</li>
+      <li>y una <strong>base transparente</strong> para justificar decisiones de diseño frente a tutores, comités o pares académicos.</li>
+    </ul>
+
+    <h3>2. Pasos de aplicación en investigación social desde el diseño</h3>
+
+    <p class="subtitulo">2.1 Definir el problema social</p>
+    <p>
+      El primer paso es formular el problema de modo que pueda analizarse morfológicamente. Por ejemplo, en el caso
+      de la artesanía:
+    </p>
+    <p class="resaltado">
+      “Disminución sostenida del relevo generacional en la artesanía tradicional debido a barreras económicas,
+      culturales, educativas y de aspiración profesional entre jóvenes de comunidades artesanales.”
+    </p>
+    <p>
+      Esta formulación reconoce la complejidad del fenómeno y evita reducirlo a estereotipos como “los jóvenes no quieren”.
+    </p>
+
+    <p class="subtitulo">2.2 Derivar variables a partir del trabajo de campo</p>
+    <p>
+      Las variables morfológicas no se inventan “en abstracto”, sino que derivan de:
+    </p>
+    <ul>
+      <li>entrevistas en profundidad y grupos focales;</li>
+      <li>observación y recorridos de campo;</li>
+      <li>análisis de documentos, políticas, planes y registros;</li>
+      <li>estado del arte y marcos conceptuales del problema.</li>
+    </ul>
+    <p>
+      En el ejemplo de artesanía y juventud, estas variables incluyen: perfil del joven, motivaciones, barreras,
+      modelos de aprendizaje, formatos de vinculación, rol del maestro artesano, usos de la tecnología, conexión cultural,
+      modelos de ingreso, estrategias de comunicación, espacios y temporalidades.
+    </p>
+
+    <p class="subtitulo">2.3 Construir la parrilla morfológica</p>
+    <p>
+      Para cada variable se definen <strong>valores o estados posibles</strong> (opciones), cuidando que:
+    </p>
+    <ul>
+      <li>sean <strong>mutuamente distinguibles</strong> (no redundantes);</li>
+      <li>sean <strong>plausibles en el contexto estudiado</strong>;</li>
+      <li>incluyan tanto prácticas existentes como posibles innovaciones.</li>
+    </ul>
+    <p>
+      El resultado es una matriz que representa el “espacio de diseño” del problema social.
+    </p>
+
+    <p class="subtitulo">2.4 Generar configuraciones de intervención</p>
+    <p>
+      Una configuración se obtiene seleccionando una opción por variable. Cada configuración puede interpretarse como:
+    </p>
+    <ul>
+      <li>un <strong>programa social</strong> (por ejemplo, un laboratorio juvenil de artesanía);</li>
+      <li>un <strong>servicio</strong> (por ejemplo, un taller móvil de innovación artesanal);</li>
+      <li>un <strong>modelo educativo</strong> o un <strong>protótipo de política</strong>.</li>
+    </ul>
+    <p>
+      En investigaciones de posgrado, suele ser útil:
+    </p>
+    <ul>
+      <li>generar varias configuraciones contrastantes,</li>
+      <li>compararlas con criterios claros,</li>
+      <li>y seleccionar una o dos como base de la propuesta de diseño principal.</li>
+    </ul>
+
+    <p class="subtitulo">2.5 Evaluar configuraciones: criterios de análisis</p>
+    <p>
+      La evaluación puede combinar criterios “duros” y “blandos”, por ejemplo:
+    </p>
+    <ul>
+      <li>Factibilidad (recursos, tiempo, capacidades institucionales).</li>
+      <li>Pertinencia cultural (alineación con la comunidad, respeto a prácticas existentes).</li>
+      <li>Equidad (a quién incluye o excluye la configuración).</li>
+      <li>Sostenibilidad (económica, ambiental, organizacional).</li>
+      <li>Impacto potencial en el problema identificado.</li>
+      <li>Riesgos (folklorización, extractivismo cultural, dependencia externa, etc.).</li>
+    </ul>
+
+    <h3>3. Documentación para tesis y artículos</h3>
+    <p>
+      Para efectos académicos, se recomienda documentar de forma explícita:
+    </p>
+    <ul>
+      <li>el proceso de construcción de variables (cómo se derivan del campo y de la literatura),</li>
+      <li>la parrilla morfológica completa,</li>
+      <li>los criterios de selección de configuraciones,</li>
+      <li>y la relación entre la configuración elegida y el marco teórico de la investigación.</li>
+    </ul>
+    <p>
+      Esto permite que la parrilla no se vea como un “ejercicio creativo” aislado, sino como parte integral
+      del diseño metodológico del proyecto de investigación en diseño.
+    </p>
+
+    <h3>4. Ejemplos de líneas de trabajo</h3>
+    <ul>
+      <li>Relevo generacional en oficios artesanales urbanos y rurales.</li>
+      <li>Diseño de entornos de aprendizaje para jóvenes en contextos de vulnerabilidad.</li>
+      <li>Modelos de documentación y mediación del patrimonio cultural inmaterial.</li>
+      <li>Escenarios de transición hacia prácticas productivas más sostenibles.</li>
+      <li>Diseño de servicios culturales comunitarios (festivales, residencias, laboratorios).</li>
+    </ul>
+
+    <p class="nota">
+      Para cada una de estas líneas, la parrilla morfológica puede articularse con otros métodos (mapas de actores,
+      análisis de discurso, cartografías colectivas, etc.), consolidando un enfoque mixto coherente con la naturaleza
+      compleja de los problemas sociales abordados.
+    </p>
+  </section>
+
+  <!-- Pestaña 3 -->
+  <section id="tab3" class="tab-content">
+    <div class="badge">Ejemplo aplicado</div>
+    <h2>Parrilla morfológica: artesanía y relevo generacional</h2>
+
+    <h3>Definición del problema</h3>
+    <p>
+      “Desinterés de jóvenes por continuar con la artesanía tradicional, expresado en la disminución del relevo
+      generacional en comunidades artesanales urbanas y rurales.”
+    </p>
+
+    <h3>Variables principales</h3>
+    <p class="subtitulo">Variables utilizadas en el ejemplo:</p>
+    <ul>
+      <li>Perfil del joven.</li>
+      <li>Motivación / aspiración.</li>
+      <li>Barreras percibidas.</li>
+      <li>Modelo de aprendizaje artesanal.</li>
+      <li>Formato de vinculación.</li>
+      <li>Rol del maestro artesano.</li>
+      <li>Tecnología incorporada.</li>
+      <li>Conexión cultural / simbólica.</li>
+      <li>Modelo económico.</li>
+      <li>Estrategia de comunicación.</li>
+      <li>Espacio de aprendizaje.</li>
+      <li>Temporalidad.</li>
+    </ul>
+
+    <h3>Parrilla morfológica resumida</h3>
+    <!-- Tabla igual que antes -->
+    <table>
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Opción 1</th>
+          <th>Opción 2</th>
+          <th>Opción 3</th>
+          <th>Opción 4</th>
+          <th>Opción 5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Perfil del joven</td>
+          <td>Secundaria</td>
+          <td>Preparatoria</td>
+          <td>No escolarizado</td>
+          <td>Migrante retornado</td>
+          <td>Artesano informal</td>
+        </tr>
+        <tr>
+          <td>Motivación / aspiración</td>
+          <td>Económica</td>
+          <td>Identitaria</td>
+          <td>Creativa</td>
+          <td>Tecnológica</td>
+          <td>Familiar / tradición</td>
+        </tr>
+        <tr>
+          <td>Barreras percibidas</td>
+          <td>Falta de ingresos</td>
+          <td>Baja valoración social</td>
+          <td>“Es lento / antiguo”</td>
+          <td>Falta de espacios</td>
+          <td>Conflicto con estudios</td>
+        </tr>
+        <tr>
+          <td>Modelo de aprendizaje</td>
+          <td>Tradicional maestro–aprendiz</td>
+          <td>Demostrativo + práctica</td>
+          <td>Reto de diseño</td>
+          <td>Colaborativo</td>
+          <td>Híbrido artesanal–digital</td>
+        </tr>
+        <tr>
+          <td>Formato de vinculación</td>
+          <td>Curso intensivo</td>
+          <td>Mentoría 1:1</td>
+          <td>Campamento creativo</td>
+          <td>Residencia corta</td>
+          <td>Club vespertino</td>
+        </tr>
+        <tr>
+          <td>Rol del maestro artesano</td>
+          <td>Instructor técnico</td>
+          <td>Custodio cultural</td>
+          <td>Colaborador con diseñadores</td>
+          <td>Curador de saberes</td>
+          <td>Innovador comunitario</td>
+        </tr>
+        <tr>
+          <td>Tecnología incorporada</td>
+          <td>Sin tecnología</td>
+          <td>Documentación digital</td>
+          <td>Herramientas digitales básicas</td>
+          <td>IA como referencia visual</td>
+          <td>Prototipado híbrido</td>
+        </tr>
+        <tr>
+          <td>Conexión cultural / simbólica</td>
+          <td>Narrativas locales</td>
+          <td>Historia familiar</td>
+          <td>Rituales / festividades</td>
+          <td>Identidad territorial</td>
+          <td>Patrimonio inmaterial</td>
+        </tr>
+        <tr>
+          <td>Modelo económico</td>
+          <td>Venta local</td>
+          <td>Ferias</td>
+          <td>Venta online</td>
+          <td>Comisiones personalizadas</td>
+          <td>Consumo interno comunitario</td>
+        </tr>
+        <tr>
+          <td>Estrategia de comunicación</td>
+          <td>Redes sociales</td>
+          <td>TikTok / Reels</td>
+          <td>Líderes comunitarios</td>
+          <td>Escuelas</td>
+          <td>Casa por casa</td>
+        </tr>
+        <tr>
+          <td>Espacio de aprendizaje</td>
+          <td>Taller del maestro</td>
+          <td>Escuela local</td>
+          <td>Espacio público</td>
+          <td>Centro cultural</td>
+          <td>Taller móvil</td>
+        </tr>
+        <tr>
+          <td>Temporalidad</td>
+          <td>Una semana</td>
+          <td>Un mes</td>
+          <td>Un semestre</td>
+          <td>Fines de semana</td>
+          <td>Estacional</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Ejemplos de configuraciones (rutas de intervención)</h3>
+
+    <p class="subtitulo">Estrategia 1 — Laboratorio juvenil de identidad artesanal</p>
+    <p>
+      Jóvenes de preparatoria, motivación identitaria, barrera de baja valoración social, aprendizaje colaborativo,
+      club vespertino, maestro como curador de saberes, documentación digital, narrativas locales, venta en ferias,
+      comunicación a través de escuelas y uso de centro cultural en fines de semana.
+    </p>
+
+    <p class="subtitulo">Estrategia 2 — Taller móvil de innovación artesanal</p>
+    <p>
+      Jóvenes no escolarizados, motivación económica, falta de espacios como barrera, aprendizaje híbrido artesanal–digital,
+      curso intensivo en taller móvil, maestro artesano en colaboración con diseñadores, prototipado híbrido,
+      identidad territorial, venta online, comunicación vía TikTok / Reels y temporalidad de un mes.
+    </p>
+
+    <p class="subtitulo">Estrategia 3 — Residencia creativa para jóvenes migrantes retornados</p>
+    <p>
+      Jóvenes migrantes retornados, motivación identitaria y creativa, percepción de la artesanía como “antigua”,
+      retos de diseño, residencia corta en taller del maestro, artesano innovador, uso de IA como apoyo visual,
+      vínculo con rituales y patrimonio inmaterial, comisiones personalizadas, comunicación con líderes comunitarios
+      y temporalidad estacional ligada a festividades locales.
+    </p>
+
+    <p class="resaltado">
+      Cada una de estas configuraciones puede desarrollarse como proyecto de investigación–acción,
+      documento de tesis o programa piloto, documentando de manera explícita cómo la parrilla morfológica
+      orientó las decisiones de diseño social.
+    </p>
+  </section>
+
+  <!-- Pestaña 4 -->
+  <section id="tab4" class="tab-content">
+    <div class="badge">Herramientas</div>
+    <h2>Plantillas en blanco para aplicar la metodología</h2>
+
+    <p>
+      Las siguientes plantillas están pensadas para ser copiadas y adaptadas a diferentes contextos de investigación
+      en diseño social, artesanía, educación o patrimonio. Pueden usarse en clase, en proyectos de campo o en tesis.
+    </p>
+
+    <div class="tarjeta-plantilla">
+      <h3>Plantilla 1. Definición del problema</h3>
+      <p class="subtitulo">Enunciado del problema</p>
+      <p>
+        Escriba un enunciado preciso y operativo del problema social que se abordará:
+      </p>
+      <p><em>“______________________________________________________________”</em></p>
+      <p><em>“______________________________________________________________”</em></p>
+
+      <p class="subtitulo">Contexto</p>
+      <ul>
+        <li>Territorio / comunidad: ______________________________</li>
+        <li>Grupos involucrados: ________________________________</li>
+        <li>Indicadores o evidencias preliminares: _______________</li>
+      </ul>
+    </div>
+
+    <div class="tarjeta-plantilla">
+      <h3>Plantilla 2. Lista de variables del fenómeno</h3>
+      <p>
+        Identifique entre 6 y 12 variables clave que estructuran el problema (actores, prácticas, barreras, recursos, etc.).
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Variable</</th>
+            <th>Descripción breve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>2</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>3</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>4</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>5</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>6</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>7</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>8</td><td>________________</td><td>______________________________</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tarjeta-plantilla">
+      <h3>Plantilla 3. Parrilla morfológica en blanco</h3>
+      <p>
+        Use esta tabla como base. Cada fila es una variable y las columnas contienen opciones posibles.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Opción 1</th>
+            <th>Opción 2</th>
+            <th>Opción 3</th>
+            <th>Opción 4</th>
+            <th>Opción 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tarjeta-plantilla">
+      <h3>Plantilla 4. Configuraciones y evaluación</h3>
+      <p class="subtitulo">Configuración propuesta</p>
+      <p>Seleccione una opción por variable desde la parrilla y descríbala:</p>
+      <p><em>“Configuración A: _____________________________________________”</em></p>
+
+      <p class="subtitulo">Resumen narrativo</p>
+      <p>
+        Describa en un párrafo qué tipo de intervención social, programa o servicio se genera a partir de la configuración:
+      </p>
+      <p><em>“______________________________________________________________”</em></p>
+      <p><em>“______________________________________________________________”</em></p>
+
+      <p class="subtitulo">Criterios de evaluación</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Descripción</th>
+            <th>Valoración</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Factibilidad</td>
+            <td>Recursos, tiempos, capacidades.</td>
+            <td>Alta / media / baja</td>
+          </tr>
+          <tr>
+            <td>Pertinencia cultural</td>
+            <td>Alineación con la comunidad y su contexto.</td>
+            <td>Alta / media / baja</td>
+          </tr>
+          <tr>
+            <td>Sostenibilidad</td>
+            <td>Posibilidad de continuidad en el tiempo.</td>
+            <td>Alta / media / baja</td>
+          </tr>
+          <tr>
+            <td>Impacto esperado</td>
+            <td>Efecto potencial en el problema detectado.</td>
+            <td>Alto / medio / bajo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="resaltado">
+      Sugerencia didáctica: estas plantillas pueden entregarse como guías de trabajo a estudiantes de posgrado
+      para que construyan su propia parrilla morfológica a partir de problemas sociales situados en su contexto.
+    </p>
+  </section>
+</div>
+
+<footer>
+  <span>Sitio sobre análisis morfológico aplicado a problemas sociales desde el diseño.</span>
+  <span>Crédito: Dr. Iroel Heredia, 2025.</span>
+</footer>
+
+<script>
+  // Lógica de pestañas
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-tab');
+
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(tab => tab.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
