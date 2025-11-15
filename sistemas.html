@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapeo de Sistemas en Investigación Social desde el Diseño</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --morado-oscuro: #4a2b66;
+      --morado-medio: #6d3a8a;
+      --morado-claro: #ede7f6;
+      --rosa-lila: #e3d5f7;
+      --gris-claro: #f5f5f5;
+      --gris-medio: #d1d5db;
+      --gris-texto: #3a3a3a;
+      --blanco: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--gris-claro);
+      color: var(--gris-texto);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--morado-oscuro), var(--morado-medio));
+      color: var(--blanco);
+      padding: 1.4rem 1.5rem 1.8rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .logo-wrapper img {
+      max-height: 70px;
+      border-radius: 0.4rem;
+      background: #ffffff22;
+      padding: 0.3rem 0.45rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    header p {
+      margin: 0.4rem 0 0;
+      max-width: 850px;
+      font-size: 0.98rem;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 1.5rem auto 2rem;
+      padding: 0 1rem;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      border-bottom: 2px solid var(--gris-medio);
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-button {
+      border: none;
+      background: transparent;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--morado-oscuro);
+      cursor: pointer;
+      border-radius: 0.6rem 0.6rem 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      transition: 0.2s ease;
+    }
+
+    .tab-button:hover {
+      background: var(--morado-claro);
+    }
+
+    .tab-button.active {
+      background: var(--blanco);
+      border-color: var(--gris-medio);
+      border-bottom: 2px solid var(--blanco);
+      color: var(--morado-medio);
+    }
+
+    .tab-content {
+      display: none;
+      background: var(--blanco);
+      border-radius: 0.6rem;
+      border: 1px solid var(--gris-medio);
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--morado-oscuro);
+      font-size: 1.35rem;
+    }
+
+    h3 {
+      color: var(--morado-medio);
+      margin-top: 1.4rem;
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--morado-claro);
+      color: var(--morado-oscuro);
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.8rem;
+    }
+
+    .resaltado {
+      background: var(--rosa-lila);
+      border-left: 4px solid var(--morado-medio);
+      padding: 0.7rem 0.9rem;
+      border-radius: 0.4rem;
+      margin: 0.75rem 0;
+      font-size: 0.92rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.8rem 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      border: 1px solid var(--gris-medio);
+      padding: 0.45rem;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--morado-claro);
+      color: var(--morado-oscuro);
+      font-weight: 600;
+    }
+
+    .tarjeta {
+      border: 1px dashed var(--gris-medio);
+      border-radius: 0.6rem;
+      padding: 1rem;
+      background: #faf7ff;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b6b6b;
+      padding: 1rem 0 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrapper">
+      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="Logo">
+    </div>
+    <div>
+      <h1>Mapeo de Sistemas para la Investigación Social desde el Diseño</h1>
+      <p>
+        Plataforma metodológica para comprender, visualizar y transformar sistemas complejos en proyectos de diseño social.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-button active" data-tab="tab1">1. Fundamentos</button>
+    <button class="tab-button" data-tab="tab2">2. Metodología</button>
+    <button class="tab-button" data-tab="tab3">3. Plantillas</button>
+    <button class="tab-button" data-tab="tab4">4. Ejemplo aplicado</button>
+  </div>
+
+  <!-- TAB 1 -->
+  <section id="tab1" class="tab-content active">
+    <div class="badge">Fundamentos</div>
+    <h2>¿Qué es el mapeo de sistemas?</h2>
+    <p>
+      El mapeo de sistemas es una metodología visual y analítica que permite representar cómo interactúan actores, procesos,
+      recursos, barreras y resultados dentro de un fenómeno social complejo.
+    </p>
+
+    <div class="resaltado">
+      El objetivo central es **comprender la estructura profunda** de un sistema para identificar puntos de intervención,
+      nodos críticos, dinámicas ocultas y oportunidades de transformación desde el diseño.
+    </div>
+
+    <h3>Conceptos esenciales</h3>
+    <ul>
+      <li><strong>Sistema:</strong> conjunto de elementos interdependientes.</li>
+      <li><strong>Actores:</strong> personas, instituciones, colectivos.</li>
+      <li><strong>Flujos:</strong> movimiento de recursos, información o decisiones.</li>
+      <li><strong>Nodos críticos:</strong> puntos donde el sistema se bloquea.</li>
+      <li><strong>Palancas de cambio:</strong> lugares estratégicos donde intervenir.</li>
+    </ul>
+  </section>
+
+  <!-- TAB 2 -->
+  <section id="tab2" class="tab-content">
+    <div class="badge">Metodología</div>
+    <h2>Metodología paso a paso</h2>
+
+    <h3>1. Delimitación del sistema</h3>
+    <p>
+      Define qué partes del fenómeno serán consideradas. Un sistema demasiado amplio pierde claridad; uno demasiado pequeño
+      no revela relaciones significativas.
+    </p>
+
+    <h3>2. Identificación de elementos</h3>
+    <p>
+      Clasifica elementos en actores, recursos, procesos, barreras y resultados.  
+    </p>
+
+    <h3>3. Representación de relaciones</h3>
+    <p>
+      Traza conexiones: quién influye a quién, qué flujo existe, qué depende de qué.
+    </p>
+
+    <h3>4. Detección de nodos críticos</h3>
+    <p>
+      Observa puntos donde el sistema se debilita: falta de recursos, roles desbalanceados, conflictos estructurales.
+    </p>
+
+    <h3>5. Identificación de palancas de intervención</h3>
+    <p>
+      Determina dónde una acción de diseño puede generar mayor impacto sistémico.
+    </p>
+
+    <h3>6. Visualización final</h3>
+    <p>
+      Construye un diagrama claro que pueda compartirse con comunidad, estudiantes o equipo interdisciplinario.
+    </p>
+
+    <h3>7. Revisión tras intervención</h3>
+    <p>
+      El sistema cambia con el tiempo; remapea para evaluar efectos reales.
+    </p>
+  </section>
+
+  <!-- TAB 3 -->
+  <section id="tab3" class="tab-content">
+    <div class="badge">Plantillas</div>
+    <h2>Herramientas para construir mapas de sistema</h2>
+
+    <div class="tarjeta">
+      <h3>A. Listado de elementos</h3>
+      <p>Utiliza esta guía:</p>
+      <ul>
+        <li>Actores clave: __________________________</li>
+        <li>Recursos: _______________________________</li>
+        <li>Procesos: _______________________________</li>
+        <li>Barreras: _______________________________</li>
+        <li>Resultados: _____________________________</li>
+      </ul>
+    </div>
+
+    <div class="tarjeta">
+      <h3>B. Matriz de relaciones</h3>
+      <table>
+        <tr><th>Elemento</th><th>Conecta con</th><th>Tipo de flujo</th><th>Dirección</th></tr>
+        <tr><td>________</td><td>________</td><td>Recurso / Información / Influencia</td><td>→ / ← / ↔</td></tr>
+        <tr><td>________</td><td>________</td><td>Recurso / Información / Influencia</td><td>→ / ← / ↔</td></tr>
+      </table>
+    </div>
+
+    <div class="tarjeta">
+      <h3>C. Nodos y palancas</h3>
+      <table>
+        <tr><th>Nodo crítico</th><th>Descripción</th><th>Palanca posible</th></tr>
+        <tr><td>______</td><td>______</td><td>______</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB 4 -->
+  <section id="tab4" class="tab-content">
+    <div class="badge">Ejemplo aplicado</div>
+    <h2>Relevo generacional en artesanía</h2>
+
+    <h3>1. Elementos identificados</h3>
+    <ul>
+      <li>Actores: jóvenes, maestros artesanos, autoridades, compradores.</li>
+      <li>Recursos: talleres, herramientas, ferias, redes.</li>
+      <li>Procesos: aprendizaje, producción, venta.</li>
+      <li>Barreras: ingresos bajos, migración, estigma social.</li>
+    </ul>
+
+    <h3>2. Flujos principales</h3>
+    <p>
+      Maestro → joven: transferencia de saber.  
+      Joven → feria: piezas para venta.  
+      Feria → ingreso: estabilidad económica.
+    </p>
+
+    <h3>3. Nodos y palancas</h3>
+    <table>
+      <tr><th>Nodo crítico</th><th>Palanca</th></tr>
+      <tr><td>Baja valoración social</td><td>Programas de visibilización juvenil</td></tr>
+      <tr><td>Falta de continuidad</td><td>Trayectorias formativas</td></tr>
+    </table>
+  </section>
+
+</div>
+
+<footer>
+  <span>Sitio sobre mapeo de sistemas aplicado al diseño social.</span>
+  <span>Crédito: Dr. Iroel Heredia, 2025.</span>
+</footer>
+
+<script>
+const buttons = document.querySelectorAll(".tab-button");
+const tabs = document.querySelectorAll(".tab-content");
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    buttons.forEach(b => b.classList.remove("active"));
+    tabs.forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  });
+});
+</script>
+
+</body>
+</html>
