@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mapeo de Sistemas en Investigación Social desde el Diseño</title>
+  <title>Mapeo de Sistemas para la Investigación Social desde el Diseño</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -70,7 +70,7 @@
       padding: 0 1rem;
     }
 
-    /* Tabs */
+    /* Pestañas */
     .tabs {
       display: flex;
       gap: 0.25rem;
@@ -129,6 +129,21 @@
       font-size: 1.1rem;
     }
 
+    p {
+      font-size: 0.95rem;
+      margin: 0.4rem 0 0.6rem;
+    }
+
+    ul {
+      padding-left: 1.15rem;
+      margin: 0.25rem 0 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    li {
+      margin-bottom: 0.2rem;
+    }
+
     .badge {
       display: inline-block;
       background: var(--morado-claro);
@@ -151,6 +166,12 @@
       font-size: 0.92rem;
     }
 
+    .nota {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.4rem;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -160,7 +181,7 @@
 
     th, td {
       border: 1px solid var(--gris-medio);
-      padding: 0.45rem;
+      padding: 0.45rem 0.4rem;
       vertical-align: top;
     }
 
@@ -178,11 +199,36 @@
       margin-bottom: 1rem;
     }
 
+    .subtitulo {
+      font-weight: 600;
+      margin-top: 0.8rem;
+      margin-bottom: 0.2rem;
+      font-size: 0.92rem;
+      color: var(--morado-oscuro);
+    }
+
     footer {
       text-align: center;
       font-size: 0.8rem;
       color: #6b6b6b;
       padding: 1rem 0 2rem;
+    }
+
+    footer span {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1.2rem 1rem 1.5rem;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -196,7 +242,8 @@
     <div>
       <h1>Mapeo de Sistemas para la Investigación Social desde el Diseño</h1>
       <p>
-        Plataforma metodológica para comprender, visualizar y transformar sistemas complejos en proyectos de diseño social.
+        Sitio de referencia para comprender, enseñar y aplicar el mapeo de sistemas como metodología central
+        en proyectos de diseño social, artesanía y patrimonio.
       </p>
     </div>
   </div>
@@ -205,159 +252,479 @@
 <div class="container">
   <div class="tabs">
     <button class="tab-button active" data-tab="tab1">1. Fundamentos</button>
-    <button class="tab-button" data-tab="tab2">2. Metodología</button>
-    <button class="tab-button" data-tab="tab3">3. Plantillas</button>
-    <button class="tab-button" data-tab="tab4">4. Ejemplo aplicado</button>
+    <button class="tab-button" data-tab="tab2">2. Metodología paso a paso</button>
+    <button class="tab-button" data-tab="tab3">3. Plantillas de trabajo</button>
+    <button class="tab-button" data-tab="tab4">4. Ejemplo aplicado: artesanía</button>
   </div>
 
-  <!-- TAB 1 -->
+  <!-- TAB 1: FUNDAMENTOS -->
   <section id="tab1" class="tab-content active">
     <div class="badge">Fundamentos</div>
     <h2>¿Qué es el mapeo de sistemas?</h2>
     <p>
-      El mapeo de sistemas es una metodología visual y analítica que permite representar cómo interactúan actores, procesos,
-      recursos, barreras y resultados dentro de un fenómeno social complejo.
+      El mapeo de sistemas es una metodología visual y analítica que permite representar cómo se conectan
+      entre sí los elementos de un fenómeno complejo: actores, recursos, prácticas, normas, flujos de información
+      y resultados. El objetivo no es “dibujar bonito”, sino <strong>comprender la lógica interna</strong> del sistema
+      para tomar mejores decisiones de diseño.
     </p>
 
     <div class="resaltado">
-      El objetivo central es **comprender la estructura profunda** de un sistema para identificar puntos de intervención,
-      nodos críticos, dinámicas ocultas y oportunidades de transformación desde el diseño.
+      En problemas sociales, el mapeo de sistemas ayuda a pasar de frases genéricas (“los jóvenes ya no quieren”)
+      a una lectura estructurada del contexto (“hay barreras económicas, simbólicas y educativas que afectan el relevo generacional”).
     </div>
 
-    <h3>Conceptos esenciales</h3>
+    <h3>¿Cuándo tiene sentido usarlo?</h3>
     <ul>
-      <li><strong>Sistema:</strong> conjunto de elementos interdependientes.</li>
-      <li><strong>Actores:</strong> personas, instituciones, colectivos.</li>
-      <li><strong>Flujos:</strong> movimiento de recursos, información o decisiones.</li>
-      <li><strong>Nodos críticos:</strong> puntos donde el sistema se bloquea.</li>
-      <li><strong>Palancas de cambio:</strong> lugares estratégicos donde intervenir.</li>
+      <li>Cuando el problema no se explica por un solo factor, sino por la interacción de muchos.</li>
+      <li>Cuando intervienen actores con intereses, recursos y poderes distintos.</li>
+      <li>Cuando se requiere justificar de manera <strong>explícita</strong> por qué se intervendrá en ciertos puntos del sistema y no en otros.</li>
+      <li>Cuando el proyecto de diseño forma parte de una investigación de posgrado (tesis, tesina, investigación-acción) y debe mostrar rigor metodológico.</li>
     </ul>
+
+    <h3>Componentes básicos de un mapa de sistema</h3>
+    <ul>
+      <li><strong>Elementos</strong>: actores, instituciones, recursos, prácticas, normas, espacios, tecnologías.</li>
+      <li><strong>Relaciones</strong>: quién se vincula con quién, de qué manera, con qué intensidad.</li>
+      <li><strong>Flujos</strong>: qué circula (dinero, información, reconocimiento, objetos, tiempo, cuidados, etc.).</li>
+      <li><strong>Nodos críticos</strong>: puntos donde el sistema se bloquea, se rompe o es injusto.</li>
+      <li><strong>Palancas de cambio</strong>: puntos donde una intervención relativamente pequeña puede producir cambios mayores.</li>
+    </ul>
+
+    <p class="nota">
+      Este sitio complementa al de análisis morfológico: primero se usa el mapeo para entender el sistema,
+      luego se puede usar la parrilla morfológica para explorar configuraciones de intervención.
+    </p>
   </section>
 
-  <!-- TAB 2 -->
+  <!-- TAB 2: METODOLOGÍA PASO A PASO -->
   <section id="tab2" class="tab-content">
     <div class="badge">Metodología</div>
-    <h2>Metodología paso a paso</h2>
-
-    <h3>1. Delimitación del sistema</h3>
+    <h2>Metodología de mapeo de sistemas paso a paso</h2>
     <p>
-      Define qué partes del fenómeno serán consideradas. Un sistema demasiado amplio pierde claridad; uno demasiado pequeño
-      no revela relaciones significativas.
+      Esta sección describe una secuencia pensada para estudiantes de posgrado que realizan investigación
+      desde el diseño en problemas sociales. Cada paso incluye una explicación general y un ejemplo aplicado
+      al caso de artesanía y juventud.
     </p>
 
-    <h3>2. Identificación de elementos</h3>
+    <h3>Paso 1. Delimitar el sistema</h3>
     <p>
-      Clasifica elementos en actores, recursos, procesos, barreras y resultados.  
+      Antes de dibujar, se define <strong>qué sistema se va a mapear</strong> y qué se queda fuera.
+      Un límite razonable hace que el mapa sea manejable y útil.
+    </p>
+    <p class="subtitulo">Ejemplo (artesanía):</p>
+    <p>
+      “Sistema de formación, producción y venta de artesanía en la comunidad X, con énfasis en la participación
+      de jóvenes entre 15 y 25 años”.
+    </p>
+    <p class="nota">
+      Aquí se decide no incluir, por ejemplo, toda la política nacional de artesanía, sino sólo lo que es relevante
+      para el caso local trabajado.
     </p>
 
-    <h3>3. Representación de relaciones</h3>
+    <h3>Paso 2. Listar elementos del sistema</h3>
     <p>
-      Traza conexiones: quién influye a quién, qué flujo existe, qué depende de qué.
+      A partir de entrevistas, observación y revisión documental, se elaboran listas de:
+    </p>
+    <ul>
+      <li>Actores (personas, grupos, instituciones).</li>
+      <li>Recursos (espacios, herramientas, financiamiento, tiempo).</li>
+      <li>Procesos (cómo se aprende, cómo se produce, cómo se vende).</li>
+      <li>Barreras (económicas, simbólicas, de género, de movilidad, etc.).</li>
+      <li>Resultados (qué se obtiene, quién gana, quién pierde, quién queda fuera).</li>
+    </ul>
+
+    <p class="subtitulo">Ejemplo (fragmento de lista):</p>
+    <ul>
+      <li>Actores: jóvenes, maestras/os artesanos, intermediarios de feria, autoridades municipales de cultura, turistas.</li>
+      <li>Recursos: taller del maestro, materia prima, feria anual, redes sociales, transportes.</li>
+      <li>Procesos: demostración, práctica, corrección, preparación de feria, venta directa.</li>
+      <li>Barreras: ingresos bajos, falta de tiempo por escuela/trabajo, estigma (“oficio de poco futuro”), migración.</li>
+    </ul>
+
+    <h3>Paso 3. Identificar y nombrar tipos de relaciones</h3>
+    <p>
+      No todas las relaciones son iguales. Se recomienda distinguir, por lo menos:
+    </p>
+    <ul>
+      <li><strong>Relaciones de aprendizaje</strong> (quién enseña a quién, con qué frecuencia, en qué condiciones).</li>
+      <li><strong>Relaciones económicas</strong> (quién paga, quién vende, quién decide precios).</li>
+      <li><strong>Relaciones de poder o decisión</strong> (quién decide qué se produce, dónde se vende, quién participa).</li>
+      <li><strong>Relaciones afectivas o de cuidado</strong> (apoyo familiar, redes de confianza, pertenencia comunitaria).</li>
+    </ul>
+
+    <p class="subtitulo">Ejemplo (relaciones clave):</p>
+    <ul>
+      <li>Maestro artesano → joven: relación de enseñanza (pero también de autoridad y reconocimiento).</li>
+      <li>Joven → feria: relación económica (lleva piezas a vender) y de exposición pública.</li>
+      <li>Familia → joven: relación de apoyo o desmotivación (“mejor estudia otra cosa”).</li>
+      <li>Autoridad municipal → feria: relación de organización, permisos y posible financiamiento.</li>
+    </ul>
+
+    <h3>Paso 4. Dibujar el mapa inicial</h3>
+    <p>
+      Con los elementos y relaciones identificadas, se realiza un primer esquema visual. No tiene que ser perfecto:
+      se trata de sacar el sistema “a la superficie”.
+    </p>
+    <p>
+      Una forma sencilla de hacerlo en clase es:
+    </p>
+    <ul>
+      <li>Colocar los actores principales como nodos (círculos o cuadros).</li>
+      <li>Agregar recursos y procesos como nodos secundarios o etiquetas.</li>
+      <li>Dibujar flechas para indicar flujos (de información, dinero, objetos, decisiones).</li>
+      <li>Usar colores o tipos de línea para diferenciar tipos de relaciones (aprendizaje, economía, poder, etc.).</li>
+    </ul>
+
+    <p class="subtitulo">Ejemplo (descripción textual del mapa):</p>
+    <p>
+      En el centro se ubica el “taller del maestro”, conectado con jóvenes (aprendizaje y producción),
+      con la feria (venta), con proveedores (materia prima) y con autoridades (permisos, apoyos).
+      La familia del joven está conectada con él, influyendo en la decisión de seguir o no con la artesanía.
+      Algunas flechas van hacia “trabajos alternativos” o “migración”, indicando salidas del sistema artesanal.
     </p>
 
-    <h3>4. Detección de nodos críticos</h3>
+    <h3>Paso 5. Detectar nodos críticos</h3>
     <p>
-      Observa puntos donde el sistema se debilita: falta de recursos, roles desbalanceados, conflictos estructurales.
+      Con el mapa visible, se identifican los puntos donde el sistema se debilita, se rompe o se vuelve injusto.  
+      Preguntas útiles:
     </p>
+    <ul>
+      <li>¿Dónde se pierde más valor?</li>
+      <li>¿Dónde se concentran demasiadas decisiones?</li>
+      <li>¿Dónde se excluye a ciertos actores (jóvenes, mujeres, nuevos artesanos)?</li>
+      <li>¿Dónde hay dependencia excesiva de una sola persona o institución?</li>
+    </ul>
 
-    <h3>5. Identificación de palancas de intervención</h3>
+    <p class="subtitulo">Ejemplo de nodos críticos:</p>
+    <ul>
+      <li>La figura del maestro como único responsable de enseñar y decidir qué se produce.</li>
+      <li>La feria anual como único punto fuerte de venta (si se cancela, el sistema colapsa).</li>
+      <li>La familia desmotivando la participación del joven por falta de ingresos inmediatos.</li>
+    </ul>
+
+    <h3>Paso 6. Identificar palancas de cambio</h3>
     <p>
-      Determina dónde una acción de diseño puede generar mayor impacto sistémico.
+      Una palanca es un punto del sistema donde una intervención relativamente acotada puede producir efectos
+      amplios o duraderos. No siempre coincide con el lugar “más visible”.
     </p>
+    <p class="subtitulo">Ejemplos de palancas:</p>
+    <ul>
+      <li>Crear rutas formales de aprendizaje para jóvenes (no depender sólo del maestro individual).</li>
+      <li>Diversificar espacios de venta (no confiar sólo en la feria anual).</li>
+      <li>Fortalecer el reconocimiento comunitario del oficio (reconocimientos, eventos, narrativas).</li>
+      <li>Incorporar apoyo de diseño para mejorar presentación, precios y comunicación de las piezas.</li>
+    </ul>
 
-    <h3>6. Visualización final</h3>
+    <h3>Paso 7. Conectar con otras metodologías de diseño</h3>
     <p>
-      Construye un diagrama claro que pueda compartirse con comunidad, estudiantes o equipo interdisciplinario.
+      Una vez que el sistema está mapeado y se han detectado nodos críticos y palancas, se puede:
     </p>
+    <ul>
+      <li>Usar el <strong>análisis morfológico</strong> para construir escenarios y configuraciones de intervención.</li>
+      <li>Usar <strong>analogías estructuradas</strong> (por ejemplo, “el sistema funciona como una orquesta” o “como una colmena”) para imaginar nuevas formas de organización.</li>
+      <li>Diseñar prototipos de servicios, programas, talleres o políticas públicas a partir de las palancas identificadas.</li>
+    </ul>
 
-    <h3>7. Revisión tras intervención</h3>
-    <p>
-      El sistema cambia con el tiempo; remapea para evaluar efectos reales.
+    <p class="nota">
+      En tesis de posgrado, es clave documentar todos estos pasos con capturas de los mapas, notas de taller y reflexiones,
+      no sólo mostrar el diagrama final.
     </p>
   </section>
 
-  <!-- TAB 3 -->
+  <!-- TAB 3: PLANTILLAS -->
   <section id="tab3" class="tab-content">
     <div class="badge">Plantillas</div>
-    <h2>Herramientas para construir mapas de sistema</h2>
+    <h2>Plantillas de trabajo para mapeo de sistemas</h2>
+    <p>
+      Estas plantillas pueden imprimirse o copiarse en documentos digitales para guiar el trabajo de estudiantes
+      o equipos de investigación. Están pensadas como guías, no como formatos rígidos.
+    </p>
 
     <div class="tarjeta">
-      <h3>A. Listado de elementos</h3>
-      <p>Utiliza esta guía:</p>
+      <h3>Plantilla 1. Delimitación del sistema</h3>
+      <p class="subtitulo">Nombre del sistema</p>
+      <p>“Sistema de ________________________________________________”</p>
+
+      <p class="subtitulo">Límites</p>
       <ul>
-        <li>Actores clave: __________________________</li>
-        <li>Recursos: _______________________________</li>
-        <li>Procesos: _______________________________</li>
-        <li>Barreras: _______________________________</li>
-        <li>Resultados: _____________________________</li>
+        <li>Espacio geográfico considerado: ________________________________</li>
+        <li>Grupos poblacionales clave: ____________________________________</li>
+        <li>Qué se incluye explícitamente: _________________________________</li>
+        <li>Qué se deja fuera (y por qué): _________________________________</li>
       </ul>
     </div>
 
     <div class="tarjeta">
-      <h3>B. Matriz de relaciones</h3>
+      <h3>Plantilla 2. Listado de elementos del sistema</h3>
+      <p>
+        Complete con la información derivada de entrevistas, observación y revisión de fuentes.
+      </p>
       <table>
-        <tr><th>Elemento</th><th>Conecta con</th><th>Tipo de flujo</th><th>Dirección</th></tr>
-        <tr><td>________</td><td>________</td><td>Recurso / Información / Influencia</td><td>→ / ← / ↔</td></tr>
-        <tr><td>________</td><td>________</td><td>Recurso / Información / Influencia</td><td>→ / ← / ↔</td></tr>
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Elemento</th>
+            <th>Descripción breve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Actor</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>Recurso</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>Proceso</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>Barrera</td><td>________________</td><td>______________________________</td></tr>
+          <tr><td>Resultado</td><td>________________</td><td>______________________________</td></tr>
+        </tbody>
       </table>
     </div>
 
     <div class="tarjeta">
-      <h3>C. Nodos y palancas</h3>
+      <h3>Plantilla 3. Matriz de relaciones y flujos</h3>
+      <p>
+        Esta matriz ayuda a ordenar las relaciones antes de dibujar el mapa visual.
+      </p>
       <table>
-        <tr><th>Nodo crítico</th><th>Descripción</th><th>Palanca posible</th></tr>
-        <tr><td>______</td><td>______</td><td>______</td></tr>
+        <thead>
+          <tr>
+            <th>Elemento origen</th>
+            <th>Elemento destino</th>
+            <th>Tipo de relación / flujo</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>Aprendizaje / Económica / Poder / Cuidado / Otra</td>
+            <td>________________________________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>Aprendizaje / Económica / Poder / Cuidado / Otra</td>
+            <td>________________________________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>Aprendizaje / Económica / Poder / Cuidado / Otra</td>
+            <td>________________________________________</td>
+          </tr>
+        </tbody>
       </table>
     </div>
+
+    <div class="tarjeta">
+      <h3>Plantilla 4. Nodos críticos y palancas de cambio</h3>
+      <p>
+        Use esta plantilla para sintetizar hallazgos clave del mapa.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Nodo crítico</th>
+            <th>¿Por qué es crítico?</th>
+            <th>Posibles palancas de intervención</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+          <tr>
+            <td>________________</td>
+            <td>________________</td>
+            <td>________________</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="resaltado">
+      Sugerencia didáctica: combine estas plantillas con sesiones de trabajo en pizarrón o papel kraft,
+      donde los mapas se construyen de manera colectiva y luego se pasan a limpio para el reporte de investigación.
+    </p>
   </section>
 
-  <!-- TAB 4 -->
+  <!-- TAB 4: EJEMPLO APLICADO -->
   <section id="tab4" class="tab-content">
     <div class="badge">Ejemplo aplicado</div>
-    <h2>Relevo generacional en artesanía</h2>
+    <h2>Ejemplo aplicado: relevo generacional en artesanía</h2>
 
-    <h3>1. Elementos identificados</h3>
-    <ul>
-      <li>Actores: jóvenes, maestros artesanos, autoridades, compradores.</li>
-      <li>Recursos: talleres, herramientas, ferias, redes.</li>
-      <li>Procesos: aprendizaje, producción, venta.</li>
-      <li>Barreras: ingresos bajos, migración, estigma social.</li>
-    </ul>
-
-    <h3>2. Flujos principales</h3>
     <p>
-      Maestro → joven: transferencia de saber.  
-      Joven → feria: piezas para venta.  
-      Feria → ingreso: estabilidad económica.
+      A continuación se presenta un ejemplo narrado de uso del mapeo de sistemas en un problema social concreto:
+      la disminución del relevo generacional en una comunidad artesanal.
     </p>
 
-    <h3>3. Nodos y palancas</h3>
-    <table>
-      <tr><th>Nodo crítico</th><th>Palanca</th></tr>
-      <tr><td>Baja valoración social</td><td>Programas de visibilización juvenil</td></tr>
-      <tr><td>Falta de continuidad</td><td>Trayectorias formativas</td></tr>
-    </table>
-  </section>
+    <h3>1. Delimitación del sistema</h3>
+    <p>
+      Se define el sistema como:
+    </p>
+    <p class="resaltado">
+      “Sistema de formación, producción y comercialización de artesanía de la comunidad Y,
+      con énfasis en jóvenes de 15 a 25 años que podrían convertirse en relevo generacional.”
+    </p>
 
+    <h3>2. Elementos identificados</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Elemento</th>
+          <th>Descripción breve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Actor</td>
+          <td>Jóvenes aprendices</td>
+          <td>Personas de 15–25 años interesadas o potencialmente interesadas en la artesanía.</td>
+        </tr>
+        <tr>
+          <td>Actor</td>
+          <td>Maestro artesano</td>
+          <td>Persona reconocida en la comunidad por dominar la técnica y dirigir el taller.</td>
+        </tr>
+        <tr>
+          <td>Actor</td>
+          <td>Familias</td>
+          <td>Madres/padres o cuidadores que apoyan o desmotivan la participación juvenil.</td>
+        </tr>
+        <tr>
+          <td>Actor</td>
+          <td>Autoridad municipal de cultura</td>
+          <td>Instancia que organiza ferias, otorga apoyos y decide programas culturales.</td>
+        </tr>
+        <tr>
+          <td>Recurso</td>
+          <td>Taller</td>
+          <td>Espacio físico donde se produce, se enseña y se almacenan herramientas.</td>
+        </tr>
+        <tr>
+          <td>Recurso</td>
+          <td>Feria anual</td>
+          <td>Principal espacio de venta y visibilidad ante turistas y compradores externos.</td>
+        </tr>
+        <tr>
+          <td>Barrera</td>
+          <td>Ingresos bajos</td>
+          <td>La venta de piezas no garantiza un ingreso constante o suficiente.</td>
+        </tr>
+        <tr>
+          <td>Barrera</td>
+          <td>Estigma</td>
+          <td>Percepción de que la artesanía es un oficio “poco moderno” o “de bajo prestigio”.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3. Relaciones y flujos clave</h3>
+    <p>
+      A partir de entrevistas y observación, se identifican las siguientes relaciones:
+    </p>
+    <ul>
+      <li>El maestro artesano enseña a jóvenes de la comunidad en su taller (relación de aprendizaje y poder).</li>
+      <li>Los jóvenes apoyan en tareas de producción, pero rara vez participan en la decisión de qué piezas se hacen (relación de trabajo subordinado).</li>
+      <li>La familia del joven influye en su decisión de asistir al taller o priorizar otros trabajos o estudios (relación de apoyo o bloqueo).</li>
+      <li>La autoridad municipal coordina la feria anual, donde el maestro vende las piezas; los jóvenes aparecen más como ayudantes que como autores reconocidos.</li>
+      <li>Algunos jóvenes migran o buscan empleo en la ciudad, saliendo del sistema artesanal local.</li>
+    </ul>
+
+    <h3>4. Nodos críticos detectados</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nodo crítico</th>
+          <th>¿Por qué es crítico?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dependencia del maestro como único formador</td>
+          <td>Si el maestro enferma, se retira o se desmotiva, el flujo de aprendizaje se interrumpe.</td>
+        </tr>
+        <tr>
+          <td>Feria anual como único punto fuerte de venta</td>
+          <td>Concentra el ingreso en un solo evento; si se cancela o baja la afluencia, la economía del taller se resiente.</td>
+        </tr>
+        <tr>
+          <td>Ausencia de reconocimiento a jóvenes autores</td>
+          <td>Al no figurar como creadores, los jóvenes no construyen identidad ni orgullo alrededor del oficio.</td>
+        </tr>
+        <tr>
+          <td>Falta de trayectorias claras de aprendizaje</td>
+          <td>La formación de jóvenes es informal, sin niveles reconocidos ni perspectiva a futuro.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>5. Palancas de cambio propuestas desde el diseño</h3>
+    <p>
+      A partir del mapa y los nodos críticos, se proponen palancas de intervención:
+    </p>
+    <ul>
+      <li>
+        <strong>Diseñar trayectorias formativas</strong> en niveles (inicial, intermedio, avanzado, joven mentor),
+        con reconocimiento dentro de la comunidad y en documentos oficiales del programa.
+      </li>
+      <li>
+        <strong>Diversificar canales de venta</strong>: no depender sólo de la feria anual, sino explorar venta local frecuente
+        y venta mediada por plataformas digitales gestionadas por jóvenes.
+      </li>
+      <li>
+        <strong>Visibilizar la autoría juvenil</strong>: firmar piezas, hacer pequeñas exposiciones donde el nombre del joven aparezca,
+        incluir sus historias y fotografías.
+      </li>
+      <li>
+        <strong>Involucrar a las familias</strong> en eventos de presentación y reconocimiento, para modificar la percepción
+        de la artesanía como “oficio de poco futuro”.
+      </li>
+    </ul>
+
+    <h3>6. Conexión con el análisis morfológico</h3>
+    <p>
+      Una vez identificado este conjunto de palancas, se puede construir una
+      <strong>parrilla morfológica</strong> donde:
+    </p>
+    <ul>
+      <li>Las variables sean, por ejemplo: “modelo de aprendizaje”, “formatos de venta”, “rol del joven”, “vínculo con la familia”.</li>
+      <li>Las opciones para cada variable se inspiren en el mapa de sistema y en las palancas detectadas.</li>
+      <li>Se generen configuraciones de intervención (programas, servicios, estrategias) coherentes con la realidad del sistema.</li>
+    </ul>
+
+    <p class="resaltado">
+      En conjunto, el mapeo de sistemas funciona como “radiografía” del contexto;  
+      el análisis morfológico, como “laboratorio” de combinaciones posibles de intervención.
+      Ambos pueden documentarse como parte central de la metodología en tesis de posgrado.
+    </p>
+  </section>
 </div>
 
 <footer>
-  <span>Sitio sobre mapeo de sistemas aplicado al diseño social.</span>
+  <span>Sitio sobre mapeo de sistemas aplicado a investigación social desde el diseño.</span>
   <span>Crédito: Dr. Iroel Heredia, 2025.</span>
 </footer>
 
 <script>
-const buttons = document.querySelectorAll(".tab-button");
-const tabs = document.querySelectorAll(".tab-content");
+  const tabButtons = document.querySelectorAll(".tab-button");
+  const tabContents = document.querySelectorAll(".tab-content");
 
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    buttons.forEach(b => b.classList.remove("active"));
-    tabs.forEach(t => t.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById(btn.dataset.tab).classList.add("active");
+  tabButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const target = button.getAttribute("data-tab");
+      tabButtons.forEach(b => b.classList.remove("active"));
+      tabContents.forEach(t => t.classList.remove("active"));
+      button.classList.add("active");
+      document.getElementById(target).classList.add("active");
+    });
   });
-});
 </script>
 
 </body>
