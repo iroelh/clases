@@ -1,11 +1,10 @@
-# Introducción a la realidad aumentada y realidad virtual en el diseño · 2027-1
+# Introducción a la realidad aumentada y realidad virtual en el diseño — 2027-1
 
-Sitio estático de la asignatura listo para GitHub Pages.
+Sitio estático preparado para GitHub Pages.
 
-- `index.html`: portada, enfoque, calendario de clases y criterios de acreditación.
-- `clases/01.html`: primera clase desarrollada.
-- `clases/02.html` a `clases/16.html`: páginas en construcción para desarrollo progresivo.
-- `style.css`: identidad visual basada en azul y oro UNAM, diseño responsivo.
-- `site.js`: navegación móvil.
+## Publicación
+Sube **el contenido de esta carpeta** a la raíz del repositorio: `index.html`, `style.css`, `site.js`, las páginas `clase-01.html` a `clase-16.html` y la carpeta `assets`.
 
-Criterios incorporados: mínimo 80% de asistencia, entrega de evidencias y trabajos de clase.
+No cambies los nombres ni muevas las páginas de clase a otra carpeta, porque los enlaces son relativos.
+
+En GitHub: **Settings → Pages → Deploy from a branch → main / root**.
