@@ -1,265 +1,85 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Metodologías de Investigación desde el Diseño</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    :root {
-      --azul-rey: #12326f;
-      --azul-medio: #1f4fa3;
-      --azul-claro: #e3ecff;
-      --gris-claro: #f5f5f5;
-      --gris-medio: #d1d5db;
-      --gris-texto: #333333;
-      --blanco: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e6efff 0, #f7f7f9 50%, #f2f2f4 100%);
-      color: var(--gris-texto);
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--azul-rey), var(--azul-medio));
-      color: var(--blanco);
-      padding: 1.6rem 1.5rem 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    .logo-wrapper img {
-      max-height: 70px;
-      border-radius: 0.4rem;
-      background: #ffffff22;
-      padding: 0.3rem 0.45rem;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1.9rem;
-      font-weight: 700;
-    }
-
-    header p {
-      margin: 0.4rem 0 0;
-      max-width: 850px;
-      font-size: 0.98rem;
-      opacity: 0.95;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 1.8rem auto 2.5rem;
-      padding: 0 1rem;
-    }
-
-    .intro-box {
-      background: var(--blanco);
-      border-radius: 0.8rem;
-      border: 1px solid var(--gris-medio);
-      padding: 1.2rem 1.3rem;
-      margin-bottom: 1.4rem;
-      box-shadow: 0 4px 10px rgba(15,23,42,0.06);
-    }
-
-    .intro-box h2 {
-      margin-top: 0;
-      font-size: 1.3rem;
-      color: var(--azul-rey);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-      margin-top: 0.8rem;
-    }
-
-    .card {
-      background: var(--blanco);
-      border-radius: 0.9rem;
-      border: 1px solid var(--gris-medio);
-      padding: 1.2rem 1.2rem 1.4rem;
-      box-shadow: 0 4px 12px rgba(15,23,42,0.08);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card h3 {
-      margin: 0 0 0.4rem;
-      font-size: 1.1rem;
-      color: var(--azul-rey);
-    }
-
-    .badge {
-      display: inline-block;
-      background: var(--azul-claro);
-      color: var(--azul-rey);
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
-    }
-
-    .card p {
-      font-size: 0.92rem;
-      margin: 0.2rem 0 0.7rem;
-    }
-
-    .tags {
-      font-size: 0.8rem;
-      color: #555;
-      margin-bottom: 0.8rem;
-    }
-
-    .button-row {
-      margin-top: auto;
-    }
-
-    .btn-link {
-      display: inline-block;
-      text-decoration: none;
-      background: var(--azul-rey);
-      color: var(--blanco);
-      padding: 0.55rem 0.9rem;
-      border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.08s ease;
-    }
-
-    .btn-link:hover {
-      background: var(--azul-medio);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--azul-rey);
-      border: 1px solid var(--azul-rey);
-      margin-left: 0.35rem;
-    }
-
-    .btn-secondary:hover {
-      background: var(--azul-claro);
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #6b6b6b;
-      padding: 0.5rem 0 1.8rem;
-    }
-
-    footer span {
-      display: block;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        padding: 1.2rem 1rem 1.6rem;
-      }
-      .header-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      header h1 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Introducción a la realidad aumentada y realidad virtual en el diseño · 2027-1</title>
+<meta content="Sitio de la asignatura Temas Selectos: Introducción a la realidad aumentada y realidad virtual en el diseño, semestre 2027-1." name="description"/>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-
-<header>
-  <div class="header-inner">
-    <div class="logo-wrapper">
-      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="Logo">
-    </div>
-    <div>
-      <h1>Metodologías de Investigación desde el Diseño</h1>
-      <p>
-        Índice de herramientas metodológicas para el análisis y diseño de intervenciones en problemas sociales complejos:
-        análisis morfológico y mapeo de sistemas.
-      </p>
-    </div>
-  </div>
-</header>
-
-<div class="container">
-  <div class="intro-box">
-    <h2>Selecciona la metodología</h2>
-    <p>
-      Este índice reúne materiales diseñados para cursos de creatividad, investigación y diseño social en nivel posgrado.
-      Cada módulo presenta fundamentos teóricos, uso en investigación y plantillas listas para aplicar en proyectos de tesis o campo.
-    </p>
-  </div>
-
-  <div class="grid">
-    <!-- Tarjeta Análisis Morfológico -->
-    <article class="card">
-      <div>
-        <div class="badge">Método 01</div>
-        <h3>Análisis Morfológico aplicado a Problemas Sociales</h3>
-        <p>
-          Explora problemas complejos mediante la construcción de parrillas morfológicas: definición de variables,
-          generación de opciones y diseño de configuraciones de intervención en contextos sociales, artesanales y comunitarios.
-        </p>
-        <p class="tags">
-          Variables · Parrillas · Configuraciones · Artesanía · Relevo generacional
-        </p>
-      </div>
-      <div class="button-row">
-        <a class="btn-link" href="morfologico.html">Abrir sitio de Análisis Morfológico</a>
-      </div>
-    </article>
-
-    <!-- Tarjeta Mapeo de Sistemas -->
-    <article class="card">
-      <div>
-        <div class="badge">Método 02</div>
-        <h3>Mapeo de Sistemas para la Investigación Social</h3>
-        <p>
-          Representa actores, flujos, barreras y resultados dentro de un sistema social. Identifica nodos críticos y
-          palancas de cambio para orientar decisiones de diseño y estrategias de intervención a mediano y largo plazo.
-        </p>
-        <p class="tags">
-          Sistemas · Flujos · Nodos críticos · Palancas · Diseño social
-        </p>
-      </div>
-      <div class="button-row">
-        <a class="btn-link" href="sistemas.html">Abrir sitio de Mapeo de Sistemas</a>
-      </div>
-    </article>
-  </div>
+<header class="site-header">
+<div class="institutional-bar"><div class="institutional-inner"><span class="unam-mark">UNAM</span><span class="institutional-divider"></span><span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span></div></div>
+<div class="header-inner">
+<p class="kicker">Temas Selectos · Semestre 2027-1</p>
+<h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
+<p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
 </div>
-
-<footer>
-  <span>Suite de metodologías de investigación desde el diseño.</span>
-  <span>Crédito: Dr. Iroel Heredia, 2025.</span>
-</footer>
-
-</body>
+</header>
+<nav aria-label="Navegación principal" class="navbar">
+<div class="nav-inner">
+<a class="nav-brand" href="index.html">RA · RV</a>
+<button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button"><span class="menu-icon"></span></button>
+<div class="nav-links" id="primary-menu">
+<a href="index.html">Inicio</a><a href="index.html#enfoque">Enfoque</a><a href="index.html#clases">Clases</a><a href="index.html#acreditacion">Acreditación</a>
+</div>
+</div>
+</nav>
+<main>
+<section class="hero-grid">
+<article class="card">
+<span class="pill">Viernes · 12:00–14:00</span><span class="pill">16 sesiones</span><span class="pill">Laboratorio</span>
+<h2>Propósito de la asignatura</h2>
+<p>Explorar la realidad aumentada, virtual y mixta como <strong>instrumentos de investigación en Diseño Industrial</strong>. El curso no se centra en dominar software específico, sino en reconocer cuándo una tecnología XR permite estudiar, simular, experimentar o evaluar fenómenos de diseño de una manera que no sería posible —o sería mucho más limitada— mediante renders, animaciones o modelos 3D convencionales.</p>
+<div class="callout"><strong>Pregunta guía del semestre:</strong><br/>¿Qué puedo investigar mediante RA/RV que sería difícil, costoso, imposible o metodológicamente menos controlable estudiar de otra manera?</div>
+</article>
+<aside class="card">
+<h3>Datos generales</h3>
+<div class="meta">
+<div><strong>Semestre</strong>2027-1</div>
+<div><strong>Modalidad</strong>Presencial + 2 sesiones asincrónicas</div>
+<div><strong>Campo</strong>Diseño Industrial</div>
+<div><strong>Eje</strong>Investigación mediante XR</div>
+</div>
+<p class="small" style="margin-top:16px">Las sesiones del 6 y 13 de noviembre son asincrónicas.</p>
+</aside>
+</section>
+<section id="enfoque">
+<h2 class="section-title">Enfoque del laboratorio</h2>
+<div class="two-col">
+<div class="card"><h3>No es un curso de representación 3D</h3><p>Un render permite observar. Una animación permite observar una secuencia. Un modelo 3D permite inspeccionar geometría. Una experiencia XR permite <strong>habitar, actuar, responder y observar consecuencias</strong>.</p></div>
+<div class="card"><h3>Ciclo de investigación</h3><p><strong>Simular → interactuar → observar → medir → interpretar → rediseñar.</strong></p><p>Las herramientas se seleccionan en función de la pregunta y del fenómeno que se desea estudiar.</p></div>
+</div>
+</section>
+<section id="clases">
+<h2 class="section-title">Clases</h2>
+<div class="class-grid">
+<article class="class-card"><span class="number">Clase 1 · 14 agosto</span><h3>De la representación a la experiencia: RA, RV, RM y XR</h3><p>Clase desarrollada: presentación, encuadre, conceptos y actividad inicial.</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/01.html">Abrir clase</a></article>
+<article class="class-card upcoming"><span class="number">Clase 2 · 21 agosto</span><h3>RA/RV como instrumentos de investigación en Diseño Industrial</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/02.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 3 · 28 agosto</span><h3>Realidad Aumentada I: aumentar el mundo físico</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/03.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 4 · 4 septiembre</span><h3>Realidad Aumentada II: interacción situada</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/04.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 5 · 11 septiembre</span><h3>Del mundo físico al virtual: captura y digitalización 3D</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/05.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 6 · 18 septiembre</span><h3>El cuerpo como interfaz: ergonomía e interacción en XR</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/06.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 7 · 25 septiembre</span><h3>Unreal Engine I: escenarios virtuales controlados</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/07.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 8 · 2 octubre</span><h3>Unreal Engine II: interacción y consecuencia</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/08.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 9 · 9 octubre</span><h3>FrameVR I: construcción de espacios desde la plataforma</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/09.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 10 · 16 octubre</span><h3>FrameVR II: Rhino → entorno inmersivo</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/10.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 11 · 23 octubre</span><h3>Simulación XR como laboratorio de investigación en Diseño Industrial</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/11.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 12 · 30 octubre</span><h3>IA + XR: prototipado de escenarios y futuros</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/12.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 13 · 6 noviembre</span><h3>Cómo evaluar una experiencia XR: SUS, UEQ-S e IPQ</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-async">Asincrónica</span></div><a class="button" href="clases/13.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 14 · 13 noviembre</span><h3>Diseño de una prueba piloto XR</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-async">Asincrónica</span></div><a class="button" href="clases/14.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 15 · 20 noviembre</span><h3>Laboratorio de prueba piloto y rediseño</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/15.html">Ver ficha</a></article>
+<article class="class-card upcoming"><span class="number">Clase 16 · 27 noviembre</span><h3>Presentación final: XR como instrumento de investigación</h3><p class="construction-text">Vuelve pronto, en construcción</p><div class="spacer"></div><div><span class="pill tag-live">Presencial</span></div><a class="button" href="clases/16.html">Ver ficha</a></article>
+</div>
+</section>
+<section id="acreditacion"><h2 class="section-title">Acreditación y evidencias</h2><div class="card"><p>La asignatura se trabaja como laboratorio: cada sesión genera observaciones, ejercicios o productos que documentan el proceso de aprendizaje y alimentan el proyecto final.</p></div><div class="requirements-grid">
+<div class="requirement"><div class="big">80%</div><strong>Asistencia mínima</strong><span>Se requiere al menos 80% de asistencia para acreditar la asignatura.</span></div>
+<div class="requirement"><strong>Evidencias</strong><span>Entrega de las evidencias solicitadas durante el desarrollo de las sesiones.</span></div>
+<div class="requirement"><strong>Trabajos de clase</strong><span>Realización y entrega de los ejercicios, prácticas y trabajos desarrollados en el laboratorio.</span></div>
+</div>
+<div class="callout gold"><strong>Entrega final:</strong> problema → pregunta → por qué XR → prototipo → interacción → prueba → resultados → hallazgo → decisión de rediseño.</div></section>
+</main>
+<footer>Temas Selectos · Introducción a la realidad aumentada y realidad virtual en el diseño · 2027-1</footer>
+<script src="site.js"></script></body>
 </html>
