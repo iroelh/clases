@@ -1,22 +1,1113 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Clase 14 · Diseño de una prueba piloto XR</title><link href="style.css" rel="stylesheet"/></head><body><header class="site-header">
-<div class="institutional-bar"><div class="institutional-inner"><span class="unam-mark">UNAM</span><span class="institutional-divider"></span><span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span></div></div>
-<div class="header-inner">
-<p class="kicker">Temas Selectos · Semestre 2027-1</p>
-<h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
-<p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
-</div>
-</header><nav aria-label="Navegación principal" class="navbar">
-<div class="nav-inner">
-<a class="nav-brand" href="index.html">RA · RV</a>
-<button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button"><span class="menu-icon"></span></button>
-<div class="nav-links" id="primary-menu">
-<a href="index.html">Inicio</a><a href="index.html#enfoque">Enfoque</a><a href="index.html#clases">Clases</a><a href="index.html#acreditacion">Acreditación</a>
-</div>
-</div>
-</nav><main>
-<div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 14</div>
-<section class="lesson-header"><div><span class="pill tag-async">Asincrónica</span><span class="pill">13 noviembre</span><h1>Diseño de una prueba piloto XR</h1><p class="subtitle" style="color:var(--muted)">Vuelve pronto, en construcción</p></div></section>
-<div class="card construction-panel"><div class="construction-mark"></div><h2>Vuelve pronto, en construcción</h2><p>Esta sesión se irá desarrollando conforme avance el semestre. Aquí aparecerán objetivos, contenidos, práctica de laboratorio, recursos y evidencias de aprendizaje.</p></div>
-<div style="margin-top:30px"><a class="button" href="index.html#clases">← Volver a clases</a></div>
-</main><footer>Clase 14 · 2027-1</footer><script src="site.js"></script></body></html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Clase 14 · Diseño de una prueba piloto XR: protocolo experimental en Realidad Mixta</title>
+<link href="style.css" rel="stylesheet"/>
+
+<style>
+  .method-card {
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+    margin:24px 0;
+  }
+
+  .method-head {
+    background:#013b75;
+    color:#fff;
+    padding:18px 20px;
+  }
+
+  .method-head h3 {
+    color:#fff;
+    margin:0 0 4px;
+  }
+
+  .method-head p {
+    margin:0;
+    opacity:.9;
+  }
+
+  .method-body { padding:20px; }
+
+  .step-block {
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:14px;
+    align-items:start;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .step-block:last-child { border-bottom:0; }
+
+  .step-number {
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#d9a500;
+    color:#102a43;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+  }
+
+  .step-block h4 {
+    margin:0 0 6px;
+    color:#013b75;
+    font-size:1rem;
+  }
+
+  .async-banner {
+    margin:22px 0;
+    padding:20px;
+    border-radius:16px;
+    background:#eef5fb;
+    border-left:6px solid #013b75;
+  }
+
+  .async-banner strong { color:#013b75; }
+
+  .process-strip {
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:8px;
+    margin:18px 0;
+  }
+
+  .process-step {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px 8px;
+    text-align:center;
+    background:#fff;
+    font-size:.88rem;
+  }
+
+  .process-step strong {
+    display:block;
+    color:#013b75;
+    font-size:1rem;
+    margin-bottom:4px;
+  }
+
+  .decision-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin:18px 0;
+  }
+
+  .decision-card {
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px;
+    background:#fff;
+  }
+
+  .decision-card h3 {
+    color:#013b75;
+    margin-top:0;
+  }
+
+  .formula {
+    margin:12px 0;
+    padding:14px 16px;
+    border-radius:12px;
+    background:#f2f6fa;
+    border:1px solid var(--line);
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    line-height:1.65;
+  }
+
+  .experiment-map {
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    gap:14px;
+    align-items:stretch;
+    margin:22px 0;
+  }
+
+  .condition-box {
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:20px;
+    background:#fff;
+  }
+
+  .condition-box h3 {
+    color:#013b75;
+    margin-top:0;
+  }
+
+  .vs {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    color:#d9a500;
+    font-size:1.6rem;
+  }
+
+  .example-panel {
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+    background:#fff;
+    margin:24px 0;
+  }
+
+  .example-head {
+    background:linear-gradient(135deg,#013b75,#06274b);
+    color:#fff;
+    padding:20px;
+  }
+
+  .example-head h3 {
+    color:#fff;
+    margin:0 0 6px;
+  }
+
+  .example-body { padding:22px; }
+
+  .protocol-table td:first-child {
+    width:24%;
+    font-weight:800;
+    color:#013b75;
+  }
+
+  .warning-card {
+    border-left:4px solid #d9a500;
+  }
+
+  .submission-box {
+    border:2px solid #013b75;
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+  }
+
+  .submission-head {
+    padding:17px 20px;
+    background:#013b75;
+    color:#fff;
+  }
+
+  .submission-head h3 {
+    margin:0;
+    color:#fff;
+  }
+
+  .submission-body { padding:20px; }
+
+  .check-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:18px 0;
+  }
+
+  .check-card {
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:16px;
+    background:#fff;
+  }
+
+  .check-card h3 {
+    color:#013b75;
+    margin-top:0;
+  }
+
+  @media(max-width:900px) {
+    .process-strip { grid-template-columns:repeat(4,1fr); }
+  }
+
+  @media(max-width:820px) {
+    .decision-grid,.experiment-map,.check-grid { grid-template-columns:1fr; }
+    .vs { min-height:36px; }
+    .process-strip { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="institutional-bar">
+    <div class="institutional-inner">
+      <span class="unam-mark">UNAM</span>
+      <span class="institutional-divider"></span>
+      <span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span>
+    </div>
+  </div>
+
+  <div class="header-inner">
+    <p class="kicker">Temas Selectos · Semestre 2027-1</p>
+    <h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
+    <p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
+  </div>
+</header>
+
+<nav aria-label="Navegación principal" class="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">RA · RV</a>
+    <button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button">
+      <span class="menu-icon"></span>
+    </button>
+    <div class="nav-links" id="primary-menu">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#enfoque">Enfoque</a>
+      <a href="index.html#clases">Clases</a>
+      <a href="index.html#acreditacion">Acreditación</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 14</div>
+
+  <section class="lesson-header">
+    <div>
+      <span class="pill">Asincrónica</span>
+      <span class="pill">13 de noviembre</span>
+
+      <h1>Diseño de una prueba piloto XR: protocolo experimental en Realidad Mixta</h1>
+
+      <p class="subtitle" style="color:var(--muted)">
+        Planeación metodológica de la entrega final:
+        una experiencia de Realidad Mixta diseñada para responder una pregunta de investigación mediante interacción, observación y evaluación.
+      </p>
+    </div>
+  </section>
+
+  <div class="async-banner">
+    <strong>Sesión asincrónica.</strong>
+    Esta clase no consiste en construir todavía el experimento.
+    Tu objetivo es dejar definido un protocolo suficientemente claro para que otra persona
+    pudiera ejecutar la prueba siguiendo únicamente tus instrucciones.
+  </div>
+
+  <div class="callout">
+    <strong>Pregunta de la sesión:</strong>
+    ¿cómo transformamos una experiencia de Realidad Mixta en un experimento
+    capaz de producir evidencia útil para una decisión de Diseño Industrial?
+  </div>
+
+  <section>
+    <h2 class="section-title">Objetivos de aprendizaje</h2>
+
+    <div class="card">
+      <ul class="tight">
+        <li>Formular una pregunta de investigación abordable mediante Realidad Mixta.</li>
+        <li>Distinguir fenómeno, variable, condición, tarea, indicador e instrumento.</li>
+        <li>Diseñar una comparación experimental sencilla.</li>
+        <li>Definir qué parte de la experiencia debe permanecer constante y qué parte debe variar.</li>
+        <li>Seleccionar datos conductuales, cualitativos y un instrumento estandarizado de evaluación.</li>
+        <li>Definir participantes, procedimiento, condiciones de seguridad y criterios de detención.</li>
+        <li>Construir un plan de análisis descriptivo adecuado para una prueba piloto.</li>
+        <li>Preparar el protocolo que será probado y ajustado en la Clase 15.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">1. La entrega final no es “una experiencia de RM”</h2>
+
+    <p>
+      A lo largo del curso has construido modelos, utilizado WebAR, trabajado con captura 3D,
+      estudiado ergonomía, construido escenarios en Unreal Engine, creado interacciones,
+      utilizado FrameVR y aplicado instrumentos de evaluación.
+    </p>
+
+    <p>
+      La entrega final debe integrar esas capacidades alrededor de una
+      <strong>pregunta investigable</strong>.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>No es suficiente</h3>
+        <p>“Voy a hacer una experiencia donde aparezca un objeto en Realidad Mixta”.</p>
+      </div>
+
+      <div class="card">
+        <h3>Necesitamos</h3>
+        <p>“Voy a utilizar Realidad Mixta para comparar dos condiciones y observar si modifican una conducta o percepción relevante para el diseño”.</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      La tecnología no es la pregunta.
+      <strong>La RM es el medio experimental.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">2. ¿Qué consideraremos Realidad Mixta para la entrega?</h2>
+
+    <p>
+      Para esta actividad, la experiencia debe establecer una relación significativa
+      entre el <strong>mundo físico</strong> y una <strong>capa digital</strong>.
+    </p>
+
+    <div class="decision-grid">
+      <div class="decision-card">
+        <h3>Puede incluir</h3>
+        <ul class="tight">
+          <li>Objeto físico + información o geometría digital superpuesta.</li>
+          <li>Espacio físico + objeto futuro en RA.</li>
+          <li>Producto físico + instrucciones digitales situadas.</li>
+          <li>Entorno físico + zona de riesgo simulada.</li>
+          <li>Prototipo físico parcial + componentes virtuales.</li>
+          <li>Interacción corporal donde el contexto real afecte la tarea.</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h3>No basta con</h3>
+        <ul class="tight">
+          <li>Mostrar un modelo 3D sin tarea.</li>
+          <li>Usar RA sólo como “visor”.</li>
+          <li>Presentar una animación sin interacción situada.</li>
+          <li>Generar una imagen con IA.</li>
+          <li>Construir un escenario atractivo sin una pregunta.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      Si eliminar el entorno físico no cambia sustancialmente la tarea,
+      probablemente todavía no estás utilizando la RM como instrumento experimental.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">3. El protocolo completo</h2>
+
+    <div class="process-strip">
+      <div class="process-step"><strong>1</strong>Problema</div>
+      <div class="process-step"><strong>2</strong>Pregunta</div>
+      <div class="process-step"><strong>3</strong>Variable</div>
+      <div class="process-step"><strong>4</strong>Condiciones</div>
+      <div class="process-step"><strong>5</strong>Tarea</div>
+      <div class="process-step"><strong>6</strong>Datos</div>
+      <div class="process-step"><strong>7</strong>Evaluación</div>
+      <div class="process-step"><strong>8</strong>Interpretación</div>
+    </div>
+
+    <div class="callout gold">
+      La calidad del experimento no depende de cuántas variables incorpores.
+      Para esta entrega es preferible <strong>una comparación sencilla y bien controlada</strong>
+      que un sistema complejo que no puedas interpretar.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">4. Paso 1 · Define el problema de Diseño Industrial</h2>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>PASO 1 · Problema</h3>
+        <p>Comienza fuera de la tecnología.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Describe una situación observable</h4>
+            <p>Evita empezar con “quiero usar RA”. Describe primero una dificultad, decisión, conflicto o incertidumbre relacionada con un producto, espacio, interacción o servicio.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Identifica a quién afecta</h4>
+            <p>Usuario, operador, visitante, estudiante, cuidador, técnico, diseñador, etc.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Identifica la decisión de diseño</h4>
+            <p>¿Qué deberíamos poder decidir mejor después de realizar el experimento?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula">
+Problema = situación + usuario + decisión de diseño pendiente
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">5. Paso 2 · Formula una pregunta que pueda responderse mediante acción</h2>
+
+    <p>
+      Una buena pregunta para RM no pregunta solamente qué opina la persona.
+      Pregunta qué ocurre cuando la persona <strong>hace algo</strong> dentro de una condición.
+    </p>
+
+    <div class="two-col">
+      <div class="card warning-card">
+        <h3>Pregunta débil</h3>
+        <p>¿Les gusta utilizar Realidad Mixta?</p>
+      </div>
+
+      <div class="card">
+        <h3>Pregunta experimental</h3>
+        <p>¿La presentación situada de instrucciones reduce errores de montaje frente a instrucciones mostradas fuera del objeto?</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      La pregunta debe anticipar:
+      <strong>qué cambia, qué hará el participante y qué observaremos.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">6. Paso 3 · Define variable independiente y resultados observables</h2>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>PASO 3 · Variables</h3>
+        <p>Decide qué cambiarás deliberadamente y qué observarás como consecuencia.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Variable independiente</h4>
+            <p>Es la condición que tú modificas. Debe existir al menos en dos niveles para poder comparar.</p>
+            <div class="formula">
+Ejemplo: forma de presentar instrucciones<br/>
+A = instrucciones 2D en pantalla<br/>
+B = instrucciones situadas sobre el objeto mediante RM
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Resultados conductuales</h4>
+            <p>Datos observables durante la tarea: tiempo, errores, omisiones, secuencia, ruta, solicitudes de ayuda, elección.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Resultados de experiencia</h4>
+            <p>Lo que la persona reporta mediante un instrumento o comentario: usabilidad, UX, presencia, dificultad percibida, claridad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>No necesitas muchas variables.</strong>
+      Una variable independiente y dos o tres indicadores bien definidos son suficientes para un piloto sólido.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">7. Paso 4 · Diseña las condiciones A y B</h2>
+
+    <div class="experiment-map">
+      <div class="condition-box">
+        <span class="pill">Condición A</span>
+        <h3>Referencia o control</h3>
+        <p>La forma convencional, actual o de comparación.</p>
+      </div>
+
+      <div class="vs">VS.</div>
+
+      <div class="condition-box">
+        <span class="pill">Condición B</span>
+        <h3>Intervención RM</h3>
+        <p>La condición donde modificas deliberadamente la variable utilizando Realidad Mixta.</p>
+      </div>
+    </div>
+
+    <p>Intenta que todo lo demás permanezca igual:</p>
+
+    <div class="card">
+      <ul class="tight">
+        <li>Mismo objeto o espacio.</li>
+        <li>Misma tarea.</li>
+        <li>Misma dificultad.</li>
+        <li>Mismos pasos.</li>
+        <li>Mismo tiempo disponible.</li>
+        <li>Mismo tipo de instrucciones iniciales.</li>
+        <li>Mismo dispositivo, cuando sea posible.</li>
+      </ul>
+    </div>
+
+    <div class="prompt-box">
+      Si cambias simultáneamente cinco cosas, después no sabrás cuál produjo la diferencia observada.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">8. Paso 5 · Decide cómo asignar las condiciones</h2>
+
+    <div class="decision-grid">
+      <div class="decision-card">
+        <h3>Diseño intra-sujeto</h3>
+        <p>La misma persona prueba A y B.</p>
+        <p><strong>Ventaja:</strong> puedes comparar al participante consigo mismo.</p>
+        <p><strong>Riesgo:</strong> aprende durante la primera condición.</p>
+      </div>
+
+      <div class="decision-card">
+        <h3>Diseño entre-sujetos</h3>
+        <p>Un grupo prueba A y otro B.</p>
+        <p><strong>Ventaja:</strong> evita aprendizaje entre condiciones.</p>
+        <p><strong>Riesgo:</strong> con una muestra pequeña las diferencias entre personas pueden dominar el resultado.</p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      Para el piloto de la Clase 15, con pocos participantes,
+      un diseño intra-sujeto suele ser más práctico.
+      Si utilizas A y B con la misma persona, alterna el orden cuando sea posible:
+      algunos participantes A→B y otros B→A.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">9. Paso 6 · Diseña una tarea medible</h2>
+
+    <p>
+      La tarea debe representar el fenómeno que quieres estudiar y producir un resultado observable.
+    </p>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>En lugar de...</th>
+          <th>Formula...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>“Explora libremente el modelo”.</td>
+          <td>“Localiza tres componentes y realiza la secuencia indicada”.</td>
+        </tr>
+        <tr>
+          <td>“Mira la propuesta”.</td>
+          <td>“Selecciona la ubicación que interfiera menos con la circulación”.</td>
+        </tr>
+        <tr>
+          <td>“Prueba la RA”.</td>
+          <td>“Identifica la ruta segura y llega al punto señalado”.</td>
+        </tr>
+        <tr>
+          <td>“Observa el producto futuro”.</td>
+          <td>“Realiza la tarea de uso y decide dónde debería instalarse”.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prompt-box">
+      Una buena tarea tiene <strong>inicio, acción, criterio de finalización y dato observable</strong>.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">10. Paso 7 · Define qué datos vas a registrar</h2>
+
+    <p>Recupera la lógica trabajada durante el curso:</p>
+
+    <div class="process-strip" style="grid-template-columns:repeat(3,1fr)">
+      <div class="process-step"><strong>HIZO</strong>Conducta</div>
+      <div class="process-step"><strong>EXPERIMENTÓ</strong>Escala estandarizada</div>
+      <div class="process-step"><strong>DIJO</strong>Comentario</div>
+    </div>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Ejemplos</th>
+          <th>Qué responde</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conductual</td>
+          <td>Tiempo, errores, ruta, pasos omitidos, solicitudes de ayuda.</td>
+          <td>Qué ocurrió durante la acción.</td>
+        </tr>
+        <tr>
+          <td>Estandarizado</td>
+          <td>SUS, UEQ-S o IPQ.</td>
+          <td>Cómo fue experimentado un constructo específico.</td>
+        </tr>
+        <tr>
+          <td>Cualitativo</td>
+          <td>Comentario breve o pregunta posterior.</td>
+          <td>Cómo interpreta el participante lo ocurrido.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="section-title">11. Paso 8 · Selecciona el instrumento correcto</h2>
+
+    <div class="decision-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="decision-card">
+        <span class="pill">SUS</span>
+        <h3>Usabilidad</h3>
+        <p>Si quieres saber si el sistema resulta comprensible, consistente y utilizable.</p>
+      </div>
+
+      <div class="decision-card">
+        <span class="pill">UEQ-S</span>
+        <h3>Experiencia</h3>
+        <p>Si necesitas distinguir calidad pragmática y hedónica.</p>
+      </div>
+
+      <div class="decision-card">
+        <span class="pill">IPQ</span>
+        <h3>Presencia</h3>
+        <p>Si tu prueba utiliza un entorno virtual inmersivo y la sensación de presencia es parte de la pregunta.</p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      Para una experiencia de RM basada principalmente en RA,
+      <strong>SUS o UEQ-S suelen ser más apropiados que IPQ</strong>.
+      IPQ fue diseñado principalmente para presencia en entornos virtuales.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">12. Paso 9 · Define participantes</h2>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>PASO 9 · Muestra piloto</h3>
+        <p>El objetivo es comprobar el protocolo antes de la entrega final.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Define quién puede responder tu pregunta</h4>
+            <p>No escribas simplemente “usuarios”. Explica qué características son relevantes: experiencia previa, rol, familiaridad con la tarea, etc.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Piloto inicial: 3–5 personas</h4>
+            <p>En la Clase 15 utilizaremos pocos casos para detectar errores de procedimiento, ambigüedades, problemas de interfaz y fallas de medición.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Utiliza códigos</h4>
+            <p>P01, P02, P03... Evita datos personales innecesarios.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">13. Paso 10 · Escribe el procedimiento como una receta replicable</h2>
+
+    <p>
+      Otra persona debería poder ejecutar tu experimento sin improvisar.
+    </p>
+
+    <div class="card">
+      <ol>
+        <li>Preparar espacio físico y dispositivo.</li>
+        <li>Verificar funcionamiento de la experiencia.</li>
+        <li>Asignar código al participante.</li>
+        <li>Explicar objetivo general sin revelar la respuesta esperada.</li>
+        <li>Explicar seguridad y derecho a detener la participación.</li>
+        <li>Dar instrucciones de la tarea.</li>
+        <li>Iniciar condición A o B según el orden asignado.</li>
+        <li>Registrar tiempo, errores y observaciones.</li>
+        <li>Finalizar condición.</li>
+        <li>Aplicar instrumento correspondiente.</li>
+        <li>Realizar pregunta abierta breve.</li>
+        <li>Repetir segunda condición, si el diseño es intra-sujeto.</li>
+        <li>Registrar incidentes.</li>
+        <li>Finalizar participación.</li>
+      </ol>
+    </div>
+
+    <div class="prompt-box">
+      Si durante la prueba necesitas explicar continuamente qué debe hacer la persona,
+      tu protocolo o tu interfaz todavía necesitan rediseño.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">14. Paso 11 · Seguridad, ergonomía y ética</h2>
+
+    <div class="check-grid">
+      <div class="check-card">
+        <h3>Espacio y cuerpo</h3>
+        <ul class="tight">
+          <li>Zona física libre de obstáculos.</li>
+          <li>Duración razonable.</li>
+          <li>Posturas y alcances no extremos.</li>
+          <li>Sin peligros físicos introducidos para “aumentar realismo”.</li>
+          <li>Posibilidad inmediata de detener la experiencia.</li>
+        </ul>
+      </div>
+
+      <div class="check-card">
+        <h3>Datos y participantes</h3>
+        <ul class="tight">
+          <li>Explicar qué se registrará.</li>
+          <li>No recolectar datos personales innecesarios.</li>
+          <li>Anonimizar resultados.</li>
+          <li>No grabar imagen o voz sin autorización.</li>
+          <li>Interrumpir la prueba ante malestar.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      La simulación de riesgo debe ser <strong>digital</strong>.
+      Nunca se debe crear una situación físicamente peligrosa para hacer la experiencia más convincente.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">15. Paso 12 · Planea el análisis antes de obtener los datos</h2>
+
+    <p>
+      No esperes a tener respuestas para decidir qué harás con ellas.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Datos conductuales</h3>
+        <p>Construye una tabla A/B con tiempo, errores, éxito y observaciones por participante.</p>
+      </div>
+
+      <div class="card">
+        <h3>Instrumento</h3>
+        <p>Calcula SUS, UEQ-S o IPQ siguiendo la metodología de la Clase 13.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Interpretación</h3>
+      <p>
+        Busca convergencias y contradicciones:
+        una persona puede completar más rápido con RM y, al mismo tiempo,
+        reportar mayor complejidad. Esa contradicción es información útil.
+      </p>
+    </div>
+
+    <div class="prompt-box">
+      En el piloto describiremos patrones.
+      Con 3–5 participantes no realizaremos inferencia estadística.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">16. Ejemplo completo · Instrucciones de montaje en Realidad Mixta</h2>
+
+    <div class="example-panel">
+      <div class="example-head">
+        <h3>Experimento de ejemplo</h3>
+        <p>Comparación entre instrucciones convencionales y guía situada mediante RM.</p>
+      </div>
+
+      <div class="example-body">
+        <table class="compare protocol-table">
+          <tbody>
+            <tr>
+              <td>Problema</td>
+              <td>Durante el montaje de un pequeño ensamble, el usuario debe alternar constantemente entre el objeto físico y un instructivo externo, lo que puede producir omisiones y errores.</td>
+            </tr>
+
+            <tr>
+              <td>Pregunta</td>
+              <td>¿La presentación de instrucciones situadas sobre el objeto mediante Realidad Mixta reduce errores y mejora la usabilidad percibida frente a un instructivo 2D?</td>
+            </tr>
+
+            <tr>
+              <td>Hipótesis de trabajo</td>
+              <td>La condición RM producirá menos errores y menor tiempo de ejecución, además de una mayor puntuación SUS.</td>
+            </tr>
+
+            <tr>
+              <td>Variable independiente</td>
+              <td>Forma de presentar las instrucciones.</td>
+            </tr>
+
+            <tr>
+              <td>Condición A</td>
+              <td>Instrucciones 2D mostradas en una pantalla colocada junto al objeto.</td>
+            </tr>
+
+            <tr>
+              <td>Condición B</td>
+              <td>Instrucciones situadas mediante RA/RM: flechas, resaltado del componente y número de paso aparecen relacionados espacialmente con el objeto físico.</td>
+            </tr>
+
+            <tr>
+              <td>Objeto físico</td>
+              <td>Ensamble sencillo de 5–7 componentes claramente diferenciables.</td>
+            </tr>
+
+            <tr>
+              <td>Tarea</td>
+              <td>Completar el ensamble siguiendo seis pasos en el orden correcto.</td>
+            </tr>
+
+            <tr>
+              <td>Indicador 1</td>
+              <td>Tiempo total de montaje.</td>
+            </tr>
+
+            <tr>
+              <td>Indicador 2</td>
+              <td>Número de errores u omisiones.</td>
+            </tr>
+
+            <tr>
+              <td>Indicador 3</td>
+              <td>Número de veces que solicita ayuda.</td>
+            </tr>
+
+            <tr>
+              <td>Instrumento</td>
+              <td>SUS, aplicado después de cada condición o de la interacción que se quiera evaluar explícitamente.</td>
+            </tr>
+
+            <tr>
+              <td>Dato cualitativo</td>
+              <td>“¿En qué momento tuviste mayor duda y por qué?”</td>
+            </tr>
+
+            <tr>
+              <td>Diseño</td>
+              <td>Intra-sujeto. Cada participante realiza ambas condiciones. Alternar A→B y B→A para reducir efecto de aprendizaje.</td>
+            </tr>
+
+            <tr>
+              <td>Piloto</td>
+              <td>4 participantes.</td>
+            </tr>
+
+            <tr>
+              <td>Control</td>
+              <td>Mismo ensamble, mismos pasos, mismo lugar, mismo tiempo máximo y mismas instrucciones iniciales.</td>
+            </tr>
+
+            <tr>
+              <td>Seguridad</td>
+              <td>Componentes ligeros, sin filos ni energía; área despejada; posibilidad de detener inmediatamente la prueba.</td>
+            </tr>
+
+            <tr>
+              <td>Análisis</td>
+              <td>Comparar descriptivamente tiempo, errores y SUS por participante entre A y B. Contrastar con comentarios.</td>
+            </tr>
+
+            <tr>
+              <td>Decisión de diseño</td>
+              <td>Determinar si la guía situada aporta suficiente ventaja para justificar desarrollar una interfaz RM más completa.</td>
+            </tr>
+
+            <tr>
+              <td>Limitación principal</td>
+              <td>El segundo montaje puede resultar más fácil porque la persona ya conoce la secuencia; por ello se alterna el orden de las condiciones.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      Observa que el experimento no intenta demostrar que “la RM es mejor”.
+      Intenta estudiar <strong>si una forma específica de presentar información
+      modifica una tarea concreta bajo condiciones definidas.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">17. Otros temas posibles para la entrega final</h2>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Problema</th>
+          <th>Variable posible</th>
+          <th>Dato observable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ubicación de mobiliario</td>
+          <td>Representación en plano vs. colocación a escala en RM.</td>
+          <td>Elección, tiempo y cambios de posición.</td>
+        </tr>
+        <tr>
+          <td>Señalización de emergencia</td>
+          <td>Señal física vs. señal contextual aumentada.</td>
+          <td>Ruta, tiempo de decisión y errores.</td>
+        </tr>
+        <tr>
+          <td>Mantenimiento</td>
+          <td>Manual convencional vs. indicaciones situadas.</td>
+          <td>Secuencia, omisiones y ayuda solicitada.</td>
+        </tr>
+        <tr>
+          <td>Producto futuro</td>
+          <td>Dos configuraciones de un sistema prospectivo.</td>
+          <td>Elección, compatibilidad espacial y UEQ-S.</td>
+        </tr>
+        <tr>
+          <td>Accesibilidad</td>
+          <td>Dos configuraciones de interfaz o ubicación.</td>
+          <td>Alcance, claridad, error y comentario.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="section-title">18. Entrega de esta clase</h2>
+
+    <div class="submission-box">
+      <div class="submission-head">
+        <h3>Protocolo de experimento final · versión 1</h3>
+      </div>
+
+      <div class="submission-body">
+        <p>Entrega un documento breve que contenga:</p>
+
+        <ol>
+          <li><strong>Título provisional.</strong></li>
+          <li><strong>Problema de Diseño Industrial.</strong></li>
+          <li><strong>Pregunta de investigación.</strong></li>
+          <li><strong>Hipótesis o expectativa de trabajo</strong>, si corresponde.</li>
+          <li><strong>Justificación del uso de Realidad Mixta.</strong></li>
+          <li><strong>Variable independiente.</strong></li>
+          <li><strong>Condición A y condición B.</strong></li>
+          <li><strong>Tarea del participante.</strong></li>
+          <li><strong>Indicadores conductuales.</strong></li>
+          <li><strong>Instrumento estandarizado seleccionado.</strong></li>
+          <li><strong>Pregunta cualitativa breve.</strong></li>
+          <li><strong>Participantes previstos.</strong></li>
+          <li><strong>Procedimiento paso a paso.</strong></li>
+          <li><strong>Medidas de seguridad y ética.</strong></li>
+          <li><strong>Plan de análisis.</strong></li>
+          <li><strong>Una limitación prevista.</strong></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">19. Lista de comprobación antes de entregar</h2>
+
+    <div class="check-grid">
+      <div class="check-card">
+        <h3>Coherencia metodológica</h3>
+        <ul class="tight">
+          <li>□ La pregunta no menciona la tecnología como fin.</li>
+          <li>□ La RM es necesaria para estudiar el fenómeno.</li>
+          <li>□ Tengo una variable claramente identificada.</li>
+          <li>□ A y B difieren principalmente en esa variable.</li>
+          <li>□ La tarea produce datos observables.</li>
+          <li>□ Sé exactamente qué registraré.</li>
+        </ul>
+      </div>
+
+      <div class="check-card">
+        <h3>Viabilidad</h3>
+        <ul class="tight">
+          <li>□ Puedo construir la experiencia con los recursos del curso.</li>
+          <li>□ La prueba puede realizarse en pocos minutos.</li>
+          <li>□ El espacio físico es seguro.</li>
+          <li>□ El instrumento corresponde a mi pregunta.</li>
+          <li>□ Puedo pilotearlo con 3–5 personas.</li>
+          <li>□ Mi análisis puede realizarse de forma descriptiva.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">20. Lo que ocurrirá después</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Clase 15 · 20 de noviembre</h3>
+        <p><strong>Laboratorio de prueba piloto y rediseño.</strong></p>
+        <p>Ejecutaremos el protocolo con participantes, identificaremos errores y modificaremos la experiencia o el procedimiento.</p>
+      </div>
+
+      <div class="card">
+        <h3>Clase 16 · 27 de noviembre</h3>
+        <p><strong>Presentación final.</strong></p>
+        <p>Presentarás problema, diseño experimental, experiencia RM, resultados, interpretación, limitaciones y decisiones de rediseño.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">21. Idea que debe quedar al finalizar</h2>
+
+    <div class="prompt-box">
+      Un experimento XR no comienza construyendo una escena.
+      Comienza definiendo <strong>qué queremos aprender</strong>.
+      La Realidad Mixta adquiere valor académico cuando transforma una hipótesis de diseño
+      en una situación donde una persona puede actuar,
+      producir datos y permitirnos tomar una decisión mejor fundamentada.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Materiales que debes recuperar de clases anteriores</h2>
+
+    <div class="sources-box">
+      <p><strong>Clase 2.</strong> RA/RV como instrumentos de investigación: problema, pregunta, fenómeno, interacción y evidencia.</p>
+      <p><strong>Clase 4.</strong> Interacción situada: contexto → objetivo → acción → respuesta → consecuencia → evidencia.</p>
+      <p><strong>Clase 6.</strong> Ergonomía y seguridad: cuerpo, HMD, postura, espacio y criterios de detención.</p>
+      <p><strong>Clases 7–8.</strong> Unreal Engine: escenario controlado, triggers, luz, sonido y consecuencias.</p>
+      <p><strong>Clases 9–10.</strong> FrameVR: construcción y experimentación inmersiva en laboratorio.</p>
+      <p><strong>Clase 11.</strong> Simulación XR como laboratorio: variables, repetición, observación y medición.</p>
+      <p><strong>Clase 12.</strong> IA como apoyo para investigación, conceptualización, representación y evaluación.</p>
+      <p><strong>Clase 13.</strong> SUS, UEQ-S e IPQ: selección, aplicación, puntuación e interpretación.</p>
+    </div>
+  </section>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="button" href="clase-13.html">← Clase anterior</a>
+    <a class="button" href="clase-15.html">Siguiente clase →</a>
+  </div>
+</main>
+
+<footer>Clase 14 · 2027-1</footer>
+<script src="site.js"></script>
+</body>
+</html>
