@@ -1,22 +1,842 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Clase 11 · Simulación XR como laboratorio de investigación en Diseño Industrial</title><link href="style.css" rel="stylesheet"/></head><body><header class="site-header">
-<div class="institutional-bar"><div class="institutional-inner"><span class="unam-mark">UNAM</span><span class="institutional-divider"></span><span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span></div></div>
-<div class="header-inner">
-<p class="kicker">Temas Selectos · Semestre 2027-1</p>
-<h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
-<p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
-</div>
-</header><nav aria-label="Navegación principal" class="navbar">
-<div class="nav-inner">
-<a class="nav-brand" href="index.html">RA · RV</a>
-<button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button"><span class="menu-icon"></span></button>
-<div class="nav-links" id="primary-menu">
-<a href="index.html">Inicio</a><a href="index.html#enfoque">Enfoque</a><a href="index.html#clases">Clases</a><a href="index.html#acreditacion">Acreditación</a>
-</div>
-</div>
-</nav><main>
-<div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 11</div>
-<section class="lesson-header"><div><span class="pill tag-live">Presencial</span><span class="pill">23 octubre</span><h1>Simulación XR como laboratorio de investigación en Diseño Industrial</h1><p class="subtitle" style="color:var(--muted)">Vuelve pronto, en construcción</p></div></section>
-<div class="card construction-panel"><div class="construction-mark"></div><h2>Vuelve pronto, en construcción</h2><p>Esta sesión se irá desarrollando conforme avance el semestre. Aquí aparecerán objetivos, contenidos, práctica de laboratorio, recursos y evidencias de aprendizaje.</p></div>
-<div style="margin-top:30px"><a class="button" href="index.html#clases">← Volver a clases</a></div>
-</main><footer>Clase 11 · 2027-1</footer><script src="site.js"></script></body></html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Clase 11 · Simulación XR como laboratorio de investigación en Diseño Industrial</title>
+<link href="style.css" rel="stylesheet"/>
+
+<style>
+  .ar-demo {
+    margin: 26px 0;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .ar-demo-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
+  }
+
+  .viewer-wrap {
+    min-height: 500px;
+    background:
+      radial-gradient(circle at 50% 28%, rgba(217,165,0,.14), transparent 30%),
+      linear-gradient(160deg, #f7f9fc 0%, #edf2f7 100%);
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    overflow:hidden;
+  }
+
+  .viewer-help {
+    position:absolute;
+    left:18px;
+    right:18px;
+    bottom:18px;
+    display:flex;
+    justify-content:center;
+    pointer-events:none;
+  }
+
+  .viewer-help span {
+    background:rgba(255,255,255,.94);
+    color:#253245;
+    border:1px solid rgba(1,59,117,.14);
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:.9rem;
+    backdrop-filter:blur(8px);
+  }
+
+  .ar-info {
+    padding:28px;
+  }
+
+  .ar-info h3 { margin-top:0; }
+
+  .tech-list {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 16px;
+    margin:18px 0;
+  }
+
+  .tech-item {
+    border-top:1px solid var(--line);
+    padding-top:9px;
+  }
+
+  .tech-item strong {
+    display:block;
+    color:#013b75;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:.035em;
+    margin-bottom:2px;
+  }
+
+  .demo-warning {
+    margin-top:18px;
+    padding:14px 16px;
+    border-left:4px solid #d9a500;
+    background:#fff8df;
+    color:#3d3520;
+    border-radius:0 12px 12px 0;
+  }
+
+  .process-strip {
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+    margin:18px 0;
+  }
+
+  .process-step {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px;
+    text-align:center;
+    background:#fff;
+  }
+
+  .process-step strong {
+    display:block;
+    color:#013b75;
+    font-size:1.1rem;
+    margin-bottom:5px;
+  }
+
+  .lab-diagram {
+    width:min(100%,600px);
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    gap:10px;
+    align-items:center;
+  }
+
+  .lab-column {
+    display:grid;
+    gap:10px;
+  }
+
+  .lab-card {
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:14px;
+    padding:14px;
+    text-align:center;
+  }
+
+  .lab-card strong {
+    color:#013b75;
+    display:block;
+    margin-bottom:4px;
+  }
+
+  .lab-core {
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:#013b75;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:800;
+    line-height:1.3;
+    box-shadow:0 12px 30px rgba(1,59,117,.2);
+  }
+
+  .power-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+  }
+
+  .power-card {
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:#fff;
+    padding:18px;
+  }
+
+  .power-card h3 {
+    color:#013b75;
+    margin-top:0;
+  }
+
+  .power-number {
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#d9a500;
+    color:#102a43;
+    font-weight:900;
+    margin-bottom:10px;
+  }
+
+  .experiment-chain {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin:20px 0;
+  }
+
+  .experiment-step {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:15px 12px;
+    background:#fff;
+    text-align:center;
+    position:relative;
+  }
+
+  .experiment-step strong {
+    color:#013b75;
+    display:block;
+    margin-bottom:4px;
+  }
+
+  .experiment-step:not(:last-child):after {
+    content:"→";
+    position:absolute;
+    right:-17px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#d9a500;
+    font-size:1.6rem;
+    font-weight:800;
+    z-index:2;
+  }
+
+  .future-box {
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:20px;
+    background:
+      linear-gradient(135deg,rgba(1,59,117,.04),rgba(217,165,0,.08));
+    margin:16px 0;
+  }
+
+  .future-box h3 {
+    margin-top:0;
+    color:#013b75;
+  }
+
+  .metric-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+
+  .metric-card {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px;
+    background:#fff;
+  }
+
+  .metric-card h3 {
+    margin-top:0;
+    color:#013b75;
+  }
+
+  .matrix-table td:first-child {
+    font-weight:800;
+    color:#013b75;
+    width:20%;
+  }
+
+  @media(max-width:900px) {
+    .power-grid,.metric-grid { grid-template-columns:1fr 1fr; }
+  }
+
+  @media(max-width:820px) {
+    .ar-demo-grid { grid-template-columns:1fr; }
+    .process-strip,.experiment-chain,.power-grid,.metric-grid { grid-template-columns:1fr; }
+    .experiment-step:not(:last-child):after { display:none; }
+    .lab-diagram { grid-template-columns:1fr; }
+    .lab-core { margin:auto; }
+  }
+</style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="institutional-bar">
+    <div class="institutional-inner">
+      <span class="unam-mark">UNAM</span>
+      <span class="institutional-divider"></span>
+      <span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span>
+    </div>
+  </div>
+
+  <div class="header-inner">
+    <p class="kicker">Temas Selectos · Semestre 2027-1</p>
+    <h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
+    <p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
+  </div>
+</header>
+
+<nav aria-label="Navegación principal" class="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">RA · RV</a>
+    <button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button">
+      <span class="menu-icon"></span>
+    </button>
+
+    <div class="nav-links" id="primary-menu">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#enfoque">Enfoque</a>
+      <a href="index.html#clases">Clases</a>
+      <a href="index.html#acreditacion">Acreditación</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 11</div>
+
+  <section class="lesson-header">
+    <div>
+      <span class="pill tag-live">Presencial</span>
+      <span class="pill">23 de octubre</span>
+
+      <h1>Simulación XR como laboratorio de investigación en Diseño Industrial</h1>
+
+      <p class="subtitle" style="color:var(--muted)">
+        La realidad virtual como instrumento para construir condiciones,
+        provocar comportamientos, controlar variables y producir evidencia antes de que exista el producto, el espacio o incluso el futuro que queremos estudiar.
+      </p>
+    </div>
+  </section>
+
+  <div class="callout">
+    <strong>Pregunta de la sesión:</strong>
+    ¿qué podemos experimentar, observar y medir en realidad virtual
+    que sería difícil, costoso, peligroso o imposible estudiar físicamente?
+  </div>
+
+  <section>
+    <h2 class="section-title">Objetivos de aprendizaje</h2>
+
+    <div class="card">
+      <ul class="tight">
+        <li>Comprender la RV como medio experimental y no solamente representacional.</li>
+        <li>Reconocer su potencial para prototipado, evaluación, ergonomía, entrenamiento, prospectiva y colaboración.</li>
+        <li>Distinguir entre escenario virtual, tarea experimental, variable y evidencia.</li>
+        <li>Identificar datos conductuales que pueden obtenerse durante una experiencia inmersiva.</li>
+        <li>Reconocer fortalezas y límites de la transferencia entre comportamiento virtual y real.</li>
+        <li>Convertir una pregunta de Diseño Industrial en una propuesta de simulación XR investigable.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">1. La RV no sólo representa un mundo: permite operar dentro de él</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Representación</h3>
+        <p>Un render, video o recorrido animado permite observar una propuesta.</p>
+        <p>La secuencia y el punto de vista están definidos principalmente por quien crea la representación.</p>
+      </div>
+
+      <div class="card">
+        <h3>Simulación inmersiva</h3>
+        <p>El participante ocupa un lugar, se mueve, busca, decide, manipula y responde.</p>
+        <p>La secuencia puede depender de su conducta.</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      La diferencia crítica es la <strong>agencia</strong>:
+      una persona puede actuar dentro de la hipótesis de diseño y producir consecuencias observables.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">2. ¿Qué hace que la RV pueda convertirse en laboratorio?</h2>
+
+    <div class="ar-demo">
+      <div class="ar-demo-grid">
+        <div class="viewer-wrap">
+          <div class="lab-diagram">
+            <div class="lab-column">
+              <div class="lab-card"><strong>CONTROLAR</strong>Variables y condiciones</div>
+              <div class="lab-card"><strong>REPETIR</strong>La misma situación</div>
+              <div class="lab-card"><strong>ALTERAR</strong>Lo imposible físicamente</div>
+            </div>
+
+            <div class="lab-core">LABORATORIO<br/>VIRTUAL</div>
+
+            <div class="lab-column">
+              <div class="lab-card"><strong>OBSERVAR</strong>Conducta y decisiones</div>
+              <div class="lab-card"><strong>MEDIR</strong>Tiempo, errores y recorridos</div>
+              <div class="lab-card"><strong>COMPARAR</strong>Condiciones A / B</div>
+            </div>
+          </div>
+
+          <div class="viewer-help">
+            <span>Control + repetición + interacción + datos</span>
+          </div>
+        </div>
+
+        <div class="ar-info">
+          <span class="pill">RV experimental</span>
+          <h3>Una situación reproducible</h3>
+
+          <p>
+            En un entorno virtual podemos definir exactamente qué objetos existen,
+            dónde están, qué estímulos aparecen, cuándo ocurre un evento y qué acciones están disponibles.
+          </p>
+
+          <div class="tech-list">
+            <div class="tech-item"><strong>Espacio</strong>Dimensiones conocidas</div>
+            <div class="tech-item"><strong>Objetos</strong>Posición controlada</div>
+            <div class="tech-item"><strong>Estímulos</strong>Luz, sonido, señales</div>
+            <div class="tech-item"><strong>Eventos</strong>Condiciones programadas</div>
+            <div class="tech-item"><strong>Usuario</strong>Acción libre o guiada</div>
+            <div class="tech-item"><strong>Registro</strong>Conducta y respuestas</div>
+          </div>
+
+          <div class="demo-warning">
+            <strong>Pero control virtual no equivale automáticamente a validez.</strong>
+            Debemos preguntarnos qué aspectos de la situación real están bien representados
+            y cuáles quedan fuera: peso, tactilidad, fuerza, riesgo real, temperatura o consecuencias materiales.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">3. Seis capacidades especialmente poderosas para Diseño Industrial</h2>
+
+    <div class="power-grid">
+      <div class="power-card">
+        <div class="power-number">1</div>
+        <h3>Prototipar antes de fabricar</h3>
+        <p>Experimentar productos, interfaces, estaciones o interiores a escala real antes de construir prototipos físicos completos.</p>
+      </div>
+
+      <div class="power-card">
+        <div class="power-number">2</div>
+        <h3>Controlar variables</h3>
+        <p>Cambiar sólo iluminación, posición, altura, secuencia o señalización manteniendo las demás condiciones constantes.</p>
+      </div>
+
+      <div class="power-card">
+        <div class="power-number">3</div>
+        <h3>Simular peligro sin peligro</h3>
+        <p>Entrenamiento y evaluación en incendios, rescate, maquinaria, minería, química o procedimientos de emergencia.</p>
+      </div>
+
+      <div class="power-card">
+        <div class="power-number">4</div>
+        <h3>Construir futuros</h3>
+        <p>Permitir que alguien utilice un sistema de 2040, una estación lunar o un servicio todavía inexistente.</p>
+      </div>
+
+      <div class="power-card">
+        <div class="power-number">5</div>
+        <h3>Observar conducta</h3>
+        <p>Registrar trayectorias, decisiones, errores, orientación, secuencia, tiempos y atención.</p>
+      </div>
+
+      <div class="power-card">
+        <div class="power-number">6</div>
+        <h3>Colaborar dentro del modelo</h3>
+        <p>Diseñadores, operadores y usuarios pueden compartir una misma simulación y evaluar colectivamente una tarea o espacio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">4. Prototipo virtual: evaluar antes de materializar</h2>
+
+    <p>
+      Una revisión de 2025 sobre una década de RV en desarrollo de producto identifica tres áreas recurrentes:
+      <strong>generación de ideas, revisión de diseño y estudios ergonómicos</strong>.
+      La RV resulta especialmente atractiva cuando fabricar varias alternativas físicas sería lento o costoso.
+    </p>
+
+    <div class="future-box">
+      <h3>Ejemplo · Cabina de un vehículo todavía inexistente</h3>
+      <p><strong>Variable:</strong> posición de pantalla central.</p>
+      <p><strong>Condición A:</strong> pantalla alta.</p>
+      <p><strong>Condición B:</strong> pantalla baja.</p>
+      <p><strong>Tarea:</strong> identificar información y ejecutar una acción mientras el participante permanece sentado.</p>
+      <p><strong>Datos:</strong> tiempo, errores, orientación de cabeza, preferencia y comentario.</p>
+    </div>
+
+    <div class="callout gold">
+      Estudios de evaluación de producto en RV han encontrado diferencias en la experiencia cognitiva respecto a representaciones tradicionales;
+      por ello, RV puede enriquecer la evaluación, pero no debe asumirse que reproduce exactamente la percepción del producto físico.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">5. Ergonomía y human-in-the-loop</h2>
+
+    <p>
+      La RV permite colocar al cuerpo dentro del prototipo y observar visibilidad,
+      alcance, postura, secuencia de trabajo y relación espacial.
+      Esto es especialmente útil antes de que exista una estación de trabajo definitiva.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>¿Qué puede estudiar bien?</h3>
+        <p>Visibilidad, alcance, orientación, secuencia, recorridos, ocupación y compatibilidad espacial.</p>
+      </div>
+
+      <div class="card">
+        <h3>¿Qué necesita cautela?</h3>
+        <p>Fuerza, peso, resistencia, tactilidad, fatiga física real, temperatura y otras modalidades sensoriales ausentes.</p>
+      </div>
+    </div>
+
+    <p>
+      Estudios de manufactura recientes han utilizado entornos multiusuario para que operadores
+      ejecuten tareas virtuales y para integrar métricas como mapas de calor y evaluaciones posturales,
+      permitiendo identificar problemas antes de implementar físicamente la estación de trabajo.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="section-title">6. Entrenar, equivocarse y repetir sin exponer al usuario</h2>
+
+    <p>
+      Una revisión sistemática de 2025 sobre entrenamiento industrial en ambientes de alto riesgo
+      encontró aplicaciones en construcción, minería, procesos químicos y manufactura.
+      La RV permite recrear peligros sin introducir físicamente el riesgo y repetir una situación de manera controlada.
+    </p>
+
+    <div class="future-box">
+      <h3>Ejemplo · Espacio confinado</h3>
+      <p><strong>Escenario:</strong> área industrial virtual con múltiples riesgos.</p>
+      <p><strong>Tarea:</strong> inspeccionar, identificar peligros y ejecutar un procedimiento.</p>
+      <p><strong>Podemos observar:</strong> qué peligro identifica primero, qué omite, cuánto tarda y qué secuencia sigue.</p>
+      <p><strong>Podemos cambiar:</strong> iluminación, ruido, señalización, posición de herramientas o número de distractores.</p>
+    </div>
+
+    <div class="prompt-box">
+      En un entrenamiento convencional podemos registrar si alguien respondió correctamente.
+      En RV también podemos estudiar <strong>cómo llegó a esa respuesta</strong>.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">7. Prospectiva: permitir que alguien use un futuro</h2>
+
+    <p>
+      La RV puede materializar hipótesis de futuro a escala experiencial.
+      En lugar de preguntar “¿qué opinas de esta imagen de 2040?”,
+      podemos pedir al participante que realice una tarea dentro de un escenario de 2040.
+    </p>
+
+    <div class="future-box">
+      <h3>Ejemplo real de investigación · módulo lunar</h3>
+      <p>
+        Investigadores vinculados al desarrollo de un módulo lunar de la Agencia Espacial Europea
+        han utilizado RV para probar conceptos con especialistas antes de disponer del sistema físico definitivo.
+        Las simulaciones permitieron explorar operabilidad, condiciones de iluminación y restricciones ergonómicas.
+      </p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Futuro representado</h3>
+        <p>“Así podría verse una cocina en 2040”.</p>
+      </div>
+
+      <div class="card">
+        <h3>Futuro experimentado</h3>
+        <p>“Prepara una comida utilizando esta cocina de 2040 y dinos dónde aparecen conflictos”.</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      Prospectiva inmersiva significa convertir un “¿qué pasaría si...?”
+      en una situación suficientemente concreta para que alguien pueda actuar frente a ella.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">8. La RV también puede ser un instrumento de medición</h2>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <h3>Tiempo</h3>
+        <p>Inicio, finalización, duración por etapa o tiempo hasta detectar un estímulo.</p>
+      </div>
+
+      <div class="metric-card">
+        <h3>Errores</h3>
+        <p>Acciones incorrectas, omisiones, secuencias equivocadas o zonas prohibidas.</p>
+      </div>
+
+      <div class="metric-card">
+        <h3>Trayectoria</h3>
+        <p>Recorrido, distancia, zonas visitadas y permanencia.</p>
+      </div>
+
+      <div class="metric-card">
+        <h3>Orientación</h3>
+        <p>Hacia dónde mira o se dirige el cuerpo.</p>
+      </div>
+
+      <div class="metric-card">
+        <h3>Decisiones</h3>
+        <p>Alternativas elegidas, cambios de opinión y secuencia de elección.</p>
+      </div>
+
+      <div class="metric-card">
+        <h3>Atención</h3>
+        <p>Con eye tracking: fijaciones, duración de mirada, secuencia y áreas de interés.</p>
+      </div>
+    </div>
+
+    <p>
+      Investigaciones recientes están combinando datos de conducta con eye tracking,
+      frecuencia cardiaca, EEG u otros sensores. Esto permite estudiar la experiencia
+      con algo más que cuestionarios posteriores.
+    </p>
+
+    <div class="callout gold">
+      <strong>Principio del curso:</strong>
+      LO QUE HIZO + LO QUE EXPERIMENTÓ + LO QUE DIJO.
+      Más adelante incorporaremos instrumentos estandarizados para complementar estos datos.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">9. De una experiencia a un experimento</h2>
+
+    <div class="experiment-chain">
+      <div class="experiment-step"><strong>Pregunta</strong>¿Qué quiero saber?</div>
+      <div class="experiment-step"><strong>Variable</strong>¿Qué voy a cambiar?</div>
+      <div class="experiment-step"><strong>Tarea</strong>¿Qué hará la persona?</div>
+      <div class="experiment-step"><strong>Dato</strong>¿Qué registraré?</div>
+      <div class="experiment-step"><strong>Comparación</strong>¿Qué significa el cambio?</div>
+    </div>
+
+    <div class="future-box">
+      <h3>Ejemplo A/B · Señalización de evacuación</h3>
+      <p><strong>Pregunta:</strong> ¿la posición de una señal modifica la elección de salida?</p>
+      <p><strong>A:</strong> señal sobre la puerta.</p>
+      <p><strong>B:</strong> señal suspendida antes de la intersección.</p>
+      <p><strong>Constante:</strong> mismo espacio, misma tarea, misma iluminación.</p>
+      <p><strong>Datos:</strong> salida elegida, tiempo de decisión, recorrido y comentario.</p>
+    </div>
+
+    <div class="prompt-box">
+      La potencia experimental aparece cuando podemos repetir la situación
+      y cambiar deliberadamente una condición sin reconstruir físicamente todo el escenario.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">10. Matriz: ¿qué quiero investigar mediante RV?</h2>
+
+    <table class="compare matrix-table">
+      <tbody>
+        <tr>
+          <td>Problema</td>
+          <td>Situación de Diseño Industrial que necesita comprenderse.</td>
+        </tr>
+        <tr>
+          <td>Pregunta</td>
+          <td>Qué queremos averiguar específicamente.</td>
+        </tr>
+        <tr>
+          <td>Justificación RV</td>
+          <td>Por qué necesitamos interacción inmersiva y no sólo representación.</td>
+        </tr>
+        <tr>
+          <td>Escenario</td>
+          <td>Qué parte de la realidad necesitamos simular.</td>
+        </tr>
+        <tr>
+          <td>Tarea</td>
+          <td>Qué debe hacer el participante.</td>
+        </tr>
+        <tr>
+          <td>Variable</td>
+          <td>Qué condición podemos modificar o comparar.</td>
+        </tr>
+        <tr>
+          <td>Datos</td>
+          <td>Qué conducta, desempeño o percepción registraremos.</td>
+        </tr>
+        <tr>
+          <td>Límite</td>
+          <td>Qué aspecto de la situación real no está suficientemente representado.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="section-title">11. Actividad en clase: diseña un laboratorio virtual</h2>
+
+    <div class="card">
+      <ol>
+        <li>Selecciona una pregunta de Diseño Industrial.</li>
+        <li>Explica por qué sería útil estudiarla mediante RV.</li>
+        <li>Define un escenario virtual mínimo.</li>
+        <li>Describe una tarea que realizará el participante.</li>
+        <li>Selecciona una variable que puedas modificar.</li>
+        <li>Propón dos condiciones: A y B.</li>
+        <li>Define al menos dos datos conductuales que registrarías.</li>
+        <li>Define al menos un dato de percepción o experiencia.</li>
+        <li>Identifica una limitación que pueda afectar la validez del estudio.</li>
+      </ol>
+    </div>
+
+    <div class="prompt-box">
+      El objetivo no es diseñar “una experiencia VR interesante”.
+      El objetivo es diseñar una situación que permita <strong>aprender algo mediante la conducta del participante</strong>.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">12. Evidencia de la sesión</h2>
+
+    <div class="callout ok">
+      <strong>Matriz de simulación XR.</strong><br/>
+      Entrega una página con problema, pregunta, justificación, escenario,
+      tarea, variable, condiciones A/B, datos y limitación.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">13. Límites: un mundo controlado sigue siendo un modelo</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>La RV puede...</h3>
+        <p>Controlar, repetir, comparar, medir, simular riesgo, explorar futuros y prototipar a escala.</p>
+      </div>
+
+      <div class="card">
+        <h3>La RV no garantiza...</h3>
+        <p>Que el comportamiento virtual sea idéntico al real, que la experiencia tenga validez ecológica o que todas las modalidades sensoriales estén representadas.</p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      Estudios recientes siguen señalando una brecha entre desempeño dentro de RV
+      y transferencia al mundo real. Por ello, una buena investigación debe declarar
+      qué aspectos simula con confianza y cuáles requieren validación física posterior.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">14. Idea que debe quedar al finalizar</h2>
+
+    <div class="prompt-box">
+      El potencial más profundo de la realidad virtual no consiste en
+      “sentir que estamos dentro de otro mundo”.
+      Consiste en poder <strong>construir una hipótesis, habitarla, actuar dentro de ella,
+      observar qué ocurre, medirlo y volver a construirla de otra manera.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Bibliografía y lecturas de ampliación</h2>
+
+    <div class="sources-box">
+      <p>
+        <strong>Abughalia, A., &amp; Stechert, C. (2025).</strong>
+        A Decade of Virtual Reality in Product Development:
+        A Literature Review of Effectiveness, Challenges, and Future Research.
+        <em>Procedia CIRP, 136</em>, 438–443.
+        <a href="https://doi.org/10.1016/j.procir.2025.08.076" target="_blank" rel="noopener">
+          https://doi.org/10.1016/j.procir.2025.08.076
+        </a>
+      </p>
+
+      <p>
+        <strong>Duan, H., Zhou, Z., &amp; Gu, J. (2024).</strong>
+        Cognitive differences in product shape evaluation between real settings and virtual reality:
+        case study of two-wheel electric vehicles.
+        <em>Virtual Reality, 28</em>, 136.
+        <a href="https://doi.org/10.1007/s10055-024-01034-8" target="_blank" rel="noopener">
+          https://doi.org/10.1007/s10055-024-01034-8
+        </a>
+      </p>
+
+      <p>
+        <strong>Arkouli, Z., Tompoulidis, I., Kontos, M., Michalos, G., &amp; Makris, S. (2024).</strong>
+        Collaborative human-centered design of manufacturing tasks:
+        a multi-user immersive VR experience.
+        <em>Procedia CIRP, 128</em>, 597–602.
+        <a href="https://doi.org/10.1016/j.procir.2024.07.056" target="_blank" rel="noopener">
+          https://doi.org/10.1016/j.procir.2024.07.056
+        </a>
+      </p>
+
+      <p>
+        <strong>Cordeiro, A., et al. (2025).</strong>
+        Immersive technologies for evaluating industrial safety training in high-risk environments:
+        a review on opportunities and challenges.
+        <em>Frontiers in Virtual Reality, 6</em>.
+        <a href="https://doi.org/10.3389/frvir.2025.1726058" target="_blank" rel="noopener">
+          https://doi.org/10.3389/frvir.2025.1726058
+        </a>
+      </p>
+
+      <p>
+        <strong>Nilsson, T., et al. (2022).</strong>
+        Using Virtual Reality to Design and Evaluate a Lunar Lander: The EL3 Case Study.
+        <a href="https://arxiv.org/abs/2203.13941" target="_blank" rel="noopener">
+          Consultar estudio
+        </a>.
+      </p>
+
+      <p>
+        <strong>Bensch, L., et al. (2024).</strong>
+        Applied User Research in Virtual Reality: Tools, Methods, and Challenges.
+        <a href="https://arxiv.org/abs/2402.15695" target="_blank" rel="noopener">
+          Consultar capítulo
+        </a>.
+      </p>
+
+      <p>
+        <strong>Kim, B., et al. (2026).</strong>
+        Immersive evaluation of in-product lighting design using virtual reality.
+        <em>Virtual Reality, 30</em>.
+        <a href="https://doi.org/10.1007/s10055-025-01259-1" target="_blank" rel="noopener">
+          https://doi.org/10.1007/s10055-025-01259-1
+        </a>
+      </p>
+
+      <p class="small">
+        La RV puede aumentar control experimental y acceso a situaciones difíciles de reproducir,
+        pero la interpretación de resultados debe considerar fidelidad, ergonomía,
+        transferencia al mundo real y limitaciones sensoriales del sistema utilizado.
+      </p>
+    </div>
+  </section>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="button" href="clase-10.html">← Clase anterior</a>
+    <a class="button" href="clase-12.html">Siguiente clase →</a>
+  </div>
+</main>
+
+<footer>Clase 11 · 2027-1</footer>
+<script src="site.js"></script>
+</body>
+</html>

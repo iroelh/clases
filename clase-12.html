@@ -1,22 +1,926 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Clase 12 · IA + XR: prototipado de escenarios y futuros</title><link href="style.css" rel="stylesheet"/></head><body><header class="site-header">
-<div class="institutional-bar"><div class="institutional-inner"><span class="unam-mark">UNAM</span><span class="institutional-divider"></span><span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span></div></div>
-<div class="header-inner">
-<p class="kicker">Temas Selectos · Semestre 2027-1</p>
-<h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
-<p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
-</div>
-</header><nav aria-label="Navegación principal" class="navbar">
-<div class="nav-inner">
-<a class="nav-brand" href="index.html">RA · RV</a>
-<button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button"><span class="menu-icon"></span></button>
-<div class="nav-links" id="primary-menu">
-<a href="index.html">Inicio</a><a href="index.html#enfoque">Enfoque</a><a href="index.html#clases">Clases</a><a href="index.html#acreditacion">Acreditación</a>
-</div>
-</div>
-</nav><main>
-<div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 12</div>
-<section class="lesson-header"><div><span class="pill tag-live">Presencial</span><span class="pill">30 octubre</span><h1>IA + XR: prototipado de escenarios y futuros</h1><p class="subtitle" style="color:var(--muted)">Vuelve pronto, en construcción</p></div></section>
-<div class="card construction-panel"><div class="construction-mark"></div><h2>Vuelve pronto, en construcción</h2><p>Esta sesión se irá desarrollando conforme avance el semestre. Aquí aparecerán objetivos, contenidos, práctica de laboratorio, recursos y evidencias de aprendizaje.</p></div>
-<div style="margin-top:30px"><a class="button" href="index.html#clases">← Volver a clases</a></div>
-</main><footer>Clase 12 · 2027-1</footer><script src="site.js"></script></body></html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Clase 12 · IA + XR: prototipado de escenarios y futuros</title>
+<link href="style.css" rel="stylesheet"/>
+
+<style>
+  .ar-demo {
+    margin: 26px 0;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .ar-demo-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
+  }
+
+  .viewer-wrap {
+    min-height: 500px;
+    background:
+      radial-gradient(circle at 50% 28%, rgba(217,165,0,.14), transparent 30%),
+      linear-gradient(160deg, #f7f9fc 0%, #edf2f7 100%);
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    overflow:hidden;
+  }
+
+  .viewer-help {
+    position:absolute;
+    left:18px;
+    right:18px;
+    bottom:18px;
+    display:flex;
+    justify-content:center;
+    pointer-events:none;
+  }
+
+  .viewer-help span {
+    background:rgba(255,255,255,.94);
+    color:#253245;
+    border:1px solid rgba(1,59,117,.14);
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:.9rem;
+    backdrop-filter:blur(8px);
+  }
+
+  .ar-info {
+    padding:28px;
+  }
+
+  .ar-info h3 { margin-top:0; }
+
+  .tech-list {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 16px;
+    margin:18px 0;
+  }
+
+  .tech-item {
+    border-top:1px solid var(--line);
+    padding-top:9px;
+  }
+
+  .tech-item strong {
+    display:block;
+    color:#013b75;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:.035em;
+    margin-bottom:2px;
+  }
+
+  .demo-warning {
+    margin-top:18px;
+    padding:14px 16px;
+    border-left:4px solid #d9a500;
+    background:#fff8df;
+    color:#3d3520;
+    border-radius:0 12px 12px 0;
+  }
+
+  .process-strip {
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+    margin:18px 0;
+  }
+
+  .process-step {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px;
+    text-align:center;
+    background:#fff;
+  }
+
+  .process-step strong {
+    display:block;
+    color:#013b75;
+    font-size:1.1rem;
+    margin-bottom:5px;
+  }
+
+  .ai-map {
+    width:min(100%,620px);
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+
+  .ai-role {
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:#fff;
+    padding:20px;
+    min-height:150px;
+  }
+
+  .ai-role strong {
+    display:block;
+    color:#013b75;
+    font-size:1.08rem;
+    margin-bottom:6px;
+  }
+
+  .role-tag {
+    display:inline-block;
+    padding:4px 8px;
+    margin-bottom:9px;
+    border-radius:999px;
+    background:#eef5fb;
+    color:#013b75;
+    font-size:.76rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+
+  .risk-card {
+    border-left:4px solid #d9a500;
+  }
+
+  .workflow-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:18px 0;
+  }
+
+  .workflow-card {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:15px;
+    background:#fff;
+  }
+
+  .workflow-card strong {
+    color:#013b75;
+    display:block;
+    margin-bottom:4px;
+  }
+
+  .human-ai {
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    gap:12px;
+    align-items:stretch;
+    margin:20px 0;
+  }
+
+  .human-box, .ai-box {
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:20px;
+    background:#fff;
+  }
+
+  .human-box h3, .ai-box h3 {
+    color:#013b75;
+    margin-top:0;
+  }
+
+  .plus-sign {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+    font-weight:900;
+    color:#d9a500;
+  }
+
+  .trace-table td:first-child {
+    width:22%;
+    color:#013b75;
+    font-weight:800;
+  }
+
+  .future-box {
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:20px;
+    background:linear-gradient(135deg,rgba(1,59,117,.04),rgba(217,165,0,.08));
+    margin:16px 0;
+  }
+
+  .future-box h3 {
+    color:#013b75;
+    margin-top:0;
+  }
+
+  @media(max-width:900px) {
+    .workflow-grid { grid-template-columns:1fr 1fr; }
+  }
+
+  @media(max-width:820px) {
+    .ar-demo-grid { grid-template-columns:1fr; }
+    .process-strip,.workflow-grid,.ai-map { grid-template-columns:1fr; }
+    .human-ai { grid-template-columns:1fr; }
+    .plus-sign { padding:0; }
+  }
+</style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="institutional-bar">
+    <div class="institutional-inner">
+      <span class="unam-mark">UNAM</span>
+      <span class="institutional-divider"></span>
+      <span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span>
+    </div>
+  </div>
+
+  <div class="header-inner">
+    <p class="kicker">Temas Selectos · Semestre 2027-1</p>
+    <h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
+    <p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
+  </div>
+</header>
+
+<nav aria-label="Navegación principal" class="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">RA · RV</a>
+    <button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button">
+      <span class="menu-icon"></span>
+    </button>
+
+    <div class="nav-links" id="primary-menu">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#enfoque">Enfoque</a>
+      <a href="index.html#clases">Clases</a>
+      <a href="index.html#acreditacion">Acreditación</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 12</div>
+
+  <section class="lesson-header">
+    <div>
+      <span class="pill tag-live">Presencial</span>
+      <span class="pill">30 de octubre</span>
+
+      <h1>IA + XR: prototipado de escenarios y futuros</h1>
+
+      <p class="subtitle" style="color:var(--muted)">
+        Más allá de generar modelos 3D: inteligencia artificial para investigar,
+        sintetizar información, producir conceptos, ilustrar escenarios, criticar propuestas
+        y apoyar el diseño de evaluaciones.
+      </p>
+    </div>
+  </section>
+
+  <div class="callout">
+    <strong>Pregunta de la sesión:</strong>
+    ¿en qué partes del proceso de Diseño Industrial puede la IA ampliar nuestras capacidades
+    sin sustituir el juicio, la evidencia ni la responsabilidad del diseñador?
+  </div>
+
+  <section>
+    <h2 class="section-title">Objetivos de aprendizaje</h2>
+
+    <div class="card">
+      <ul class="tight">
+        <li>Reconocer usos de IA más allá de la generación de modelos 3D.</li>
+        <li>Utilizar IA como apoyo para investigación, síntesis y formulación de problemas.</li>
+        <li>Explorar IA para ideación, analogías, variaciones y generación de conceptos.</li>
+        <li>Utilizar generación visual para ilustración, storyboard y escenarios prospectivos.</li>
+        <li>Aplicar IA como herramienta de crítica y apoyo a la evaluación.</li>
+        <li>Distinguir entre datos reales, datos sintéticos y simulaciones hipotéticas.</li>
+        <li>Documentar decisiones y mantener trazabilidad en un proceso humano–IA.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="callout gold">
+    <strong>Punto de partida:</strong>
+    Meshy ya nos permitió transformar imágenes o conceptos en assets 3D.
+    Hoy ampliamos la pregunta: ¿qué otras funciones puede desempeñar la IA
+    antes, durante y después de construir una experiencia XR?
+  </div>
+
+  <section>
+    <h2 class="section-title">1. La IA no es una etapa del proceso: puede ocupar varios papeles</h2>
+
+    <div class="ar-demo">
+      <div class="ar-demo-grid">
+        <div class="viewer-wrap">
+          <div class="ai-map">
+            <div class="ai-role">
+              <span class="role-tag">Investigar</span>
+              <strong>Asistente de investigación</strong>
+              Buscar preguntas, organizar fuentes, contrastar argumentos, resumir documentos y estructurar información.
+            </div>
+
+            <div class="ai-role">
+              <span class="role-tag">Idear</span>
+              <strong>Socio de exploración</strong>
+              Reencuadrar problemas, proponer analogías, combinaciones, escenarios y alternativas.
+            </div>
+
+            <div class="ai-role">
+              <span class="role-tag">Representar</span>
+              <strong>Ilustrador y narrador</strong>
+              Crear imágenes, storyboards, secuencias de uso, visualizaciones y futuros posibles.
+            </div>
+
+            <div class="ai-role">
+              <span class="role-tag">Evaluar</span>
+              <strong>Crítico provisional</strong>
+              Revisar criterios, detectar inconsistencias, comparar alternativas y cuestionar un protocolo.
+            </div>
+          </div>
+
+          <div class="viewer-help">
+            <span>IA ≠ respuesta final · IA = capacidad adicional dentro de un proceso trazable</span>
+          </div>
+        </div>
+
+        <div class="ar-info">
+          <span class="pill">Colaboración humano–IA</span>
+          <h3>Una herramienta diferente según la etapa</h3>
+
+          <p>
+            Estudios recientes de diseño con IA muestran que la tecnología puede apoyar
+            desde la definición del problema hasta la evaluación, pero la utilidad cambia según la actividad
+            y los resultados requieren revisión manual.
+          </p>
+
+          <div class="tech-list">
+            <div class="tech-item"><strong>Research</strong>Explorar y organizar</div>
+            <div class="tech-item"><strong>Concept</strong>Divergir y combinar</div>
+            <div class="tech-item"><strong>Visual</strong>Hacer visible una hipótesis</div>
+            <div class="tech-item"><strong>Prototype</strong>Generar recursos</div>
+            <div class="tech-item"><strong>Evaluation</strong>Criticar y contrastar</div>
+            <div class="tech-item"><strong>Human</strong>Verificar y decidir</div>
+          </div>
+
+          <div class="demo-warning">
+            <strong>Regla de esta clase:</strong>
+            la IA puede generar una propuesta, una interpretación o una crítica.
+            No convierte automáticamente ninguna de ellas en evidencia.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">2. IA como asistente de investigación</h2>
+
+    <p>
+      En investigación de diseño, una IA lingüística puede resultar útil antes de tener una solución:
+      ayuda a descomponer problemas, explorar vocabulario, encontrar relaciones,
+      comparar documentos y transformar información dispersa en estructuras manejables.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Antes de buscar</h3>
+        <ul class="tight">
+          <li>Generar sinónimos y términos relacionados.</li>
+          <li>Convertir una pregunta amplia en subpreguntas.</li>
+          <li>Construir cadenas de búsqueda.</li>
+          <li>Identificar disciplinas vecinas relevantes.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Después de recuperar fuentes</h3>
+        <ul class="tight">
+          <li>Resumir documentos proporcionados.</li>
+          <li>Comparar argumentos y metodologías.</li>
+          <li>Construir matrices autor–método–hallazgo.</li>
+          <li>Detectar contradicciones que requieren revisión.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      <strong>Precaución académica:</strong>
+      nunca debemos aceptar una referencia bibliográfica porque “la IA la recuerda”.
+      La fuente debe recuperarse, abrirse y verificarse.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">3. IA para investigación cualitativa</h2>
+
+    <p>
+      La IA también puede apoyar tareas posteriores al trabajo de campo:
+      clasificación preliminar, codificación deductiva, agrupación de respuestas,
+      comparación de categorías y propuesta de interpretaciones alternativas.
+    </p>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Tarea</th>
+          <th>Uso posible de IA</th>
+          <th>Responsabilidad humana</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Transcripción</td>
+          <td>Convertir audio en texto.</td>
+          <td>Revisar errores y anonimizar información sensible.</td>
+        </tr>
+        <tr>
+          <td>Codificación deductiva</td>
+          <td>Clasificar fragmentos con un código previamente definido.</td>
+          <td>Validar criterios, revisar desacuerdos y documentar decisiones.</td>
+        </tr>
+        <tr>
+          <td>Agrupación</td>
+          <td>Proponer clusters o patrones recurrentes.</td>
+          <td>Determinar si tienen sentido conceptual y metodológico.</td>
+        </tr>
+        <tr>
+          <td>Contraste</td>
+          <td>Proponer explicaciones alternativas o casos negativos.</td>
+          <td>Volver a los datos originales y comprobarlas.</td>
+        </tr>
+        <tr>
+          <td>Síntesis</td>
+          <td>Construir matrices y resúmenes provisionales.</td>
+          <td>Interpretar y redactar el argumento final.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prompt-box">
+      Un uso interesante no es pedir: “dime cuáles son los temas”.
+      Es pedir: <strong>“aplica estos códigos definidos, muestra qué fragmentos asignaste a cada uno
+      y señala cuáles fueron ambiguos”</strong>.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">4. De la pregunta a los conceptos: IA para ideación</h2>
+
+    <p>
+      Una investigación publicada en <em>Design Science</em> en 2025 encontró que la IA generativa
+      fue especialmente útil en las etapas de <strong>definición del problema y generación de ideas</strong>,
+      mientras que la selección y evaluación permanecieron predominantemente dirigidas por humanos.
+    </p>
+
+    <div class="workflow-grid">
+      <div class="workflow-card">
+        <strong>Reencuadrar</strong>
+        Formula el mismo problema desde usuario, sistema, ambiente, tecnología o futuro.
+      </div>
+
+      <div class="workflow-card">
+        <strong>Analogías</strong>
+        Busca principios equivalentes en biología, arquitectura, logística o interacción.
+      </div>
+
+      <div class="workflow-card">
+        <strong>Combinar</strong>
+        Cruza funciones, tipologías, materiales o modelos de servicio.
+      </div>
+
+      <div class="workflow-card">
+        <strong>Contradecir</strong>
+        Pregunta qué pasaría si eliminamos una suposición que parecía obligatoria.
+      </div>
+    </div>
+
+    <div class="future-box">
+      <h3>Ejemplo · Estación de trabajo para 2040</h3>
+      <p><strong>Pregunta convencional:</strong> ¿cómo diseñamos un escritorio ergonómico?</p>
+      <p><strong>Pregunta prospectiva:</strong> ¿qué significa una estación de trabajo si en 2040 la interacción principal ya no ocurre sobre una pantalla?</p>
+      <p><strong>IA puede ayudar a generar:</strong> escenarios, tensiones, actores, actividades, configuraciones y alternativas.</p>
+      <p><strong>El diseñador decide:</strong> cuáles merecen convertirse en hipótesis de proyecto.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">5. IA como ilustrador: hacer visible lo que todavía no existe</h2>
+
+    <p>
+      La generación de imágenes puede utilizarse para construir rápidamente
+      representaciones de conceptos que todavía no tienen geometría definitiva:
+      situaciones de uso, storyboards, moodboards, ambientes, sistemas de producto,
+      secuencias de interacción o escenarios prospectivos.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Ilustrar un concepto</h3>
+        <p>Representar forma, contexto, interacción y relación con el cuerpo antes de modelar.</p>
+      </div>
+
+      <div class="card">
+        <h3>Ilustrar una situación</h3>
+        <p>Mostrar quién usa el producto, dónde, para qué y qué ocurre antes y después.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Storyboard</h3>
+        <p>Construir una secuencia temporal: problema → acción → respuesta → consecuencia.</p>
+      </div>
+
+      <div class="card">
+        <h3>Escenario futuro</h3>
+        <p>Hacer visible un 2035 o 2040 suficientemente concreto como para discutir sus implicaciones.</p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      <strong>Una imagen generada es una hipótesis visual, no evidencia.</strong>
+      No demuestra que el producto funcione, que exista el material representado,
+      que la ergonomía sea correcta ni que el usuario real vaya a comportarse así.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">6. El riesgo de fijación: generar más no siempre significa pensar más</h2>
+
+    <p>
+      Un estudio experimental presentado en CHI 2024 encontró que participantes expuestos
+      a imágenes generadas por IA durante una tarea de ideación produjeron menos ideas,
+      con menor variedad y menor originalidad que el grupo base, además de mostrar mayor fijación
+      sobre el ejemplo inicial.
+    </p>
+
+    <div class="two-col">
+      <div class="card risk-card">
+        <h3>Riesgo</h3>
+        <p>La primera imagen convincente puede convertirse demasiado pronto en “la solución”.</p>
+      </div>
+
+      <div class="card">
+        <h3>Estrategia</h3>
+        <p>Separar deliberadamente divergencia y convergencia: producir alternativas humanas antes de pedir imágenes y obligar a generar familias realmente distintas.</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      No preguntes sólo: “hazme otra versión”.
+      Cambia deliberadamente <strong>principio, tipología, usuario, contexto, escala o tecnología</strong>.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">7. IA como crítico de diseño</h2>
+
+    <p>
+      Una IA también puede utilizarse en sentido contrario:
+      no para crear una solución, sino para <strong>buscar problemas en una solución que ya existe</strong>.
+    </p>
+
+    <div class="human-ai">
+      <div class="human-box">
+        <h3>El diseñador proporciona</h3>
+        <ul class="tight">
+          <li>Objetivo del proyecto.</li>
+          <li>Usuarios y contexto.</li>
+          <li>Requisitos.</li>
+          <li>Concepto o prototipo.</li>
+          <li>Criterios de evaluación.</li>
+        </ul>
+      </div>
+
+      <div class="plus-sign">+</div>
+
+      <div class="ai-box">
+        <h3>La IA puede devolver</h3>
+        <ul class="tight">
+          <li>Inconsistencias.</li>
+          <li>Requisitos no atendidos.</li>
+          <li>Preguntas faltantes.</li>
+          <li>Casos límite.</li>
+          <li>Hipótesis alternativas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="future-box">
+      <h3>Ejemplo · Crítica adversarial</h3>
+      <p>
+        En vez de preguntar “¿qué opinas de mi diseño?”, proporciona cinco criterios y pide:
+        <strong>“intenta demostrar por qué esta propuesta podría fallar en cada criterio;
+        distingue evidencia disponible de suposiciones”</strong>.
+      </p>
+    </div>
+
+    <div class="callout">
+      <strong>Valor:</strong> la IA puede funcionar como una segunda lectura rápida.
+      <strong>Límite:</strong> sigue sin haber utilizado físicamente el producto ni representar a un usuario real.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">8. IA como apoyo para evaluación</h2>
+
+    <p>
+      Estudios sobre IA generativa aplicada a procesos de interacción han encontrado usos
+      para evaluar ideas, revisar diseños experimentales y proponer mejoras metodológicas.
+      La condición importante es que los resultados generados requieren evaluación humana.
+    </p>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Podemos pedir a la IA</th>
+          <th>No debemos confundirlo con</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Revisar una propuesta contra criterios explícitos.</td>
+          <td>Una validación de expertos.</td>
+        </tr>
+        <tr>
+          <td>Comparar A/B según una rúbrica.</td>
+          <td>Preferencias de usuarios reales.</td>
+        </tr>
+        <tr>
+          <td>Detectar problemas en un protocolo.</td>
+          <td>Revisión ética o metodológica formal.</td>
+        </tr>
+        <tr>
+          <td>Proponer métricas o variables.</td>
+          <td>Evidencia de que esas métricas son válidas.</td>
+        </tr>
+        <tr>
+          <td>Generar casos extremos para probar una interfaz.</td>
+          <td>Comportamiento observado en población real.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prompt-box">
+      Una evaluación con IA es especialmente útil como <strong>pre-evaluación</strong>:
+      ayuda a encontrar problemas antes de gastar recursos en una prueba con participantes.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">9. Usuarios sintéticos: útiles para pilotear, no para reemplazar personas</h2>
+
+    <p>
+      Los modelos de lenguaje pueden generar respuestas que parecen plausibles para determinados perfiles.
+      En HCI se ha estudiado esta posibilidad como una herramienta para explorar o pilotear preguntas,
+      pero los propios investigadores advierten que los resultados deben validarse con datos reales.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Uso razonable</h3>
+        <p>
+          Probar si una pregunta de entrevista es comprensible,
+          imaginar posibles respuestas, encontrar casos faltantes
+          o anticipar problemas de un protocolo.
+        </p>
+      </div>
+
+      <div class="card risk-card">
+        <h3>Uso incorrecto</h3>
+        <p>
+          Generar 50 “usuarios” con IA y tratarlos como si fueran una muestra real
+          para concluir qué piensa o necesita una población.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      Una persona sintética no tiene cuerpo, historia, riesgo, contexto social,
+      práctica material ni experiencia vivida.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">10. IA + XR: un flujo integrado</h2>
+
+    <div class="process-strip">
+      <div class="process-step"><strong>1</strong>Investigar</div>
+      <div class="process-step"><strong>2</strong>Conceptualizar</div>
+      <div class="process-step"><strong>3</strong>Visualizar</div>
+      <div class="process-step"><strong>4</strong>Construir XR</div>
+      <div class="process-step"><strong>5</strong>Evaluar</div>
+      <div class="process-step"><strong>6</strong>Interpretar</div>
+    </div>
+
+    <div class="future-box">
+      <h3>Ejemplo completo · movilidad 2040</h3>
+      <p><strong>Investigación:</strong> IA ayuda a organizar fuentes sobre movilidad autónoma, accesibilidad y espacio público.</p>
+      <p><strong>Conceptos:</strong> genera alternativas de servicio y posibles puntos de conflicto.</p>
+      <p><strong>Ilustración:</strong> se representan escenarios y secuencias de uso.</p>
+      <p><strong>3D:</strong> algunos assets se generan o reconstruyen con herramientas como Meshy.</p>
+      <p><strong>XR:</strong> el escenario se lleva a RA, Unreal o FrameVR.</p>
+      <p><strong>Evaluación:</strong> personas reales realizan tareas; la IA puede ayudar después a organizar comentarios o cuestionar el protocolo.</p>
+      <p><strong>Interpretación:</strong> la conclusión sigue siendo responsabilidad del equipo de investigación.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">11. Trazabilidad: saber qué hizo la IA y qué decidimos nosotros</h2>
+
+    <table class="compare trace-table">
+      <tbody>
+        <tr>
+          <td>Entrada</td>
+          <td>¿Qué información, fuente, imagen o datos proporcionamos?</td>
+        </tr>
+        <tr>
+          <td>Instrucción</td>
+          <td>¿Qué le pedimos exactamente?</td>
+        </tr>
+        <tr>
+          <td>Salida</td>
+          <td>¿Qué generó?</td>
+        </tr>
+        <tr>
+          <td>Verificación</td>
+          <td>¿Qué comprobamos y con qué fuente o criterio?</td>
+        </tr>
+        <tr>
+          <td>Decisión</td>
+          <td>¿Qué aceptamos, modificamos o rechazamos?</td>
+        </tr>
+        <tr>
+          <td>Autoría</td>
+          <td>¿Qué aportación intelectual realiza finalmente el diseñador?</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prompt-box">
+      En investigación, un buen uso de IA no sólo produce resultados:
+      también permite explicar <strong>cómo llegamos a ellos.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">12. Cinco riesgos que debemos reconocer</h2>
+
+    <div class="class-grid">
+      <div class="card risk-card">
+        <h3>Alucinación</h3>
+        <p>Una respuesta convincente puede contener hechos o referencias inexistentes.</p>
+      </div>
+
+      <div class="card risk-card">
+        <h3>Sesgo</h3>
+        <p>El modelo puede reproducir estereotipos o hacer invisibles perspectivas poco representadas.</p>
+      </div>
+
+      <div class="card risk-card">
+        <h3>Fijación</h3>
+        <p>La primera solución generada puede reducir la exploración del espacio de diseño.</p>
+      </div>
+
+      <div class="card risk-card">
+        <h3>Privacidad</h3>
+        <p>Datos de participantes, entrevistas o proyectos confidenciales no deben compartirse sin valorar tratamiento y autorización.</p>
+      </div>
+
+      <div class="card risk-card">
+        <h3>Automatización del juicio</h3>
+        <p>Una puntuación producida por IA puede parecer objetiva aunque dependa del prompt y del modelo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">13. Actividad en clase: cuatro papeles de IA sobre un mismo problema</h2>
+
+    <div class="card">
+      <p>Trabaja con una pregunta o proyecto que ya tengas. No empieces un tema nuevo.</p>
+
+      <ol>
+        <li><strong>Investigador:</strong> utiliza IA para descomponer el problema y construir cinco términos o líneas de búsqueda.</li>
+        <li><strong>Socio de ideación:</strong> genera al menos tres familias conceptuales basadas en principios distintos.</li>
+        <li><strong>Ilustrador:</strong> construye una imagen o storyboard de uno de los conceptos dentro de un contexto de uso.</li>
+        <li><strong>Crítico:</strong> entrega el concepto junto con criterios explícitos y solicita una crítica adversarial.</li>
+        <li>Identifica un resultado útil de cada etapa.</li>
+        <li>Identifica al menos un resultado incorrecto, genérico, sesgado o poco útil.</li>
+        <li>Documenta qué decisión tomaste tú después de recibir cada salida.</li>
+      </ol>
+    </div>
+
+    <div class="prompt-box">
+      El ejercicio no evalúa quién obtuvo “la mejor respuesta de la IA”.
+      Evalúa quién puede <strong>dirigir, verificar, cuestionar y transformar</strong> lo generado.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">14. Evidencia de la sesión</h2>
+
+    <div class="callout ok">
+      <strong>Bitácora de colaboración humano–IA.</strong><br/>
+      Entrega una síntesis de una página que muestre
+      investigación, ideación, representación y evaluación sobre un mismo problema.
+    </div>
+
+    <div class="card">
+      <p>Incluye:</p>
+      <ul class="tight">
+        <li>Problema o pregunta inicial.</li>
+        <li>Cuatro usos diferentes de IA.</li>
+        <li>Una salida seleccionada de cada etapa.</li>
+        <li>Una salida rechazada y por qué.</li>
+        <li>Qué información fue verificada.</li>
+        <li>Qué decisión fue exclusivamente humana.</li>
+        <li>Una limitación ética o metodológica identificada.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">15. Idea que debe quedar al finalizar</h2>
+
+    <div class="prompt-box">
+      La IA es más útil para el diseño cuando deja de ser una “máquina de respuestas”
+      y se convierte en un sistema para <strong>expandir preguntas, explorar alternativas,
+      visualizar hipótesis, encontrar problemas y acelerar ciclos de aprendizaje.</strong>
+      La responsabilidad de decidir qué es válido, pertinente y defendible sigue siendo humana.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Bibliografía y lecturas de ampliación</h2>
+
+    <div class="sources-box">
+      <p>
+        <strong>Chen, L., Song, Y., Guo, J., Sun, L., Childs, P., &amp; Yin, Y. (2025).</strong>
+        How generative AI supports human in conceptual design.
+        <em>Design Science, 11</em>, e9.
+        <a href="https://doi.org/10.1017/dsj.2025.2" target="_blank" rel="noopener">
+          https://doi.org/10.1017/dsj.2025.2
+        </a>
+      </p>
+
+      <p>
+        <strong>Wadinambiarachchi, S., Kelly, R. M., Pareek, S., Zhou, Q., &amp; Velloso, E. (2024).</strong>
+        The Effects of Generative AI on Design Fixation and Divergent Thinking.
+        <em>Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems</em>.
+        <a href="https://doi.org/10.1145/3613904.3642919" target="_blank" rel="noopener">
+          https://doi.org/10.1145/3613904.3642919
+        </a>
+      </p>
+
+      <p>
+        <strong>Hämäläinen, P., Tavast, M., &amp; Kunnari, A. (2023).</strong>
+        Evaluating Large Language Models in Generating Synthetic HCI Research Data: a Case Study.
+        <em>Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems</em>.
+        <a href="https://doi.org/10.1145/3544548.3580688" target="_blank" rel="noopener">
+          https://doi.org/10.1145/3544548.3580688
+        </a>
+      </p>
+
+      <p>
+        <strong>Pattyn, F. (2025).</strong>
+        The Value of Generative AI for Qualitative Research: A Pilot Study.
+        <em>Journal of Data Science and Intelligent Systems, 3</em>(3), 184–191.
+        <a href="https://doi.org/10.47852/bonviewJDSIS42022964" target="_blank" rel="noopener">
+          https://doi.org/10.47852/bonviewJDSIS42022964
+        </a>
+      </p>
+
+      <p>
+        <strong>Muehlhaus, M., &amp; Steimle, J. (2024).</strong>
+        Interaction Design with Generative AI:
+        An Empirical Study of Emerging Strategies Across the Four Phases of Design.
+        <em>arXiv:2411.02662</em>.
+        <a href="https://doi.org/10.48550/arXiv.2411.02662" target="_blank" rel="noopener">
+          https://doi.org/10.48550/arXiv.2411.02662
+        </a>
+      </p>
+
+      <p class="small">
+        Los modelos, interfaces y capacidades de IA cambian rápidamente.
+        La clase se centra en funciones metodológicas y criterios de uso,
+        no en depender de una plataforma o versión específica.
+      </p>
+    </div>
+  </section>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="button" href="clase-11.html">← Clase anterior</a>
+    <a class="button" href="clase-13.html">Siguiente clase →</a>
+  </div>
+</main>
+
+<footer>Clase 12 · 2027-1</footer>
+<script src="site.js"></script>
+</body>
+</html>
