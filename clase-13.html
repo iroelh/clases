@@ -1,22 +1,1194 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Clase 13 · Cómo evaluar una experiencia XR: SUS, UEQ-S e IPQ</title><link href="style.css" rel="stylesheet"/></head><body><header class="site-header">
-<div class="institutional-bar"><div class="institutional-inner"><span class="unam-mark">UNAM</span><span class="institutional-divider"></span><span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span></div></div>
-<div class="header-inner">
-<p class="kicker">Temas Selectos · Semestre 2027-1</p>
-<h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
-<p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
-</div>
-</header><nav aria-label="Navegación principal" class="navbar">
-<div class="nav-inner">
-<a class="nav-brand" href="index.html">RA · RV</a>
-<button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button"><span class="menu-icon"></span></button>
-<div class="nav-links" id="primary-menu">
-<a href="index.html">Inicio</a><a href="index.html#enfoque">Enfoque</a><a href="index.html#clases">Clases</a><a href="index.html#acreditacion">Acreditación</a>
-</div>
-</div>
-</nav><main>
-<div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 13</div>
-<section class="lesson-header"><div><span class="pill tag-async">Asincrónica</span><span class="pill">6 noviembre</span><h1>Cómo evaluar una experiencia XR: SUS, UEQ-S e IPQ</h1><p class="subtitle" style="color:var(--muted)">Vuelve pronto, en construcción</p></div></section>
-<div class="card construction-panel"><div class="construction-mark"></div><h2>Vuelve pronto, en construcción</h2><p>Esta sesión se irá desarrollando conforme avance el semestre. Aquí aparecerán objetivos, contenidos, práctica de laboratorio, recursos y evidencias de aprendizaje.</p></div>
-<div style="margin-top:30px"><a class="button" href="index.html#clases">← Volver a clases</a></div>
-</main><footer>Clase 13 · 2027-1</footer><script src="site.js"></script></body></html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Clase 13 · Cómo evaluar una experiencia XR</title>
+<link href="style.css" rel="stylesheet"/>
+
+<style>
+  .ar-demo {
+    margin: 26px 0;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .ar-demo-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
+  }
+
+  .viewer-wrap {
+    min-height:500px;
+    background:
+      radial-gradient(circle at 50% 28%,rgba(217,165,0,.14),transparent 30%),
+      linear-gradient(160deg,#f7f9fc 0%,#edf2f7 100%);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    overflow:hidden;
+  }
+
+  .ar-info { padding:28px; }
+  .ar-info h3 { margin-top:0; }
+
+  .tech-list {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 16px;
+    margin:18px 0;
+  }
+
+  .tech-item {
+    border-top:1px solid var(--line);
+    padding-top:9px;
+  }
+
+  .tech-item strong {
+    display:block;
+    color:#013b75;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:.035em;
+    margin-bottom:2px;
+  }
+
+  .demo-warning {
+    margin-top:18px;
+    padding:14px 16px;
+    border-left:4px solid #d9a500;
+    background:#fff8df;
+    color:#3d3520;
+    border-radius:0 12px 12px 0;
+  }
+
+  .process-strip {
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:9px;
+    margin:18px 0;
+  }
+
+  .process-step {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:13px 9px;
+    text-align:center;
+    background:#fff;
+    font-size:.92rem;
+  }
+
+  .process-step strong {
+    display:block;
+    color:#013b75;
+    font-size:1.05rem;
+    margin-bottom:4px;
+  }
+
+  .method-card {
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+    margin:24px 0;
+  }
+
+  .method-head {
+    background:#013b75;
+    color:#fff;
+    padding:18px 20px;
+  }
+
+  .method-head h3 {
+    color:#fff;
+    margin:0 0 4px;
+  }
+
+  .method-head p {
+    margin:0;
+    opacity:.88;
+  }
+
+  .method-body { padding:20px; }
+
+  .step-block {
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:14px;
+    align-items:start;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .step-block:last-child { border-bottom:0; }
+
+  .step-number {
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#d9a500;
+    color:#102a43;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+  }
+
+  .step-block h4 {
+    margin:0 0 5px;
+    color:#013b75;
+    font-size:1rem;
+  }
+
+  .formula {
+    margin:12px 0;
+    padding:14px 16px;
+    border-radius:12px;
+    background:#f2f6fa;
+    border:1px solid var(--line);
+    font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+    line-height:1.65;
+  }
+
+  .decision-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin:18px 0;
+  }
+
+  .decision-card {
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px;
+    background:#fff;
+  }
+
+  .decision-card h3 {
+    color:#013b75;
+    margin-top:0;
+  }
+
+  .decision-card .question {
+    padding:10px 12px;
+    background:#f6f8fb;
+    border-radius:10px;
+    font-weight:700;
+    margin:10px 0;
+  }
+
+  .scale-line {
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:5px;
+    margin:12px 0;
+  }
+
+  .scale-line span {
+    text-align:center;
+    padding:7px 2px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#fff;
+    font-size:.82rem;
+  }
+
+  .official-frame {
+    margin:18px 0;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    background:#fff;
+  }
+
+  .official-frame iframe,
+  .official-frame object {
+    width:100%;
+    height:520px;
+    border:0;
+    display:block;
+    background:#f4f6f8;
+  }
+
+  .official-caption {
+    padding:11px 14px;
+    border-top:1px solid var(--line);
+    background:#f7f9fc;
+    font-size:.84rem;
+    color:var(--muted);
+  }
+
+  .official-caption a {
+    color:#013b75;
+    font-weight:700;
+  }
+
+  .data-table input {
+    width:54px;
+    border:1px solid #ccd5df;
+    border-radius:6px;
+    padding:5px;
+  }
+
+  .example-chart {
+    height:220px;
+    display:flex;
+    gap:18px;
+    align-items:flex-end;
+    justify-content:center;
+    padding:24px 20px 36px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:
+      repeating-linear-gradient(to top,#f5f7fa 0,#f5f7fa 1px,transparent 1px,transparent 44px),
+      #fff;
+  }
+
+  .bar-wrap {
+    width:65px;
+    text-align:center;
+    font-size:.78rem;
+  }
+
+  .bar {
+    width:100%;
+    background:#013b75;
+    border-radius:8px 8px 0 0;
+    position:relative;
+  }
+
+  .bar.gold { background:#d9a500; }
+
+  .bar-value {
+    position:absolute;
+    left:0;right:0;
+    top:-22px;
+    font-weight:800;
+    color:#013b75;
+  }
+
+  .bar-label { margin-top:7px; }
+
+  .submission-box {
+    border:2px solid #013b75;
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+  }
+
+  .submission-head {
+    padding:17px 20px;
+    background:#013b75;
+    color:#fff;
+  }
+
+  .submission-head h3 { margin:0;color:#fff; }
+  .submission-body { padding:20px; }
+
+  .async-banner {
+    margin:22px 0;
+    padding:20px;
+    border-radius:16px;
+    background:#eef5fb;
+    border-left:6px solid #013b75;
+  }
+
+  .async-banner strong {
+    color:#013b75;
+  }
+
+  @media(max-width:900px) {
+    .decision-grid { grid-template-columns:1fr; }
+    .process-strip { grid-template-columns:repeat(2,1fr); }
+  }
+
+  @media(max-width:820px) {
+    .ar-demo-grid { grid-template-columns:1fr; }
+    .tech-list { grid-template-columns:1fr; }
+    .official-frame iframe,
+    .official-frame object { height:420px; }
+  }
+</style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="institutional-bar">
+    <div class="institutional-inner">
+      <span class="unam-mark">UNAM</span>
+      <span class="institutional-divider"></span>
+      <span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span>
+    </div>
+  </div>
+
+  <div class="header-inner">
+    <p class="kicker">Temas Selectos · Semestre 2027-1</p>
+    <h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
+    <p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
+  </div>
+</header>
+
+<nav aria-label="Navegación principal" class="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">RA · RV</a>
+    <button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button">
+      <span class="menu-icon"></span>
+    </button>
+    <div class="nav-links" id="primary-menu">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#enfoque">Enfoque</a>
+      <a href="index.html#clases">Clases</a>
+      <a href="index.html#acreditacion">Acreditación</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 13</div>
+
+  <section class="lesson-header">
+    <div>
+      <span class="pill">Asincrónica</span>
+      <span class="pill">6 de noviembre</span>
+
+      <h1>Cómo evaluar una experiencia XR</h1>
+
+      <p class="subtitle" style="color:var(--muted)">
+        Selección, aplicación, puntuación e interpretación de tres instrumentos estandarizados:
+        SUS, UEQ-S e IPQ.
+      </p>
+    </div>
+  </section>
+
+  <div class="async-banner">
+    <strong>Sesión asincrónica.</strong>
+    Esta página contiene todas las instrucciones necesarias para realizar la actividad.
+    Lee la metodología completa antes de comenzar a recolectar datos.
+  </div>
+
+  <div class="callout">
+    <strong>Pregunta de la sesión:</strong>
+    ¿cómo pasamos de decir “la experiencia funcionó bien” a producir una evaluación
+    estructurada, reproducible y vinculada con una pregunta concreta?
+  </div>
+
+  <section>
+    <h2 class="section-title">Objetivos de aprendizaje</h2>
+    <div class="card">
+      <ul class="tight">
+        <li>Distinguir usabilidad, experiencia de usuario y presencia.</li>
+        <li>Seleccionar un instrumento a partir de una pregunta de evaluación.</li>
+        <li>Aplicar correctamente SUS, UEQ-S o IPQ después de una experiencia XR.</li>
+        <li>Transformar respuestas en puntuaciones siguiendo la lógica de cada escala.</li>
+        <li>Realizar un análisis descriptivo elemental con una muestra piloto de 3–5 participantes.</li>
+        <li>Representar los resultados mediante una gráfica simple.</li>
+        <li>Interpretar los datos sin atribuirles conclusiones que la muestra no permite sostener.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">1. Antes de medir: define qué quieres saber</h2>
+
+    <p>
+      El error más frecuente consiste en elegir primero un cuestionario y después intentar descubrir
+      qué significa el número obtenido. En investigación debemos proceder al revés:
+      <strong>pregunta → constructo → instrumento.</strong>
+    </p>
+
+    <div class="decision-grid">
+      <div class="decision-card">
+        <span class="pill">SUS</span>
+        <h3>Usabilidad percibida</h3>
+        <div class="question">¿Qué tan utilizable resultó el sistema o interacción?</div>
+        <p>Úsalo cuando tu interés principal sea facilidad de uso, complejidad, consistencia y confianza de operación.</p>
+      </div>
+
+      <div class="decision-card">
+        <span class="pill">UEQ-S</span>
+        <h3>Experiencia de usuario</h3>
+        <div class="question">¿Cómo se percibe la experiencia en términos pragmáticos y hedónicos?</div>
+        <p>Úsalo cuando quieras una lectura breve sobre claridad/eficiencia y sobre interés/novedad.</p>
+      </div>
+
+      <div class="decision-card">
+        <span class="pill">IPQ</span>
+        <h3>Presencia</h3>
+        <div class="question">¿Hasta qué punto la persona sintió estar dentro del entorno virtual?</div>
+        <p>Úsalo principalmente en experiencias de realidad virtual donde la presencia sea parte de la pregunta.</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      No uses los tres “para tener más datos”.
+      En esta actividad debes seleccionar <strong>un solo instrumento</strong>
+      y justificar por qué responde mejor a tu pregunta.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">2. Secuencia metodológica común</h2>
+
+    <div class="process-strip">
+      <div class="process-step"><strong>1</strong>Pregunta</div>
+      <div class="process-step"><strong>2</strong>Instrumento</div>
+      <div class="process-step"><strong>3</strong>Tarea XR</div>
+      <div class="process-step"><strong>4</strong>Participantes</div>
+      <div class="process-step"><strong>5</strong>Cuestionario</div>
+      <div class="process-step"><strong>6</strong>Puntuación</div>
+      <div class="process-step"><strong>7</strong>Interpretación</div>
+    </div>
+
+    <div class="card">
+      <h3>Reglas de esta práctica</h3>
+      <ul class="tight">
+        <li>Utiliza una experiencia desarrollada o trabajada previamente en el curso.</li>
+        <li>Trabaja con <strong>3 a 5 participantes</strong>. Es un piloto, no una validación estadística.</li>
+        <li>Todos deben realizar la misma tarea básica antes de responder.</li>
+        <li>Aplica el cuestionario inmediatamente después de la experiencia.</li>
+        <li>No expliques qué “deberían” responder.</li>
+        <li>Registra a los participantes mediante códigos: P01, P02, P03...</li>
+        <li>No realices estadística inferencial con esta muestra.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">3. Preparación del piloto: paso a paso</h2>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>FASE 1 · Diseñar la situación de evaluación</h3>
+        <p>Haz esto antes de invitar a cualquier participante.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Selecciona una experiencia concreta</h4>
+            <p>No evalúes “Unreal” o “la realidad virtual”. Evalúa una experiencia identificable: tu escena reactiva, un espacio FrameVR, una WebAR o una simulación determinada.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Formula una pregunta</h4>
+            <p>Ejemplo SUS: <em>¿la interacción para activar la zona de seguridad resulta utilizable sin asistencia?</em></p>
+            <p>Ejemplo UEQ-S: <em>¿cómo se percibe la experiencia pragmática y hedónica del recorrido?</em></p>
+            <p>Ejemplo IPQ: <em>¿qué nivel de presencia produce el escenario virtual?</em></p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Define una tarea idéntica para todos</h4>
+            <p>Debe poder completarse en pocos minutos y tener inicio y final claros. Evita enseñar verbalmente la solución durante la prueba.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">4</div>
+          <div>
+            <h4>Define qué registrarás además del cuestionario</h4>
+            <p>Como mínimo registra una observación conductual y un comentario breve. Ejemplo: tarea completada, error, tiempo aproximado, duda observada o frase del participante.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">5</div>
+          <div>
+            <h4>Prepara una tabla antes de recolectar</h4>
+            <p>Una fila por participante. No intentes reconstruir los datos después de memoria.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">4. Metodología A · SUS — System Usability Scale</h2>
+
+    <p>
+      SUS es una escala de 10 reactivos con respuestas de 1 a 5.
+      Produce una puntuación global de usabilidad percibida entre 0 y 100.
+      <strong>El resultado no es un porcentaje.</strong>
+    </p>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>SUS · Procedimiento completo</h3>
+        <p>Úsalo si tu pregunta principal es de usabilidad.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Haz que el participante use primero la experiencia</h4>
+            <p>La persona debe realizar una tarea representativa. SUS se aplica después del uso, no antes.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Aplica los 10 reactivos completos</h4>
+            <p>Utiliza una versión íntegra del instrumento y una escala de 1 = totalmente en desacuerdo a 5 = totalmente de acuerdo. No selecciones sólo los reactivos que te parezcan útiles.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Recodifica cada respuesta</h4>
+            <div class="formula">
+Reactivos impares (1,3,5,7,9): puntuación = respuesta − 1<br/>
+Reactivos pares (2,4,6,8,10): puntuación = 5 − respuesta
+            </div>
+            <p>Después de esta operación cada reactivo aporta entre 0 y 4 puntos.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">4</div>
+          <div>
+            <h4>Suma y transforma</h4>
+            <div class="formula">
+SUS = suma de los 10 valores recodificados × 2.5
+            </div>
+            <p>El resultado individual se encontrará entre 0 y 100.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">5</div>
+          <div>
+            <h4>Calcula primero cada participante</h4>
+            <p>No mezcles todas las respuestas sin conservar los casos. Obtén SUS(P01), SUS(P02), SUS(P03)... y después calcula la media del pequeño grupo.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">6</div>
+          <div>
+            <h4>Representa los resultados</h4>
+            <p>Para esta práctica utiliza una gráfica de barras con una barra por participante. Añade la media del grupo como referencia si lo deseas.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">7</div>
+          <div>
+            <h4>Interpreta con prudencia</h4>
+            <p>Con 3–5 personas describe tendencias y problemas. No afirmes que el sistema “está validado” ni generalices a una población.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="official-frame">
+      <iframe src="https://hci-studies.org/methods-and-measures/downloads/SUS_Brooke1996.pdf"
+              title="Documento de referencia de System Usability Scale"></iframe>
+      <div class="official-caption">
+        Documento de referencia: Brooke, J. (1996), <em>SUS: A quick and dirty usability scale</em>.
+        Si el visor no se carga, <a href="https://hci-studies.org/methods-and-measures/downloads/SUS_Brooke1996.pdf" target="_blank" rel="noopener">abre el PDF</a>.
+      </div>
+    </div>
+
+    <div class="demo-warning">
+      <strong>Error común:</strong> obtener SUS = 82 y escribir “82 % de usabilidad”.
+      SUS utiliza una escala transformada de 0–100; no representa un porcentaje de tareas correctas.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">5. Metodología B · UEQ-S — User Experience Questionnaire, versión corta</h2>
+
+    <p>
+      UEQ-S contiene 8 pares de términos opuestos en una escala de 7 posiciones.
+      Los primeros cuatro reactivos representan <strong>calidad pragmática</strong>
+      y los últimos cuatro <strong>calidad hedónica</strong>.
+    </p>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>UEQ-S · Procedimiento completo</h3>
+        <p>Úsalo si te interesa una lectura breve de experiencia pragmática y hedónica.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Aplica la experiencia</h4>
+            <p>El participante debe haber interactuado suficientemente para formarse una impresión. Aplica UEQ-S inmediatamente después.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Utiliza los 8 pares en el orden oficial</h4>
+            <p>En UEQ-S el término negativo aparece a la izquierda y el positivo a la derecha para permitir una respuesta rápida.</p>
+            <div class="scale-line">
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Convierte 1–7 a −3…+3</h4>
+            <div class="formula">
+valor UEQ-S = respuesta − 4<br/>
+1 → −3 &nbsp; | &nbsp; 4 → 0 &nbsp; | &nbsp; 7 → +3
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">4</div>
+          <div>
+            <h4>Calcula Calidad Pragmática</h4>
+            <div class="formula">
+Pragmatic Quality = media de los reactivos 1, 2, 3 y 4
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">5</div>
+          <div>
+            <h4>Calcula Calidad Hedónica</h4>
+            <div class="formula">
+Hedonic Quality = media de los reactivos 5, 6, 7 y 8
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">6</div>
+          <div>
+            <h4>Calcula el valor global sólo como apoyo</h4>
+            <div class="formula">
+Overall = media de los 8 reactivos
+            </div>
+            <p>El propio manual advierte que el valor global debe interpretarse con cautela porque la importancia relativa de la calidad pragmática y hedónica depende del producto.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">7</div>
+          <div>
+            <h4>Grafica las dos dimensiones principales</h4>
+            <p>Para esta actividad presenta dos barras: Pragmática y Hedónica. Si incluyes Overall, colócalo como dato secundario.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="official-frame">
+      <object data="https://www.ueq-online.org/Material/UEQS_Items.pdf" type="application/pdf">
+        <p>El visor del navegador no pudo mostrar el documento.
+          <a href="https://www.ueq-online.org/Material/UEQS_Items.pdf" target="_blank" rel="noopener">Abrir cuestionario oficial UEQ-S</a>.
+        </p>
+      </object>
+      <div class="official-caption">
+        Material oficial del equipo UEQ: reactivos y versiones lingüísticas de UEQ-S.
+        <a href="https://www.ueq-online.org/" target="_blank" rel="noopener">ueq-online.org</a>.
+      </div>
+    </div>
+
+    <div class="callout gold">
+      <strong>Sobre la versión corta:</strong>
+      el equipo UEQ indica que UEQ-S ofrece sólo una medición aproximada de dos metadimensiones
+      y no sustituye a la versión completa cuando se necesita diagnosticar cualidades específicas de UX.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">6. Metodología C · IPQ — Igroup Presence Questionnaire</h2>
+
+    <p>
+      IPQ mide la experiencia subjetiva de presencia dentro de un entorno virtual.
+      La versión actual contiene un reactivo general y tres subescalas:
+      <strong>Spatial Presence, Involvement y Experienced Realism.</strong>
+    </p>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>IPQ · Procedimiento completo</h3>
+        <p>Úsalo sólo cuando la presencia sea realmente parte de tu pregunta.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Comprueba que tu caso sea adecuado</h4>
+            <p>IPQ fue desarrollado para entornos virtuales. El equipo del instrumento advierte que su uso para AR/MR/XR híbrida presenta limitaciones importantes. Para esta actividad prefierelo en una experiencia de RV o entorno virtual.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Documenta las condiciones de exposición</h4>
+            <p>Registra al menos dispositivo visual, audio, perspectiva, duración de la experiencia y tipo de aplicación. El propio proyecto IPQ recomienda conservar estos datos junto con las respuestas.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Aplica la lista completa inmediatamente después</h4>
+            <p>La actualización del equipo IPQ de 2025 recomienda utilizar la lista completa y una escala de siete puntos de −3 a +3.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">4</div>
+          <div>
+            <h4>Identifica los reactivos que requieren inversión</h4>
+            <p>La documentación de puntuación identifica tres reactivos invertidos: <strong>SP2, INV3 y REAL1</strong>.</p>
+            <div class="formula">
+Si trabajas de −3 a +3:<br/>
+valor recodificado = −(valor original)
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">5</div>
+          <div>
+            <h4>Calcula Spatial Presence</h4>
+            <div class="formula">
+SP = media(SP1, SP2_recodificado, SP3, SP4, SP5)
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">6</div>
+          <div>
+            <h4>Calcula Involvement</h4>
+            <div class="formula">
+INV = media(INV1, INV2, INV3_recodificado, INV4)
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">7</div>
+          <div>
+            <h4>Calcula Experienced Realism</h4>
+            <div class="formula">
+REAL = media(REAL1_recodificado, REAL2, REAL3, REAL4)
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">8</div>
+          <div>
+            <h4>Mantén el reactivo general separado</h4>
+            <p>G1 expresa el sentido general de “estar ahí”. No lo mezcles arbitrariamente con las tres subescalas.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">9</div>
+          <div>
+            <h4>Grafica el perfil</h4>
+            <p>Presenta tres barras para SP, INV y REAL. Puedes añadir G1 como referencia separada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="official-frame">
+      <iframe src="https://www.igroup.org/pq/ipq/download.php"
+              title="Página oficial del Igroup Presence Questionnaire"></iframe>
+      <div class="official-caption">
+        Fuente oficial del instrumento: Igroup Presence Questionnaire.
+        <a href="https://www.igroup.org/pq/ipq/download.php" target="_blank" rel="noopener">Abrir lista oficial de reactivos</a>.
+      </div>
+    </div>
+
+    <div class="demo-warning">
+      <strong>No confundas inmersión con presencia.</strong>
+      El equipo IPQ distingue la inmersión como propiedad tecnológica
+      de la presencia como experiencia subjetiva del usuario.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">7. Recolección de datos · protocolo para 3–5 participantes</h2>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>FASE 2 · Aplicar el piloto</h3>
+        <p>Repite exactamente esta secuencia con cada participante.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Asigna un código</h4>
+            <p>P01, P02, P03... No necesitas nombres en tu tabla de análisis.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Da la misma instrucción</h4>
+            <p>Lee o muestra el mismo texto a todos. Si cambias las instrucciones entre personas introduces una nueva condición.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Permite que realice la tarea</h4>
+            <p>No corrijas inmediatamente sus errores. Si necesita ayuda, registra que la necesitó.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">4</div>
+          <div>
+            <h4>Registra una conducta</h4>
+            <p>Ejemplos: tarea completada, error principal, tiempo aproximado, ruta elegida, solicitud de ayuda.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">5</div>
+          <div>
+            <h4>Aplica inmediatamente el instrumento</h4>
+            <p>Evita conversar largamente sobre la experiencia antes del cuestionario; puedes influir en la respuesta.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">6</div>
+          <div>
+            <h4>Haz una sola pregunta abierta</h4>
+            <p><em>“¿Qué fue lo más claro y qué fue lo más problemático de la experiencia?”</em> Registra una frase o síntesis breve.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      Si una persona presenta mareo, dolor, desorientación o cualquier malestar,
+      la experiencia se detiene. La obtención de datos nunca tiene prioridad sobre la seguridad.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">8. Organiza los datos antes de interpretarlos</h2>
+
+    <p>Tu tabla debe permitir regresar desde cualquier promedio hasta el participante que lo produjo.</p>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Resultado instrumento</th>
+          <th>Conducta observada</th>
+          <th>Comentario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P01</td>
+          <td>...</td>
+          <td>Completó sin ayuda</td>
+          <td>“...”</td>
+        </tr>
+        <tr>
+          <td>P02</td>
+          <td>...</td>
+          <td>Dudó en la segunda acción</td>
+          <td>“...”</td>
+        </tr>
+        <tr>
+          <td>P03</td>
+          <td>...</td>
+          <td>Solicitó ayuda</td>
+          <td>“...”</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prompt-box">
+      Conserva primero los datos individuales.
+      El promedio es una síntesis; no debe borrar las diferencias entre participantes.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">9. Construye una gráfica simple</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Si utilizaste SUS</h3>
+        <p>Barras por participante con puntuación 0–100. Puedes marcar la media del piloto.</p>
+      </div>
+
+      <div class="card">
+        <h3>Si utilizaste UEQ-S</h3>
+        <p>Dos barras principales: calidad pragmática y calidad hedónica, de −3 a +3.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Si utilizaste IPQ</h3>
+      <p>Tres barras: Spatial Presence, Involvement y Experienced Realism. Mantén G1 como referencia separada.</p>
+    </div>
+
+    <div class="example-chart" aria-label="Ejemplo esquemático de gráfica de resultados">
+      <div class="bar-wrap">
+        <div class="bar" style="height:120px"><div class="bar-value">P01</div></div>
+        <div class="bar-label">Dato 1</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar gold" style="height:155px"><div class="bar-value">P02</div></div>
+        <div class="bar-label">Dato 2</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:100px"><div class="bar-value">P03</div></div>
+        <div class="bar-label">Dato 3</div>
+      </div>
+    </div>
+
+    <p class="small">
+      Diagrama didáctico. Tus barras deben utilizar los valores reales obtenidos con el instrumento seleccionado.
+    </p>
+  </section>
+
+  <section>
+    <h2 class="section-title">10. Cómo escribir la interpretación</h2>
+
+    <p>
+      La interpretación no consiste en repetir los números.
+      Debe relacionar <strong>pregunta + resultado + conducta + comentario + limitación</strong>.
+    </p>
+
+    <div class="method-card">
+      <div class="method-head">
+        <h3>FASE 3 · Redactar aproximadamente una página</h3>
+        <p>Utiliza esta estructura.</p>
+      </div>
+
+      <div class="method-body">
+        <div class="step-block">
+          <div class="step-number">1</div>
+          <div>
+            <h4>Recuerda la pregunta</h4>
+            <p>Una o dos frases. Explica qué querías conocer y por qué seleccionaste el instrumento.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">2</div>
+          <div>
+            <h4>Describe el patrón cuantitativo</h4>
+            <p>No listes todas las respuestas. Explica qué dimensión fue más alta, más baja o mostró mayor diferencia entre personas.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">3</div>
+          <div>
+            <h4>Contrástalo con conducta</h4>
+            <p>¿Lo observado durante la tarea coincide con el resultado del cuestionario o aparece una contradicción?</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">4</div>
+          <div>
+            <h4>Incorpora la voz del participante</h4>
+            <p>Utiliza uno o dos comentarios breves para explicar el patrón, no para sustituirlo.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">5</div>
+          <div>
+            <h4>Declara una limitación</h4>
+            <p>Ejemplos: muestra muy pequeña, experiencia breve, familiaridad desigual con XR, hardware diferente, tarea demasiado simple.</p>
+          </div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-number">6</div>
+          <div>
+            <h4>Propón un cambio</h4>
+            <p>Termina con una decisión concreta de rediseño o con una pregunta que deba probarse después.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      Vuelve a la fórmula del curso:
+      <strong>LO QUE HIZO + LO QUE EXPERIMENTÓ + LO QUE DIJO.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">11. Qué NO puedes concluir con este ejercicio</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>No escribas</h3>
+        <p>“La interfaz queda validada porque SUS fue alto”.</p>
+        <p>“Los usuarios prefieren esta propuesta”.</p>
+        <p>“La población experimenta alta presencia”.</p>
+      </div>
+
+      <div class="card">
+        <h3>Escribe mejor</h3>
+        <p>“En este piloto de cuatro participantes...”</p>
+        <p>“Los resultados descriptivos sugieren...”</p>
+        <p>“Este patrón deberá verificarse con una muestra y protocolo posteriores...”</p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      <strong>n = 3–5 sirve para aprender el método, detectar problemas y preparar una prueba posterior.</strong>
+      No realizaremos pruebas de significancia ni afirmaciones poblacionales.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">12. Entrega de la sesión</h2>
+
+    <div class="submission-box">
+      <div class="submission-head">
+        <h3>Evidencia · Evaluación piloto de una experiencia XR</h3>
+      </div>
+
+      <div class="submission-body">
+        <ol>
+          <li><strong>Pregunta de evaluación.</strong></li>
+          <li><strong>Instrumento seleccionado:</strong> SUS, UEQ-S o IPQ.</li>
+          <li><strong>Justificación de la selección</strong> en 3–5 líneas.</li>
+          <li><strong>Descripción de la experiencia y tarea</strong> realizada por los participantes.</li>
+          <li><strong>Tabla de datos</strong> de 3–5 participantes.</li>
+          <li><strong>Cálculo</strong> correspondiente al instrumento.</li>
+          <li><strong>Una gráfica simple.</strong></li>
+          <li><strong>Interpretación de aproximadamente una página.</strong></li>
+          <li><strong>Una limitación</strong> del piloto.</li>
+          <li><strong>Una decisión de rediseño</strong> o siguiente pregunta de investigación.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">13. Lista de comprobación antes de entregar</h2>
+
+    <div class="card">
+      <ul class="tight">
+        <li>□ Mi pregunta corresponde realmente al instrumento que elegí.</li>
+        <li>□ Todos los participantes realizaron la misma tarea.</li>
+        <li>□ Apliqué el instrumento completo.</li>
+        <li>□ Conservé los datos individuales.</li>
+        <li>□ Verifiqué la recodificación de reactivos.</li>
+        <li>□ Mi gráfica utiliza los valores calculados, no impresiones personales.</li>
+        <li>□ No traté SUS como porcentaje.</li>
+        <li>□ No hice inferencia estadística con 3–5 casos.</li>
+        <li>□ Mi interpretación integra conducta y comentario.</li>
+        <li>□ Declaré al menos una limitación.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">14. Idea que debe quedar al finalizar</h2>
+
+    <div class="prompt-box">
+      Un cuestionario estandarizado no reemplaza la observación:
+      la organiza y agrega una medida comparable.
+      La evaluación es más útil cuando vinculamos
+      <strong>una pregunta clara, una tarea controlada, una escala adecuada,
+      la conducta observada y una interpretación prudente.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Fuentes y materiales oficiales</h2>
+
+    <div class="sources-box">
+      <p>
+        <strong>Brooke, J. (1996).</strong>
+        SUS: A “Quick and Dirty” Usability Scale.
+        In P. W. Jordan, B. Thomas, B. A. Weerdmeester &amp; I. L. McClelland (Eds.),
+        <em>Usability Evaluation in Industry</em>.
+        <a href="https://doi.org/10.1201/9781498710411-35" target="_blank" rel="noopener">
+          DOI / fuente original
+        </a>.
+      </p>
+
+      <p>
+        <strong>UEQ Team.</strong>
+        Sitio oficial, Handbook, UEQ-S y herramientas de análisis.
+        <a href="https://www.ueq-online.org/" target="_blank" rel="noopener">
+          ueq-online.org
+        </a>.
+      </p>
+
+      <p>
+        <strong>Schrepp, M., Hinderks, A., &amp; Thomaschewski, J. (2017).</strong>
+        Design and Evaluation of a Short Version of the User Experience Questionnaire (UEQ-S).
+        <em>International Journal of Interactive Multimedia and Artificial Intelligence, 4</em>(6), 103–108.
+        <a href="https://doi.org/10.9781/ijimai.2017.09.001" target="_blank" rel="noopener">
+          https://doi.org/10.9781/ijimai.2017.09.001
+        </a>.
+      </p>
+
+      <p>
+        <strong>Igroup.</strong>
+        Igroup Presence Questionnaire (IPQ): estructura, reactivos, puntuación y datos.
+        <a href="https://www.igroup.org/pq/ipq/" target="_blank" rel="noopener">
+          Sitio oficial IPQ
+        </a>.
+      </p>
+
+      <p>
+        <strong>Schubert, T., Friedmann, F., &amp; Regenbrecht, H. (2001).</strong>
+        The Experience of Presence: Factor Analytic Insights.
+        <em>Presence: Teleoperators and Virtual Environments, 10</em>(3), 266–281.
+      </p>
+
+      <p class="small">
+        Para trabajos académicos posteriores al ejercicio, conserva la versión exacta del instrumento,
+        idioma, fecha, dispositivo y condiciones de aplicación.
+      </p>
+    </div>
+  </section>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="button" href="clase-12.html">← Clase anterior</a>
+    <a class="button" href="clase-14.html">Siguiente clase →</a>
+  </div>
+</main>
+
+<footer>Clase 13 · 2027-1</footer>
+<script src="site.js"></script>
+</body>
+</html>
