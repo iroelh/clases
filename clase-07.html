@@ -1,22 +1,863 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Clase 7 · Unreal Engine I: escenarios virtuales controlados</title><link href="style.css" rel="stylesheet"/></head><body><header class="site-header">
-<div class="institutional-bar"><div class="institutional-inner"><span class="unam-mark">UNAM</span><span class="institutional-divider"></span><span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span></div></div>
-<div class="header-inner">
-<p class="kicker">Temas Selectos · Semestre 2027-1</p>
-<h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
-<p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
-</div>
-</header><nav aria-label="Navegación principal" class="navbar">
-<div class="nav-inner">
-<a class="nav-brand" href="index.html">RA · RV</a>
-<button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button"><span class="menu-icon"></span></button>
-<div class="nav-links" id="primary-menu">
-<a href="index.html">Inicio</a><a href="index.html#enfoque">Enfoque</a><a href="index.html#clases">Clases</a><a href="index.html#acreditacion">Acreditación</a>
-</div>
-</div>
-</nav><main>
-<div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 7</div>
-<section class="lesson-header"><div><span class="pill tag-live">Presencial</span><span class="pill">25 septiembre</span><h1>Unreal Engine I: escenarios virtuales controlados</h1><p class="subtitle" style="color:var(--muted)">Vuelve pronto, en construcción</p></div></section>
-<div class="card construction-panel"><div class="construction-mark"></div><h2>Vuelve pronto, en construcción</h2><p>Esta sesión se irá desarrollando conforme avance el semestre. Aquí aparecerán objetivos, contenidos, práctica de laboratorio, recursos y evidencias de aprendizaje.</p></div>
-<div style="margin-top:30px"><a class="button" href="index.html#clases">← Volver a clases</a></div>
-</main><footer>Clase 7 · 2027-1</footer><script src="site.js"></script></body></html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Clase 7 · Unreal Engine I: escenarios virtuales controlados</title>
+<link href="style.css" rel="stylesheet"/>
+
+<style>
+  .ar-demo {
+    margin: 26px 0;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .ar-demo-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+  }
+
+  .viewer-wrap {
+    min-height: 500px;
+    background:
+      radial-gradient(circle at 50% 28%, rgba(217,165,0,.14), transparent 30%),
+      linear-gradient(160deg, #f7f9fc 0%, #edf2f7 100%);
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    overflow:hidden;
+  }
+
+  .viewer-wrap img {
+    width:100%;
+    height:500px;
+    object-fit:contain;
+    display:block;
+    background:#1b1d20;
+  }
+
+  .viewer-help {
+    position:absolute;
+    left:18px;
+    right:18px;
+    bottom:18px;
+    display:flex;
+    justify-content:center;
+    pointer-events:none;
+  }
+
+  .viewer-help span {
+    background:rgba(255,255,255,.94);
+    color:#253245;
+    border:1px solid rgba(1,59,117,.14);
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:.9rem;
+    backdrop-filter:blur(8px);
+  }
+
+  .ar-info {
+    padding:28px;
+  }
+
+  .ar-info h3 {
+    margin-top:0;
+  }
+
+  .tech-list {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 16px;
+    margin:18px 0;
+  }
+
+  .tech-item {
+    border-top:1px solid var(--line);
+    padding-top:9px;
+  }
+
+  .tech-item strong {
+    display:block;
+    color:#013b75;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:.035em;
+    margin-bottom:2px;
+  }
+
+  .demo-warning {
+    margin-top:18px;
+    padding:14px 16px;
+    border-left:4px solid #d9a500;
+    background:#fff8df;
+    color:#3d3520;
+    border-radius:0 12px 12px 0;
+  }
+
+  .process-strip {
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+    margin:18px 0;
+  }
+
+  .process-step {
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px;
+    text-align:center;
+    background:#fff;
+  }
+
+  .process-step strong {
+    display:block;
+    color:#013b75;
+    font-size:1.1rem;
+    margin-bottom:5px;
+  }
+
+  .source-caption {
+    margin:0;
+    padding:10px 14px;
+    background:#f7f9fc;
+    border-top:1px solid var(--line);
+    font-size:.82rem;
+    color:var(--muted);
+  }
+
+  .source-caption a {
+    color:#013b75;
+    font-weight:700;
+  }
+
+  .key-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:16px 0;
+  }
+
+  .key-card {
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#fff;
+    padding:14px;
+    text-align:center;
+  }
+
+  .key {
+    display:inline-block;
+    min-width:38px;
+    padding:6px 9px;
+    border-radius:8px;
+    background:#0e2743;
+    color:white;
+    font-weight:800;
+    margin-bottom:7px;
+  }
+
+  .axis {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    color:#fff;
+    font-weight:800;
+    margin-right:5px;
+  }
+
+  .axis.x { background:#b93434; }
+  .axis.y { background:#359554; }
+  .axis.z { background:#316fae; }
+
+  .build-brief {
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+    margin:18px 0;
+  }
+
+  .build-brief-head {
+    background:#013b75;
+    color:white;
+    padding:16px 18px;
+  }
+
+  .build-brief-head h3 {
+    color:white;
+    margin:0;
+  }
+
+  .build-brief-body {
+    padding:18px;
+  }
+
+  .dimension-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:14px 0;
+  }
+
+  .dimension {
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px;
+    background:#f8fafc;
+  }
+
+  .dimension strong {
+    display:block;
+    color:#013b75;
+  }
+
+  @media(max-width:820px) {
+    .ar-demo-grid { grid-template-columns:1fr; }
+    .viewer-wrap { min-height:0; }
+    .viewer-wrap img { height:auto; }
+    .process-strip,.key-grid,.dimension-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="institutional-bar">
+    <div class="institutional-inner">
+      <span class="unam-mark">UNAM</span>
+      <span class="institutional-divider"></span>
+      <span>Posgrado en Diseño Industrial · Facultad de Arquitectura</span>
+    </div>
+  </div>
+
+  <div class="header-inner">
+    <p class="kicker">Temas Selectos · Semestre 2027-1</p>
+    <h1 class="site-title">Introducción a la realidad aumentada y realidad virtual en el diseño</h1>
+    <p class="subtitle">Laboratorio de tecnologías XR aplicadas a investigación, experimentación, evaluación y aprendizaje en Diseño Industrial.</p>
+  </div>
+</header>
+
+<nav aria-label="Navegación principal" class="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">RA · RV</a>
+    <button aria-controls="primary-menu" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button">
+      <span class="menu-icon"></span>
+    </button>
+
+    <div class="nav-links" id="primary-menu">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#enfoque">Enfoque</a>
+      <a href="index.html#clases">Clases</a>
+      <a href="index.html#acreditacion">Acreditación</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="breadcrumbs"><a href="index.html">Inicio</a> / Clase 7</div>
+
+  <section class="lesson-header">
+    <div>
+      <span class="pill tag-live">Presencial</span>
+      <span class="pill">25 de septiembre</span>
+
+      <h1>Unreal Engine I: escenarios virtuales controlados</h1>
+
+      <p class="subtitle" style="color:var(--muted)">
+        Primer contacto con Unreal Engine 5: interfaz, navegación, Actors, transformaciones,
+        escala y construcción de un escenario mediante primitivas.
+      </p>
+    </div>
+  </section>
+
+  <div class="callout">
+    <strong>Pregunta de la sesión:</strong>
+    ¿cómo construimos un espacio virtual suficientemente ordenado, medible y reproducible
+    para que posteriormente pueda funcionar como escenario de una experiencia XR?
+  </div>
+
+  <section>
+    <h2 class="section-title">Objetivos de aprendizaje</h2>
+
+    <div class="card">
+      <ul class="tight">
+        <li>Reconocer las partes principales de la interfaz de Unreal Editor.</li>
+        <li>Navegar con soltura dentro del Level Viewport.</li>
+        <li>Distinguir Level, Actor, Asset y Component.</li>
+        <li>Seleccionar, mover, rotar y escalar objetos mediante gizmos y valores numéricos.</li>
+        <li>Trabajar con escala real, coordenadas y snapping.</li>
+        <li>Colocar primitivas y organizar Actors dentro del Outliner.</li>
+        <li>Construir un primer <em>blockout</em> de un escenario experimental a escala 1:1.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="callout gold">
+    <strong>Versión:</strong> trabajaremos con Unreal Engine 5.
+    Las referencias visuales de esta página proceden de la documentación oficial actual de Epic para UE 5.8.
+    En versiones anteriores de UE5 pueden cambiar ligeramente la posición o apariencia de algunos controles,
+    especialmente la barra del Viewport.
+  </div>
+
+  <section>
+    <h2 class="section-title">1. ¿Por qué Unreal Engine en este curso?</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>No buscamos formar desarrolladores de videojuegos</h3>
+        <p>
+          Unreal Engine nos interesa porque permite construir entornos tridimensionales interactivos
+          en tiempo real, controlar condiciones y posteriormente incorporar navegación,
+          comportamiento e instrumentos de observación.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Construimos un laboratorio virtual</h3>
+        <p>
+          Un escenario puede mantener dimensiones, posiciones, iluminación y objetos bajo condiciones
+          conocidas, de manera que dos participantes puedan enfrentarse a una situación comparable.
+        </p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      En esta primera clase el escenario todavía no “hace” nada.
+      Nuestro objetivo es aprender a construirlo de forma ordenada antes de introducir interacción en la siguiente sesión.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">2. La interfaz de Unreal Editor</h2>
+
+    <p>
+      El <strong>Level Editor</strong> es el espacio principal de trabajo. La documentación de Epic divide su interfaz
+      en ocho zonas principales.
+    </p>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Zona</th>
+          <th>Para qué la usaremos</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr><td>Menu Bar</td><td>Guardar, abrir ventanas, preferencias y herramientas del editor.</td></tr>
+        <tr><td>Main Toolbar</td><td>Guardar, cambiar modos, crear contenido y ejecutar Play.</td></tr>
+        <tr><td>Viewport Toolbar</td><td>Transformaciones, snapping, cámara y modos de visualización.</td></tr>
+        <tr><td>Level Viewport</td><td>Construir y observar el escenario 3D.</td></tr>
+        <tr><td>Outliner</td><td>Ver y organizar todos los Actors presentes en el Level.</td></tr>
+        <tr><td>Details</td><td>Editar posición, rotación, escala y propiedades del Actor seleccionado.</td></tr>
+        <tr><td>Content Drawer</td><td>Acceder a los Assets almacenados dentro del proyecto.</td></tr>
+        <tr><td>Bottom Toolbar</td><td>Logs, consola y otras herramientas del editor.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Regla de trabajo:</strong> si no encuentras un objeto en el Viewport,
+      búscalo en el <strong>Outliner</strong>. Si quieres saber exactamente dónde está o cuánto mide,
+      revisa <strong>Details → Transform</strong>.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">3. Navegar dentro del Viewport</h2>
+
+    <p>
+      Unreal permite navegar como una cámara libre. Epic documenta una combinación especialmente útil
+      para quienes empiezan: mantener presionado el botón derecho del ratón y utilizar las teclas de movimiento.
+    </p>
+
+    <div class="key-grid">
+      <div class="key-card"><span class="key">RMB</span><br/>Mirar alrededor</div>
+      <div class="key-card"><span class="key">W A S D</span><br/>Mover la cámara</div>
+      <div class="key-card"><span class="key">Q / E</span><br/>Bajar / subir</div>
+      <div class="key-card"><span class="key">F</span><br/>Enfocar objeto seleccionado</div>
+    </div>
+
+    <table class="compare">
+      <thead>
+        <tr><th>Acción</th><th>Control útil</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Seleccionar objeto</td><td>LMB</td></tr>
+        <tr><td>Rotar cámara</td><td>RMB + arrastrar</td></tr>
+        <tr><td>Desplazarse libremente</td><td>RMB + W / A / S / D</td></tr>
+        <tr><td>Subir / bajar cámara</td><td>RMB + E / Q</td></tr>
+        <tr><td>Enfocar objeto</td><td>Seleccionar + F</td></tr>
+        <tr><td>Orbitar alrededor del objeto enfocado</td><td>Alt + LMB</td></tr>
+      </tbody>
+    </table>
+
+    <div class="prompt-box">
+      Antes de modelar cualquier cosa, dedica unos minutos a desplazarte,
+      seleccionar objetos y recuperar el foco con <strong>F</strong>.
+      Perderse dentro del Viewport es uno de los primeros obstáculos de aprendizaje.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">4. Cuatro palabras que debemos distinguir</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Level</h3>
+        <p>El mundo o escena en la que colocamos contenido. Puede entenderse como el escenario de trabajo.</p>
+      </div>
+
+      <div class="card">
+        <h3>Actor</h3>
+        <p>
+          Cualquier objeto que puede colocarse dentro de un Level:
+          una malla, cámara, luz, sonido, personaje, etc.
+        </p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Asset</h3>
+        <p>Contenido almacenado dentro del proyecto: una malla, material, textura, sonido, Blueprint, etc.</p>
+      </div>
+
+      <div class="card">
+        <h3>Component</h3>
+        <p>
+          Pieza funcional que forma parte de un Actor.
+          Los Components no existen de manera independiente: se incorporan a un Actor.
+        </p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      Cuando arrastras una malla desde el Content Browser al Level,
+      estás creando un <strong>Actor</strong> que utiliza ese <strong>Asset</strong>.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">5. Transformaciones: posición, rotación y escala</h2>
+
+    <div class="key-grid">
+      <div class="key-card"><span class="key">Q</span><br/>Seleccionar</div>
+      <div class="key-card"><span class="key">W</span><br/>Trasladar</div>
+      <div class="key-card"><span class="key">E</span><br/>Rotar</div>
+      <div class="key-card"><span class="key">R</span><br/>Escalar</div>
+    </div>
+
+    <p>
+      Cada Actor puede manipularse mediante el gizmo del Viewport o escribiendo valores exactos
+      en el panel <strong>Details</strong>. Para construir escenarios de investigación,
+      los valores numéricos son especialmente importantes porque permiten reproducir condiciones.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Espacio global</h3>
+        <p>Los ejes permanecen orientados respecto al mundo.</p>
+      </div>
+
+      <div class="card">
+        <h3>Espacio local</h3>
+        <p>Los ejes se orientan respecto al objeto seleccionado.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Sistema de coordenadas de Unreal</h3>
+      <p>
+        <span class="axis x">X</span> rojo ·
+        <span class="axis y">Y</span> verde ·
+        <span class="axis z">Z</span> azul.
+        Unreal utiliza un sistema cartesiano levógiro con <strong>Z hacia arriba</strong>.
+      </p>
+    </div>
+
+    <div class="callout gold">
+      <strong>Escala:</strong> Unreal utiliza centímetros por defecto.
+      Para nuestro trabajo consideraremos <strong>100 cm = 1 m</strong>.
+      Mantener escala real será fundamental cuando más adelante evaluemos ergonomía, recorrido y percepción espacial.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">6. Snapping: construir sin perder control</h2>
+
+    <p>
+      Las herramientas de snapping permiten mover, rotar o escalar usando incrementos.
+      No son sólo una comodidad: ayudan a construir espacios repetibles y evitan pequeñas desviaciones acumuladas.
+    </p>
+
+    <div class="process-strip">
+      <div class="process-step"><strong>Grid</strong>Posición</div>
+      <div class="process-step"><strong>Angle</strong>Rotación</div>
+      <div class="process-step"><strong>Scale</strong>Escala</div>
+      <div class="process-step"><strong>Surface</strong>Superficies</div>
+      <div class="process-step"><strong>World</strong>Global</div>
+      <div class="process-step"><strong>Local</strong>Objeto</div>
+    </div>
+
+    <div class="prompt-box">
+      Para un escenario controlado, el objetivo no es que los muros “parezcan alineados”:
+      deben tener posiciones y dimensiones conocidas.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">7. Construir con primitivas: Place Actors</h2>
+
+    <p>
+      Unreal ofrece formas básicas que pueden arrastrarse directamente al Level:
+      <strong>Cube, Sphere, Cylinder, Cone y Plane</strong>.
+      Epic las presenta en la categoría <em>Shapes</em> del panel Place Actors.
+    </p>
+
+    <div class="ar-demo">
+      <div class="ar-demo-grid">
+
+        <div class="viewer-wrap">
+          <img
+            src="https://d1iv7db44yhgxn.cloudfront.net/documentation/images/69b5fa16-8d60-4146-905e-73d2f14bfdaf/place-actors-panel-ui.png"
+            alt="Panel Place Actors de Unreal Engine mostrando las primitivas Cube, Sphere, Cylinder, Cone y Plane."
+            loading="lazy"/>
+        </div>
+
+        <div class="ar-info">
+          <span class="pill">Documentación oficial Epic</span>
+          <h3>Place Actors → Shapes</h3>
+
+          <p>
+            Estas formas son suficientes para construir un primer <em>blockout</em>:
+            muros, pisos, mesas, pedestales, obstáculos, zonas de prueba y referencias de escala.
+          </p>
+
+          <div class="tech-list">
+            <div class="tech-item"><strong>Cube</strong>Muros, mesas, volúmenes</div>
+            <div class="tech-item"><strong>Sphere</strong>Referencias y objetos</div>
+            <div class="tech-item"><strong>Cylinder</strong>Columnas y pedestales</div>
+            <div class="tech-item"><strong>Cone</strong>Marcadores y señales</div>
+            <div class="tech-item"><strong>Plane</strong>Pisos y superficies</div>
+            <div class="tech-item"><strong>Actor</strong>Instancia dentro del Level</div>
+          </div>
+
+          <div class="demo-warning">
+            <strong>Primero volumen, después detalle.</strong>
+            En esta clase nos interesa construir relaciones espaciales,
+            no producir geometría final de alta calidad.
+          </div>
+        </div>
+      </div>
+
+      <p class="source-caption">
+        Imagen: Epic Games, <em>Placing Actors in Unreal Engine</em>.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/placing-actors-in-unreal-engine" target="_blank" rel="noopener">
+          Documentación oficial
+        </a>.
+      </p>
+    </div>
+
+    <div class="ar-demo">
+      <div class="viewer-wrap" style="min-height:360px">
+        <img
+          src="https://d1iv7db44yhgxn.cloudfront.net/documentation/images/f97ee698-51e2-44c4-95b6-73f903ec2265/place-actors-example.gif"
+          alt="Animación oficial de Epic mostrando cómo arrastrar un Cube Actor al Level Viewport."
+          style="height:auto;max-height:500px"
+          loading="lazy"/>
+      </div>
+
+      <p class="source-caption">
+        Animación: Epic Games, ejemplo de colocación de un Cube Actor desde Place Actors.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/placing-actors-in-unreal-engine" target="_blank" rel="noopener">
+          Fuente oficial
+        </a>.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">8. Modeling Mode: una segunda forma de crear primitivas</h2>
+
+    <p>
+      UE5 incorpora un <strong>Modeling Mode</strong> para crear y editar geometría directamente dentro del motor.
+      No lo exploraremos a profundidad todavía, pero conviene reconocerlo porque permite generar primitivas
+      con dimensiones configurables y posteriormente modificarlas.
+    </p>
+
+    <div class="ar-demo">
+      <div class="ar-demo-grid">
+        <div class="viewer-wrap">
+          <img
+            src="https://d1iv7db44yhgxn.cloudfront.net/documentation/images/53be11d4-149f-4efd-a31c-0b5ce66a6381/ue5-3-modeling-mode-panels.png"
+            alt="Interfaz de Modeling Mode en Unreal Engine con categorías, paleta de herramientas y propiedades."
+            loading="lazy"/>
+        </div>
+
+        <div class="ar-info">
+          <span class="pill">Modeling Mode</span>
+          <h3>Crear geometría dentro de UE5</h3>
+
+          <p>
+            Epic organiza Modeling Mode en categorías de herramientas, paleta,
+            propiedades y ajustes rápidos. Para acceder al modo se puede utilizar el selector de modos
+            o el atajo <strong>Shift + 5</strong>.
+          </p>
+
+          <div class="tech-list">
+            <div class="tech-item"><strong>Create</strong>Primitivas nuevas</div>
+            <div class="tech-item"><strong>Properties</strong>Dimensiones y parámetros</div>
+            <div class="tech-item"><strong>Viewport</strong>Colocar la forma</div>
+            <div class="tech-item"><strong>Accept</strong>Confirmar cambios</div>
+          </div>
+
+          <div class="demo-warning">
+            Para esta sesión basta con saber que existen dos rutas:
+            colocar Shapes existentes o crear nueva geometría mediante Modeling Mode.
+          </div>
+        </div>
+      </div>
+
+      <p class="source-caption">
+        Imagen: Epic Games, <em>Modeling Mode Overview</em>.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/modeling-mode-in-unreal-engine" target="_blank" rel="noopener">
+          Documentación oficial
+        </a>.
+      </p>
+    </div>
+
+    <div class="ar-demo">
+      <div class="ar-demo-grid">
+        <div class="viewer-wrap">
+          <img
+            src="https://d1iv7db44yhgxn.cloudfront.net/documentation/images/a08e6466-31f8-42f5-80e9-abc5f07d360a/ue-5-2-gizmo.png"
+            alt="Gizmo combinado de Modeling Mode para mover, rotar y escalar geometría."
+            loading="lazy"/>
+        </div>
+
+        <div class="ar-info">
+          <span class="pill">Transformación</span>
+          <h3>El gizmo como interfaz espacial</h3>
+          <p>
+            Los manipuladores representan explícitamente traslación, rotación y escala.
+            Aprender a leer los ejes y elegir correctamente el espacio global o local
+            es más importante que memorizar menús.
+          </p>
+        </div>
+      </div>
+
+      <p class="source-caption">
+        Imagen: Epic Games, <em>Modeling Mode Overview — Gizmo</em>.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/modeling-mode-in-unreal-engine" target="_blank" rel="noopener">
+          Fuente oficial
+        </a>.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">9. Blockout: construir antes de detallar</h2>
+
+    <p>
+      Epic utiliza el término <strong>blockout</strong> para describir la construcción inicial de un Level
+      mediante formas sencillas. En nuestro caso tiene además una función metodológica:
+      fijar dimensiones y relaciones espaciales antes de introducir estímulos adicionales.
+    </p>
+
+    <div class="build-brief">
+      <div class="build-brief-head">
+        <h3>Ejercicio · Sala de prueba XR</h3>
+      </div>
+
+      <div class="build-brief-body">
+        <p>
+          Construye un espacio simple que pueda convertirse más adelante en un escenario experimental.
+          No utilices assets descargados: sólo primitivas.
+        </p>
+
+        <div class="dimension-grid">
+          <div class="dimension"><strong>Sala</strong>600 × 400 × 300 cm</div>
+          <div class="dimension"><strong>Puerta</strong>100 × 210 cm aprox.</div>
+          <div class="dimension"><strong>Mesa</strong>150 × 75 × 75 cm</div>
+          <div class="dimension"><strong>Pedestal</strong>Cilindro o cubo</div>
+          <div class="dimension"><strong>Obstáculo</strong>Volumen desplazable</div>
+          <div class="dimension"><strong>Zona de prueba</strong>200 × 200 cm</div>
+        </div>
+
+        <p>
+          Organiza el Outliner utilizando nombres comprensibles:
+          <code>Wall_North</code>, <code>Wall_South</code>, <code>Floor</code>,
+          <code>Table</code>, <code>Test_Object</code>, <code>Obstacle_A</code>.
+        </p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      Un escenario controlado empieza por saber qué existe,
+      cuánto mide y dónde está. La calidad gráfica vendrá después.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">10. Actividad en clase</h2>
+
+    <div class="card">
+      <ol>
+        <li>Crea o abre un proyecto de Unreal Engine 5.</li>
+        <li>Crea un Level y guárdalo con un nombre identificable.</li>
+        <li>Localiza Viewport, Outliner, Details y Content Drawer.</li>
+        <li>Practica navegación y enfoque de objetos.</li>
+        <li>Coloca Cube, Cylinder, Sphere, Cone y Plane.</li>
+        <li>Utiliza W, E y R para transformar objetos.</li>
+        <li>Introduce al menos tres transformaciones mediante valores numéricos en Details.</li>
+        <li>Activa y modifica snapping.</li>
+        <li>Construye la sala de prueba mediante primitivas.</li>
+        <li>Organiza y renombra todos los Actors en el Outliner.</li>
+      </ol>
+    </div>
+
+    <div class="prompt-box">
+      ¿Podría otra persona abrir tu Level y comprender inmediatamente
+      qué objetos lo componen, cuáles son sus dimensiones y cuál es la zona donde ocurrirá la prueba?
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">11. Evidencia de la sesión</h2>
+
+    <div class="callout ok">
+      <strong>Blockout de escenario controlado.</strong><br/>
+      Entrega una captura general del Level, una captura del Outliner y una captura del panel Details
+      donde puedan observarse valores numéricos de Transform.
+    </div>
+
+    <div class="card">
+      <p>El Level debe demostrar:</p>
+      <ul class="tight">
+        <li>Uso de al menos tres tipos de primitivas.</li>
+        <li>Escala coherente en centímetros.</li>
+        <li>Objetos movidos, rotados y escalados.</li>
+        <li>Uso de snapping.</li>
+        <li>Actors nombrados y organizados.</li>
+        <li>Una zona claramente identificable para una futura interacción.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">12. Lo que todavía no haremos</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Blueprints</h3>
+        <p>La lógica de interacción se trabajará en la siguiente clase.</p>
+      </div>
+
+      <div class="card">
+        <h3>Detalle visual</h3>
+        <p>No necesitamos todavía materiales complejos, assets realistas ni decoración.</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      Primero construimos un mundo que podamos controlar.
+      Después haremos que el usuario actúe dentro de él y que sus acciones tengan consecuencias.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">13. Idea que debe quedar al finalizar</h2>
+
+    <div class="prompt-box">
+      Unreal Engine no comienza con gráficos espectaculares.
+      Comienza con una estructura espacial:
+      <strong>Level + Actors + Transform + escala + organización.</strong>
+      Si esa base está controlada, podremos convertirla después en una experiencia XR investigable.
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Documentación oficial utilizada</h2>
+
+    <div class="sources-box">
+      <p>
+        <strong>Epic Games — Unreal Editor Interface.</strong>
+        Partes principales del Level Editor: Menu Bar, Toolbar, Viewport, Outliner, Details y Content Drawer.
+        <a href="https://dev.epicgames.com/documentation/es-es/unreal-engine/unreal-editor-interface" target="_blank" rel="noopener">
+          Consultar documentación
+        </a>.
+      </p>
+
+      <p>
+        <strong>Epic Games — Viewport Controls.</strong>
+        Navegación, selección, enfoque, transformaciones y atajos W/E/R.
+        <a href="https://dev.epicgames.com/documentation/es-es/unreal-engine/viewport-controls-in-unreal-engine" target="_blank" rel="noopener">
+          Consultar documentación
+        </a>.
+      </p>
+
+      <p>
+        <strong>Epic Games — Placing Actors.</strong>
+        Place Actors, categorías y primitivas Cube, Sphere, Cylinder, Cone y Plane.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/placing-actors-in-unreal-engine" target="_blank" rel="noopener">
+          Consultar documentación
+        </a>.
+      </p>
+
+      <p>
+        <strong>Epic Games — Modeling Mode Overview.</strong>
+        Interfaz del modo, creación de primitivas, transformación y confirmación de operaciones.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/modeling-mode-in-unreal-engine" target="_blank" rel="noopener">
+          Consultar documentación
+        </a>.
+      </p>
+
+      <p>
+        <strong>Epic Games — Units of Measurement.</strong>
+        Unreal utiliza centímetros como unidad de longitud por defecto.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/units-of-measurement-in-unreal-engine" target="_blank" rel="noopener">
+          Consultar documentación
+        </a>.
+      </p>
+
+      <p>
+        <strong>Epic Games — Coordinate System and Spaces.</strong>
+        Sistema levógiro, eje Z hacia arriba y espacios global/local.
+        <a href="https://dev.epicgames.com/documentation/es-es/unreal-engine/coordinate-system-and-spaces-in-unreal-engine" target="_blank" rel="noopener">
+          Consultar documentación
+        </a>.
+      </p>
+
+      <p>
+        <strong>Epic Games — Designer 01: Project Setup and Level Blockout.</strong>
+        Escala, primitivas y lógica de blockout para construir niveles.
+        <a href="https://dev.epicgames.com/documentation/unreal-engine/designer-01-project-setup-and-level-blockout-in-unreal-engine" target="_blank" rel="noopener">
+          Consultar tutorial
+        </a>.
+      </p>
+
+      <p class="small">
+        Las capturas y animaciones mostradas en esta página se cargan desde la infraestructura de documentación de Epic Games
+        y se presentan únicamente como material didáctico con enlace a su fuente original.
+      </p>
+    </div>
+  </section>
+
+  <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="button" href="clase-06.html">← Clase anterior</a>
+    <a class="button" href="clase-08.html">Siguiente clase →</a>
+  </div>
+</main>
+
+<footer>Clase 7 · 2027-1</footer>
+<script src="site.js"></script>
+</body>
+</html>
